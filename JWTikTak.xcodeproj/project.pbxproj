@@ -61,14 +61,62 @@
 		11A73E5327B31C3400BD8A2E /* JWTikTak */ = {
 			isa = PBXGroup;
 			children = (
-				11A73E5427B31C3400BD8A2E /* AppDelegate.swift */,
-				11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */,
-				11A73E5827B31C3400BD8A2E /* ViewController.swift */,
-				11A73E5D27B31C3700BD8A2E /* Assets.xcassets */,
-				11A73E5F27B31C3700BD8A2E /* LaunchScreen.storyboard */,
+				11A73E6D27B59BB800BD8A2E /* Managers */,
+				11A73E6C27B59BA000BD8A2E /* ViewModels */,
+				11A73E6B27B59B9A00BD8A2E /* Models */,
+				11A73E6927B59B5F00BD8A2E /* Views */,
+				11A73E6A27B59B7C00BD8A2E /* Controllers */,
+				11A73E6827B59B4600BD8A2E /* Resources */,
 				11A73E6227B31C3700BD8A2E /* Info.plist */,
 			);
 			path = JWTikTak;
+			sourceTree = "<group>";
+		};
+		11A73E6827B59B4600BD8A2E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E5D27B31C3700BD8A2E /* Assets.xcassets */,
+				11A73E5427B31C3400BD8A2E /* AppDelegate.swift */,
+				11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		11A73E6927B59B5F00BD8A2E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E5F27B31C3700BD8A2E /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11A73E6A27B59B7C00BD8A2E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E5827B31C3400BD8A2E /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		11A73E6B27B59B9A00BD8A2E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		11A73E6C27B59BA000BD8A2E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		11A73E6D27B59BB800BD8A2E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		532FCD2C557B568EF93DF8A0 /* Pods */ = {
@@ -77,7 +125,6 @@
 				C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */,
 				0C841D7455384F33FCEE2A7B /* Pods-JWTikTak.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
