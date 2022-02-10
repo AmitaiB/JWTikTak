@@ -1,0 +1,6 @@
+framework module Pods_JWTikTak {
+  umbrella header "Pods-JWTikTak-umbrella.h"
+
+  export *
+  module * { export * }
+}
