@@ -24,7 +24,7 @@ class TabBarViewController: UITabBarController {
         
         homeVC.title          = "Home"
         exploreVC.title       = "Explore"
-        // The camera VC does not needa title
+        // The camera VC does not need a title
         notificationsVC.title = "Notifications"
         profileVC.title       = "Profile"
         
