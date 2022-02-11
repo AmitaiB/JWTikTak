@@ -9,9 +9,24 @@
 /* Begin PBXBuildFile section */
 		11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5427B31C3400BD8A2E /* AppDelegate.swift */; };
 		11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */; };
-		11A73E5927B31C3400BD8A2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5827B31C3400BD8A2E /* ViewController.swift */; };
+		11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5827B31C3400BD8A2E /* HomeViewController.swift */; };
 		11A73E5E27B31C3700BD8A2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11A73E5D27B31C3700BD8A2E /* Assets.xcassets */; };
 		11A73E6127B31C3700BD8A2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11A73E5F27B31C3700BD8A2E /* LaunchScreen.storyboard */; };
+		11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7027B59CB600BD8A2E /* ExploreViewController.swift */; };
+		11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7227B59CBF00BD8A2E /* CameraViewController.swift */; };
+		11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */; };
+		11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */; };
+		11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */; };
+		11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */; };
+		11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */; };
+		11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */; };
+		11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */; };
+		11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8427B59D6700BD8A2E /* PostViewController.swift */; };
+		11A73E8727B59D7900BD8A2E /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8627B59D7900BD8A2E /* APICaller.swift */; };
+		11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8827B59D8700BD8A2E /* StorageManager.swift */; };
+		11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
+		11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8C27B59DA500BD8A2E /* AuthenticationManager.swift */; };
+		11A73E8F27B59DBA00BD8A2E /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,10 +35,25 @@
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A73E5427B31C3400BD8A2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		11A73E5827B31C3400BD8A2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		11A73E5827B31C3400BD8A2E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		11A73E5D27B31C3700BD8A2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11A73E6027B31C3700BD8A2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11A73E6227B31C3700BD8A2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11A73E7027B59CB600BD8A2E /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		11A73E7227B59CBF00BD8A2E /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
+		11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupViewController.swift; sourceTree = "<group>"; };
+		11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		11A73E8427B59D6700BD8A2E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		11A73E8627B59D7900BD8A2E /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		11A73E8827B59D8700BD8A2E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		11A73E8C27B59DA500BD8A2E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +115,8 @@
 		11A73E6927B59B5F00BD8A2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				11A73E5F27B31C3700BD8A2E /* LaunchScreen.storyboard */,
+				11A73E8327B59D4E00BD8A2E /* Other */,
+				11A73E8227B59D4300BD8A2E /* Storyboards */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -93,7 +124,8 @@
 		11A73E6A27B59B7C00BD8A2E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				11A73E5827B31C3400BD8A2E /* ViewController.swift */,
+				11A73E6E27B59C8B00BD8A2E /* Core */,
+				11A73E6F27B59C9700BD8A2E /* Other */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -115,8 +147,53 @@
 		11A73E6D27B59BB800BD8A2E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				11A73E8627B59D7900BD8A2E /* APICaller.swift */,
+				11A73E8827B59D8700BD8A2E /* StorageManager.swift */,
+				11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */,
+				11A73E8C27B59DA500BD8A2E /* AuthenticationManager.swift */,
+				11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		11A73E6E27B59C8B00BD8A2E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E5827B31C3400BD8A2E /* HomeViewController.swift */,
+				11A73E7027B59CB600BD8A2E /* ExploreViewController.swift */,
+				11A73E7227B59CBF00BD8A2E /* CameraViewController.swift */,
+				11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */,
+				11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		11A73E6F27B59C9700BD8A2E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */,
+				11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */,
+				11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */,
+				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
+				11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */,
+				11A73E8427B59D6700BD8A2E /* PostViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		11A73E8227B59D4300BD8A2E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E5F27B31C3700BD8A2E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		11A73E8327B59D4E00BD8A2E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		532FCD2C557B568EF93DF8A0 /* Pods */ = {
@@ -232,9 +309,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A73E5927B31C3400BD8A2E /* ViewController.swift in Sources */,
+				11A73E8F27B59DBA00BD8A2E /* HapticsManager.swift in Sources */,
+				11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */,
+				11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */,
+				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
+				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
+				11A73E8727B59D7900BD8A2E /* APICaller.swift in Sources */,
+				11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */,
+				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
+				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
+				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
+				11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */,
+				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
+				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
+				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
+				11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
+				11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
