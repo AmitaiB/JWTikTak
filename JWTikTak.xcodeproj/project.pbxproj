@@ -27,6 +27,14 @@
 		11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
 		11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8C27B59DA500BD8A2E /* AuthenticationManager.swift */; };
 		11A73E8F27B59DBA00BD8A2E /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */; };
+		11A73EB227B5F71D00BD8A2E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EB127B5F71D00BD8A2E /* FirebaseAnalytics */; };
+		11A73EB427B5F71D00BD8A2E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EB327B5F71D00BD8A2E /* FirebaseAuth */; };
+		11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EB527B5F71D00BD8A2E /* FirebaseAuthCombine-Community */; };
+		11A73EB827B5F71D00BD8A2E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EB727B5F71D00BD8A2E /* FirebaseCrashlytics */; };
+		11A73EBA27B5F71D00BD8A2E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EB927B5F71D00BD8A2E /* FirebaseDatabase */; };
+		11A73EBC27B5F71D00BD8A2E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EBB27B5F71D00BD8A2E /* FirebaseStorage */; };
+		11A73EBE27B5F71D00BD8A2E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */; };
+		11A73EC027B5F7FB00BD8A2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +62,7 @@
 		11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		11A73E8C27B59DA500BD8A2E /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +72,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A73EBA27B5F71D00BD8A2E /* FirebaseDatabase in Frameworks */,
+				11A73EB227B5F71D00BD8A2E /* FirebaseAnalytics in Frameworks */,
+				11A73EBE27B5F71D00BD8A2E /* FirebaseStorageCombine-Community in Frameworks */,
+				11A73EB427B5F71D00BD8A2E /* FirebaseAuth in Frameworks */,
+				11A73EB827B5F71D00BD8A2E /* FirebaseCrashlytics in Frameworks */,
+				11A73EBC27B5F71D00BD8A2E /* FirebaseStorage in Frameworks */,
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
+				11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +124,7 @@
 				11A73E5D27B31C3700BD8A2E /* Assets.xcassets */,
 				11A73E5427B31C3400BD8A2E /* AppDelegate.swift */,
 				11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */,
+				11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -224,12 +241,22 @@
 				11A73E4D27B31C3300BD8A2E /* Sources */,
 				11A73E4E27B31C3300BD8A2E /* Frameworks */,
 				11A73E4F27B31C3300BD8A2E /* Resources */,
+				11A73EC127B5FA6200BD8A2E /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = JWTikTak;
+			packageProductDependencies = (
+				11A73EB127B5F71D00BD8A2E /* FirebaseAnalytics */,
+				11A73EB327B5F71D00BD8A2E /* FirebaseAuth */,
+				11A73EB527B5F71D00BD8A2E /* FirebaseAuthCombine-Community */,
+				11A73EB727B5F71D00BD8A2E /* FirebaseCrashlytics */,
+				11A73EB927B5F71D00BD8A2E /* FirebaseDatabase */,
+				11A73EBB27B5F71D00BD8A2E /* FirebaseStorage */,
+				11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */,
+			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
 			productType = "com.apple.product-type.application";
@@ -258,6 +285,9 @@
 				Base,
 			);
 			mainGroup = 11A73E4827B31C3300BD8A2E;
+			packageReferences = (
+				11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -273,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11A73E6127B31C3700BD8A2E /* LaunchScreen.storyboard in Resources */,
+				11A73EC027B5F7FB00BD8A2E /* GoogleService-Info.plist in Resources */,
 				11A73E5E27B31C3700BD8A2E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +332,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		11A73EC127B5FA6200BD8A2E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -468,6 +518,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8VC65F749H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JWTikTak/Info.plist;
@@ -482,7 +533,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blickstein.JWTikTak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AmitaiB.JWTikTak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -512,7 +563,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.blickstein.JWTikTak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AmitaiB.JWTikTak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -542,6 +593,55 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11A73EB127B5F71D00BD8A2E /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		11A73EB327B5F71D00BD8A2E /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		11A73EB527B5F71D00BD8A2E /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		11A73EB727B5F71D00BD8A2E /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		11A73EB927B5F71D00BD8A2E /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		11A73EBB27B5F71D00BD8A2E /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11A73E4927B31C3300BD8A2E /* Project object */;
 }
