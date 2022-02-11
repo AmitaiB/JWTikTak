@@ -5,5 +5,7 @@ target 'JWTikTak' do
   use_frameworks!
 
   # Pods for JWTikTak
+  pod 'Appirater'
+  pod 'SDWebImage'
 #	pod 'JWPlayerKit'
 end
