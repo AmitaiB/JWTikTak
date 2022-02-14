@@ -35,6 +35,7 @@
 		11A73EBE27B5F71D00BD8A2E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */; };
 		11A73EC027B5F7FB00BD8A2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */; };
 		11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EC627B9DB6B00BD8A2E /* UIKit+Extensions.swift */; };
+		11A73ECC27BA137100BD8A2E /* RandomColor in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73ECB27BA137100BD8A2E /* RandomColor */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A73ECC27BA137100BD8A2E /* RandomColor in Frameworks */,
 				11A73EBA27B5F71D00BD8A2E /* FirebaseDatabase in Frameworks */,
 				11A73EB227B5F71D00BD8A2E /* FirebaseAnalytics in Frameworks */,
 				11A73EBE27B5F71D00BD8A2E /* FirebaseStorageCombine-Community in Frameworks */,
@@ -265,6 +267,7 @@
 				11A73EB927B5F71D00BD8A2E /* FirebaseDatabase */,
 				11A73EBB27B5F71D00BD8A2E /* FirebaseStorage */,
 				11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */,
+				11A73ECB27BA137100BD8A2E /* RandomColor */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -296,6 +299,7 @@
 			mainGroup = 11A73E4827B31C3300BD8A2E;
 			packageReferences = (
 				11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -629,6 +633,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/RandomColorSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -666,6 +678,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		11A73ECB27BA137100BD8A2E /* RandomColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */;
+			productName = RandomColor;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

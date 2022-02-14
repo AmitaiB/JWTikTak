@@ -101,6 +101,15 @@
         }
       },
       {
+        "package": "RandomColor",
+        "repositoryURL": "https://github.com/onevcat/RandomColorSwift",
+        "state": {
+          "branch": null,
+          "revision": "ab01c6eff99f40c5e23ffcb957eb3971f937f106",
+          "version": "2.0.0"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
