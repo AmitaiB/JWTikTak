@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(hScrollView)
         setupFeeds()
+        setupHeaderButtons()
         // Starts the app off in the Right Feed (ForYou)
         hScrollView.contentOffset = CGPoint(x: view.width, y: 0)
     }
@@ -35,6 +36,14 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         hScrollView.frame = view.bounds
+    }
+    
+    // Sets up the "Following" | "For You" control up top
+    private func setupHeaderButtons() {
+        let titles = [L10n.following, L10n.forYou]
+        let control = UISegmentedControl(items: titles)
+        control.selectedSegmentIndex = 1
+        navigationItem.titleView = control
     }
     
     /// Have one horizontal scroll view that can have two paging controllers
