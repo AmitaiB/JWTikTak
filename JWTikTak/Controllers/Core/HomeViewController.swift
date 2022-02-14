@@ -15,7 +15,6 @@ class HomeViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces         = false
         scrollView.isPagingEnabled = true
-        scrollView.backgroundColor = .systemRed
         return scrollView
     }()
     
@@ -45,6 +44,9 @@ class HomeViewController: UIViewController {
         let titles = [L10n.following, L10n.forYou]
         let control = UISegmentedControl(items: titles)
         control.selectedSegmentIndex = 1
+        
+        control.backgroundColor = .systemBackground
+        control.selectedSegmentTintColor = .systemMint
         return control
     }()
 

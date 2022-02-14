@@ -35,6 +35,11 @@ class TabBarViewController: UITabBarController {
         let notificationsNav = UINavigationController(rootViewController: notificationsVC)
         let profileNav       = UINavigationController(rootViewController: profileVC)
         
+        // Allows the Following/ForYou control to 'float'
+        homeNav.navigationBar.backgroundColor = .clear
+        homeNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        homeNav.navigationBar.shadowImage = UIImage()
+        
         homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
         exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
         cameraVC.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
