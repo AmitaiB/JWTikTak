@@ -17,8 +17,14 @@
 "profile"       = "Profile";
 
 // SF Symbols
-"SFSymbol.house"           = "house";
-"SFSymbol.magnifyingglass" = "magnifyingglass";
-"SFSymbol.camera"          = "camera";
-"SFSymbol.bell"            = "bell";
-"SFSymbol.personCircle"    = "person.circle";
+"SFSymbol.home"         = "house";
+"SFSymbol.explore"      = "magnifyingglass";
+"SFSymbol.camera"       = "camera";
+"SFSymbol.notification" = "bell";
+"SFSymbol.profile"      = "person.circle";
+"SFSymbol.like"         = "heart";
+"SFSymbol.likeFill"     = "heart.fill";
+"SFSymbol.comment"      = "text.bubble";
+"SFSymbol.commentFill"  = "text.bubble.fill";
+"SFSymbol.share"        = "square.and.arrow.up";
+"SFSymbol.shareFill"    = "square.and.arrow.up.fill";

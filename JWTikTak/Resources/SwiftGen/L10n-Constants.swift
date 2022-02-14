@@ -24,16 +24,28 @@ internal enum L10n {
   internal static let profile = L10n.tr("localizable", "profile")
 
   internal enum SFSymbol {
-    /// bell
-    internal static let bell = L10n.tr("localizable", "SFSymbol.bell")
     /// camera
     internal static let camera = L10n.tr("localizable", "SFSymbol.camera")
-    /// house
-    internal static let house = L10n.tr("localizable", "SFSymbol.house")
+    /// text.bubble
+    internal static let comment = L10n.tr("localizable", "SFSymbol.comment")
+    /// text.bubble.fill
+    internal static let commentFill = L10n.tr("localizable", "SFSymbol.commentFill")
     /// magnifyingglass
-    internal static let magnifyingglass = L10n.tr("localizable", "SFSymbol.magnifyingglass")
+    internal static let explore = L10n.tr("localizable", "SFSymbol.explore")
+    /// house
+    internal static let home = L10n.tr("localizable", "SFSymbol.home")
+    /// heart
+    internal static let like = L10n.tr("localizable", "SFSymbol.like")
+    /// heart.fill
+    internal static let likeFill = L10n.tr("localizable", "SFSymbol.likeFill")
+    /// bell
+    internal static let notification = L10n.tr("localizable", "SFSymbol.notification")
     /// person.circle
-    internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
+    internal static let profile = L10n.tr("localizable", "SFSymbol.profile")
+    /// square.and.arrow.up
+    internal static let share = L10n.tr("localizable", "SFSymbol.share")
+    /// square.and.arrow.up.fill
+    internal static let shareFill = L10n.tr("localizable", "SFSymbol.shareFill")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
