@@ -1,0 +1,7 @@
+#input_dir: JWTikTak
+#output_dir: JWTikTak
+strings:
+    inputs: Resources/SwiftGen/localizable.strings
+    outputs:
+        - templateName: structured-swift5
+          output: Resources/SwiftGen/L10n-Constants.swift
