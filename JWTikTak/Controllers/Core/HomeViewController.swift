@@ -53,7 +53,7 @@ class HomeViewController: UIViewController {
     private func setupHeaderButtons() {
         control.add(event: .valueChanged) { sender in
             guard let control = sender as? UISegmentedControl else { return }
-            let newOffset = CGPoint(x: self.view.width * CGFloat(control.selectedSegmentIndex), y: 0)
+            let newOffset = CGPoint(x: self.view.width * control.selectedSegmentIndex.CGFloatValue, y: 0)
             self.hScrollView.setContentOffset(newOffset, animated: true)
         }
         
