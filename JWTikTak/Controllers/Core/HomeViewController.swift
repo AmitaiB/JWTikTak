@@ -9,7 +9,7 @@ import UIKit
 
 // Where the feed shows
 class HomeViewController: UIViewController {
-    private let hScrollView: UIScrollView = {
+    fileprivate let hScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces         = false
@@ -18,6 +18,8 @@ class HomeViewController: UIViewController {
         return scrollView
     }()
     
+    private var forYouPosts    = PostModel.mockModels()
+    private var followingPosts = PostModel.mockModels()
     
     // MARK: - Lifecycle
 
@@ -52,14 +54,24 @@ class HomeViewController: UIViewController {
     enum FeedType { case forYou, following }
     
     private func setupFeed(type: FeedType) {
-        let pageViewController = type == .following ?
-        followingPageViewController : forYouPageViewController
+        let pageViewController: UIPageViewController
+        let xPos: CGFloat
+        let model: PostModel?
         
-        let mockVC = UIViewController()
-        mockVC.view.backgroundColor = .blue
+        if type == .following {
+            pageViewController = followingPageViewController
+            xPos = 0
+            model = followingPosts.first
+        } else {
+            pageViewController = forYouPageViewController
+            xPos = view.width
+            model = forYouPosts.first
+        }
         
+        guard let model = model else { return }
+         
         pageViewController.setViewControllers(
-            [mockVC],
+            [PostViewController(model: model)],
             direction: .forward,
             animated: true,
             completion: nil)
@@ -68,7 +80,6 @@ class HomeViewController: UIViewController {
         
         hScrollView.addSubview(pageViewController.view)
         // size is a standard device size, position is origin. SECOND feed ('right' side).
-        let xPos = type == .following ? 0 : view.width
         pageViewController.view.frame = CGRect(x: xPos,
                                                y: 0,
                                                width: hScrollView.width,
@@ -78,15 +89,51 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - UIPageViewControllerDataSource
 extension HomeViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        nil
+        // Swiping down to scroll up (right?)
+        
+        guard let currentPost = (viewController as? PostViewController)?.model
+        else { return nil }
+        
+        guard let index = currentPosts.firstIndex(where: {$0 == currentPost})
+        else { return nil }
+        
+        // If we are at the beginning of the feed, there is no prior post, exit early
+        if index == 0 { return nil }
+        
+        let priorIndex = index - 1
+        let model = currentPosts[priorIndex]
+        let vc = PostViewController(model: model)
+        return vc
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let randoVC = UIViewController()
-        randoVC.view.backgroundColor = [.red, .gray, .green].randomElement()
-        return randoVC
+        // Swiping up to scroll down (right?)
+        guard let currentPost = (viewController as? PostViewController)?.model
+        else { return nil }
+        
+        guard let index = currentPosts.firstIndex(where: {$0 == currentPost})
+        else { return nil }
+        
+        // Only continue if there is at least one more subsequent post.
+        guard index < (currentPosts.count - 1) else { return nil }
+        
+        let nextIndex = index + 1
+        let model = currentPosts[nextIndex]
+        let vc = PostViewController(model: model)
+        return vc
+    }
+    
+    /// Returns the current feed inferred from the onscreen content
+    var currentFeed: FeedType {
+        (hScrollView.contentOffset.x == 0) ?
+        .following : .forYou
+    }
+        
+    var currentPosts: [PostModel] {
+        (currentFeed == .forYou) ? forYouPosts : followingPosts
     }
 }
 
