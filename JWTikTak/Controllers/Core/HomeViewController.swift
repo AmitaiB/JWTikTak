@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Actions
 
 // Where the feed shows
 class HomeViewController: UIViewController {
-    fileprivate let hScrollView: UIScrollView = {
+    private let hScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bounces         = false
@@ -31,18 +32,29 @@ class HomeViewController: UIViewController {
         setupHeaderButtons()
         // Starts the app off in the Right Feed (ForYou)
         hScrollView.contentOffset = CGPoint(x: view.width, y: 0)
+        hScrollView.delegate = self
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         hScrollView.frame = view.bounds
     }
-    
+
     // Sets up the "Following" | "For You" control up top
-    private func setupHeaderButtons() {
+    private let control: UISegmentedControl = {
         let titles = [L10n.following, L10n.forYou]
         let control = UISegmentedControl(items: titles)
         control.selectedSegmentIndex = 1
+        return control
+    }()
+
+    private func setupHeaderButtons() {
+        control.add(event: .valueChanged) { sender in
+            guard let control = sender as? UISegmentedControl else { return }
+            let newOffset = CGPoint(x: self.view.width * CGFloat(control.selectedSegmentIndex), y: 0)
+            self.hScrollView.setContentOffset(newOffset, animated: true)
+        }
+        
         navigationItem.titleView = control
     }
     
@@ -143,6 +155,18 @@ extension HomeViewController: UIPageViewControllerDataSource {
         
     var currentPosts: [PostModel] {
         (currentFeed == .forYou) ? forYouPosts : followingPosts
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension HomeViewController: UIScrollViewDelegate {
+    // TODO: The navigation scrolling is fine, but the button push is janky — fix with Combine?
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x < (view.width/2) {
+            control.selectedSegmentIndex = 0
+        } else if scrollView.contentOffset.x > (view.width/2) {
+            control.selectedSegmentIndex = 1
+        }
     }
 }
 
