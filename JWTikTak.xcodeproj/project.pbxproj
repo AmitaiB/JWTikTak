@@ -35,6 +35,7 @@
 		11A73EBE27B5F71D00BD8A2E /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */; };
 		11A73EC027B5F7FB00BD8A2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */; };
 		11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EC627B9DB6B00BD8A2E /* UIKit+Extensions.swift */; };
+		11A73EC927BA0AFB00BD8A2E /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EC827BA0AFB00BD8A2E /* PostModel.swift */; };
 		11A73ECC27BA137100BD8A2E /* RandomColor in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73ECB27BA137100BD8A2E /* RandomColor */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		11A73E8E27B59DBA00BD8A2E /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11A73EC627B9DB6B00BD8A2E /* UIKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
+		11A73EC827BA0AFB00BD8A2E /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 		11A73E6B27B59B9A00BD8A2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11A73EC827BA0AFB00BD8A2E /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
+				11A73EC927BA0AFB00BD8A2E /* PostModel.swift in Sources */,
 				11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */,
 				11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
