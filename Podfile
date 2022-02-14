@@ -7,5 +7,6 @@ target 'JWTikTak' do
   # Pods for JWTikTak
   pod 'Appirater'
   pod 'SDWebImage'
+  pod 'Actions'
 #	pod 'JWPlayerKit'
 end
