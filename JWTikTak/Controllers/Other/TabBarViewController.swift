@@ -22,11 +22,11 @@ class TabBarViewController: UITabBarController {
         let notificationsVC = NotificationsViewController()
         let profileVC       = ProfileViewController()
         
-        homeVC.title          = "Home"
-        exploreVC.title       = "Explore"
+        homeVC.title          = L10n.home
+        exploreVC.title       = L10n.explore
         // The camera VC does not need a title
-        notificationsVC.title = "Notifications"
-        profileVC.title       = "Profile"
+        notificationsVC.title = L10n.notifications
+        profileVC.title       = L10n.profile
         
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)
@@ -34,11 +34,11 @@ class TabBarViewController: UITabBarController {
         let notificationsNav = UINavigationController(rootViewController: notificationsVC)
         let profileNav       = UINavigationController(rootViewController: profileVC)
         
-        homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: "house"), selectedImage: nil)
-        exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: "magnifyingglass"), selectedImage: nil)
-        cameraVC.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: "camera"), selectedImage: nil)
-        notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), selectedImage: nil)
-        profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: "person.circle"), selectedImage: nil)
+        homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
+        exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
+        cameraVC.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
+        notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.bell), selectedImage: nil)
+        profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.personCircle), selectedImage: nil)
         
         setViewControllers([homeNav, exploreNav, cameraVC, notificationsNav, profileNav], animated: false)
     }

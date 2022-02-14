@@ -7,3 +7,18 @@
 */
 
 // KEY = TRANSLATION
+
+// Titles
+"following"     = "Following";
+"forYou"        = "For You";
+"home"          = "Home";
+"explore"       = "Explore";
+"notifications" = "Notifications";
+"profile"       = "Profile";
+
+// SF Symbols
+"SFSymbol.house"           = "house";
+"SFSymbol.magnifyingglass" = "magnifyingglass";
+"SFSymbol.camera"          = "camera";
+"SFSymbol.bell"            = "bell";
+"SFSymbol.personCircle"    = "person.circle";

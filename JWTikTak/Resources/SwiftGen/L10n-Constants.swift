@@ -10,6 +10,31 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Explore
+  internal static let explore = L10n.tr("localizable", "explore")
+  /// Following
+  internal static let following = L10n.tr("localizable", "following")
+  /// For You
+  internal static let forYou = L10n.tr("localizable", "forYou")
+  /// Home
+  internal static let home = L10n.tr("localizable", "home")
+  /// Notifications
+  internal static let notifications = L10n.tr("localizable", "notifications")
+  /// Profile
+  internal static let profile = L10n.tr("localizable", "profile")
+
+  internal enum SFSymbol {
+    /// bell
+    internal static let bell = L10n.tr("localizable", "SFSymbol.bell")
+    /// camera
+    internal static let camera = L10n.tr("localizable", "SFSymbol.camera")
+    /// house
+    internal static let house = L10n.tr("localizable", "SFSymbol.house")
+    /// magnifyingglass
+    internal static let magnifyingglass = L10n.tr("localizable", "SFSymbol.magnifyingglass")
+    /// person.circle
+    internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
