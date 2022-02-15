@@ -40,6 +40,7 @@
 		11A73ED627BAA50200BD8A2E /* localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11A73ED527BAA50200BD8A2E /* localizable.strings */; };
 		11A73ED927BAA73B00BD8A2E /* L10n-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */; };
 		11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */; };
+		11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EE027BAFDA400BD8A2E /* SnapKit */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 				11A73EBC27B5F71D00BD8A2E /* FirebaseStorage in Frameworks */,
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
 				11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */,
+				11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +292,7 @@
 				11A73EBB27B5F71D00BD8A2E /* FirebaseStorage */,
 				11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */,
 				11A73ECB27BA137100BD8A2E /* RandomColor */,
+				11A73EE027BAFDA400BD8A2E /* SnapKit */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -322,6 +325,7 @@
 			packageReferences = (
 				11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
+				11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -667,6 +671,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -709,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */;
 			productName = RandomColor;
+		};
+		11A73EE027BAFDA400BD8A2E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
