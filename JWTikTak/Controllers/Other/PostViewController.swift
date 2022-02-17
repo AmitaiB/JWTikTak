@@ -54,6 +54,8 @@ class PostViewController: UITabBarController {
 
         setupButtons()
         setupDoubleTapToLike()
+        
+        // Captions label placeholder
         view.addSubview(captionLabel)
         captionLabel.sizeToFit()
         captionLabel.snp.makeConstraints { make in
@@ -63,7 +65,6 @@ class PostViewController: UITabBarController {
         }
     }
     
-    
     private func createButton(withSymbol symbolName: String) -> UIButton {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: symbolName), for: .normal)
@@ -72,14 +73,15 @@ class PostViewController: UITabBarController {
         return button
     }
     
-    
     private func setupButtons() {
         likeButton.add(event: .touchUpInside) { [self] _ in
             self.toggleLike()
         }
         
-        commentButton.add(event: .touchUpInside) { _ in
-            print("present comment tray")
+        commentButton.add(event: .touchUpInside) { [self] _ in
+            // Present comment tray
+            let commentsVC = CommentsViewController(post: model)
+            present(commentsVC, animated: true, completion: nil)
         }
 
         shareButton.add(event: .touchUpInside) { [self] _ in
@@ -110,6 +112,7 @@ class PostViewController: UITabBarController {
         }
     }
     
+    /// A separate function accessible to both the 'Like' button and 2x tapping.
     private func toggleLike() {
         model.isLikedByCurrentUser.toggle()
         
@@ -137,12 +140,10 @@ class PostViewController: UITabBarController {
         imageView.tintColor   = .systemRed
         imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(origin: touchPoint, size: CGSize(width: 100, height: 100))
-        imageView.alpha = 0
-        view.addSubview(imageView)
-        
-        
         imageView.transform = imageView.transform.rotated(by: .pi / -CGFloat.random(in: 4...8))
-        
+        imageView.alpha = 0 // start hidden
+        view.addSubview(imageView)
+
         imageView.fadeIn(withDuration: 0.2,
                          delay: 0.2,
                          completion: { _ in imageView.fadeOut() })
