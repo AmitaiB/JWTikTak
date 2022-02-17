@@ -22,10 +22,8 @@ class TabBarViewController: UITabBarController {
         let notificationsVC = NotificationsViewController()
         let profileVC       = ProfileViewController()
         
-        // This default may be overwritten by the "following/forYou" control.
-        homeVC.title          = L10n.home
+        // The camera VC does not need a title, and home VC has a control in that place.
         exploreVC.title       = L10n.explore
-        // The camera VC does not need a title
         notificationsVC.title = L10n.notifications
         profileVC.title       = L10n.profile
         
