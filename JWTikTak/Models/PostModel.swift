@@ -11,6 +11,8 @@ struct PostModel: Equatable {
     /// A unique identifier
     let identifier: String
     
+    var isLikedByCurrentUser = false
+    
     // For debugging
     static func mockModels() -> [PostModel] {
         Array(0...100).compactMap({_ in
