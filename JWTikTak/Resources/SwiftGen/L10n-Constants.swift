@@ -24,28 +24,28 @@ internal enum L10n {
   internal static let profile = L10n.tr("localizable", "profile")
 
   internal enum SFSymbol {
+    /// bell
+    internal static let bell = L10n.tr("localizable", "SFSymbol.bell")
     /// camera
     internal static let camera = L10n.tr("localizable", "SFSymbol.camera")
-    /// text.bubble
-    internal static let comment = L10n.tr("localizable", "SFSymbol.comment")
-    /// text.bubble.fill
-    internal static let commentFill = L10n.tr("localizable", "SFSymbol.commentFill")
-    /// magnifyingglass
-    internal static let explore = L10n.tr("localizable", "SFSymbol.explore")
-    /// house
-    internal static let home = L10n.tr("localizable", "SFSymbol.home")
     /// heart
-    internal static let like = L10n.tr("localizable", "SFSymbol.like")
+    internal static let heart = L10n.tr("localizable", "SFSymbol.heart")
     /// heart.fill
-    internal static let likeFill = L10n.tr("localizable", "SFSymbol.likeFill")
-    /// bell
-    internal static let notification = L10n.tr("localizable", "SFSymbol.notification")
+    internal static let heartFill = L10n.tr("localizable", "SFSymbol.heartFill")
+    /// house
+    internal static let house = L10n.tr("localizable", "SFSymbol.house")
+    /// magnifyingglass
+    internal static let magnifyingglass = L10n.tr("localizable", "SFSymbol.magnifyingglass")
     /// person.circle
-    internal static let profile = L10n.tr("localizable", "SFSymbol.profile")
+    internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
     /// square.and.arrow.up
-    internal static let share = L10n.tr("localizable", "SFSymbol.share")
+    internal static let squareAndArrowUp = L10n.tr("localizable", "SFSymbol.squareAndArrowUp")
     /// square.and.arrow.up.fill
-    internal static let shareFill = L10n.tr("localizable", "SFSymbol.shareFill")
+    internal static let squareAndArrowUpFill = L10n.tr("localizable", "SFSymbol.squareAndArrowUpFill")
+    /// text.bubble
+    internal static let textBubble = L10n.tr("localizable", "SFSymbol.textBubble")
+    /// text.bubble.fill
+    internal static let textBubbleFill = L10n.tr("localizable", "SFSymbol.textBubbleFill")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

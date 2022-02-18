@@ -38,11 +38,11 @@ class TabBarViewController: UITabBarController {
         homeNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
         homeNav.navigationBar.shadowImage = UIImage()
         
-        homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.home), selectedImage: nil)
-        exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.explore), selectedImage: nil)
+        homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
+        exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
         cameraVC.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
-        notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.notification), selectedImage: nil)
-        profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.profile), selectedImage: nil)
+        notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.bell), selectedImage: nil)
+        profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.personCircle), selectedImage: nil)
         
         setViewControllers([homeNav, exploreNav, cameraVC, notificationsNav, profileNav], animated: false)
     }

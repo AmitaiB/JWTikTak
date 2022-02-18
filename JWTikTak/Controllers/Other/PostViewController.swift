@@ -15,15 +15,15 @@ class PostViewController: UITabBarController {
 
     // MARK: UI Objects
     private lazy var likeButton: UIButton = {
-       createButton(withSymbol: L10n.SFSymbol.likeFill)
+        createButton(withSymbol: L10n.SFSymbol.heartFill)
     }()
     
     private lazy var commentButton: UIButton = {
-        createButton(withSymbol: L10n.SFSymbol.commentFill)
+        createButton(withSymbol: L10n.SFSymbol.textBubbleFill)
     }()
     
     private lazy var shareButton: UIButton = {
-        createButton(withSymbol: L10n.SFSymbol.share)
+        createButton(withSymbol: L10n.SFSymbol.squareAndArrowUp)
     }()
     
     /// This is a placeholder for a more interactive UITextView in a real app.
@@ -136,7 +136,7 @@ class PostViewController: UITabBarController {
     
     private func animateHeart(at touchPoint: CGPoint) {
         // Setup pre-animation state
-        let imageView = UIImageView(image: UIImage(systemName: L10n.SFSymbol.likeFill))
+        let imageView = UIImageView(image: UIImage(systemName: L10n.SFSymbol.heartFill))
         imageView.tintColor   = .systemRed
         imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(origin: touchPoint, size: CGSize(width: 100, height: 100))
