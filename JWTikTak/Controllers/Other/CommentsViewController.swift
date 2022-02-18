@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Reusable
 
 class CommentsViewController: UIViewController {
     private let post: PostModel
@@ -14,11 +15,11 @@ class CommentsViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "cell")
+        tableView.register(cellType: CommentTableViewCell.self)
         return tableView
     }()
     
+    // MARK: - Lifecycle
     init(post: PostModel) {
         self.post = post
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +36,7 @@ class CommentsViewController: UIViewController {
         view.layer.cornerRadius = 5
 
         fetchPostComments()
+        
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,18 +52,28 @@ class CommentsViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension CommentsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = comments[indexPath.row].text
+        let comment = comments[indexPath.row]
+        let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
+        cell.configure(with: comment)
+
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }
 
+// MARK: - UITableViewDelegate
 extension CommentsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

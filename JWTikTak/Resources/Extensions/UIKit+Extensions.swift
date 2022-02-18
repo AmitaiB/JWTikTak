@@ -24,4 +24,8 @@ extension UIView {
     func fadeOut(withDuration duration: TimeInterval = 1, delay: TimeInterval = 0, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: duration, delay: delay, options: .curveEaseIn, animations: {self.alpha = 0 }, completion: completion)
     }
+    
+    func addSubviews(_ views: [UIView]) {
+        views.forEach({addSubview($0)})
+    }
 }

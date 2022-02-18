@@ -44,6 +44,7 @@
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
+		11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */; };
 		11D1EC7727BF523000A7766D /* Reusable in Frameworks */ = {isa = PBXBuildFile; productRef = 11D1EC7627BF523000A7766D /* Reusable */; };
 		11D1EC7927BF574500A7766D /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7827BF574500A7766D /* Foundation+Extensions.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
@@ -82,6 +83,7 @@
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		11D1EC7827BF574500A7766D /* Foundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extensions.swift"; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		11A73E8327B59D4E00BD8A2E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 			files = (
 				11A73ED927BAA73B00BD8A2E /* L10n-Constants.swift in Sources */,
 				11A73E8F27B59DBA00BD8A2E /* HapticsManager.swift in Sources */,
+				11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */,
 				11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */,
 				11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
