@@ -42,6 +42,8 @@
 		11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */; };
 		11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 11A73EE027BAFDA400BD8A2E /* SnapKit */; };
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
+		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
+		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,8 @@
 		11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "L10n-Constants.swift"; sourceTree = "<group>"; };
 		11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertibleNumType.swift; sourceTree = "<group>"; };
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				11A73EC827BA0AFB00BD8A2E /* PostModel.swift */,
+				11D1EC6F27BF2BB200A7766D /* PostComment.swift */,
+				11D1EC7127BF2BEA00A7766D /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
 				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
+				11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */,
 				11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */,
 				11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */,
 				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
@@ -438,6 +445,7 @@
 				11A73EC927BA0AFB00BD8A2E /* PostModel.swift in Sources */,
 				11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */,
 				11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */,
+				11D1EC7227BF2BEA00A7766D /* User.swift in Sources */,
 				11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
 				11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */,
