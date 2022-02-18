@@ -44,6 +44,7 @@
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
+		11D1EC7727BF523000A7766D /* Reusable in Frameworks */ = {isa = PBXBuildFile; productRef = 11D1EC7627BF523000A7766D /* Reusable */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
 				11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */,
 				11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */,
+				11D1EC7727BF523000A7766D /* Reusable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +304,7 @@
 				11A73EBD27B5F71D00BD8A2E /* FirebaseStorageCombine-Community */,
 				11A73ECB27BA137100BD8A2E /* RandomColor */,
 				11A73EE027BAFDA400BD8A2E /* SnapKit */,
+				11D1EC7627BF523000A7766D /* Reusable */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -335,6 +338,7 @@
 				11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				11A73ECA27BA137100BD8A2E /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
 				11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */,
+				11D1EC7527BF523000A7766D /* XCRemoteSwiftPackageReference "Reusable" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -691,6 +695,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		11D1EC7527BF523000A7766D /* XCRemoteSwiftPackageReference "Reusable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AliSoftware/Reusable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -738,6 +750,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		11D1EC7627BF523000A7766D /* Reusable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11D1EC7527BF523000A7766D /* XCRemoteSwiftPackageReference "Reusable" */;
+			productName = Reusable;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
