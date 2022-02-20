@@ -38,6 +38,8 @@ internal enum L10n {
     internal static let magnifyingglass = L10n.tr("localizable", "SFSymbol.magnifyingglass")
     /// person.circle
     internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
+    /// photo.circle
+    internal static let photoCircle = L10n.tr("localizable", "SFSymbol.photoCircle")
     /// square.and.arrow.up
     internal static let squareAndArrowUp = L10n.tr("localizable", "SFSymbol.squareAndArrowUp")
     /// square.and.arrow.up.fill

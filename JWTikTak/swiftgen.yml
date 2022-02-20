@@ -5,3 +5,8 @@ strings:
     outputs:
         - templateName: structured-swift5
           output: Resources/SwiftGen/L10n-Constants.swift
+xcassets:
+  inputs: Resources/
+  outputs:
+    templateName: swift5
+    output: Resources/SwiftGen/Assets.swift
