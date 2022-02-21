@@ -16,6 +16,10 @@
 "notifications" = "Notifications";
 "profile"       = "Profile";
 
+// Files
+"Mock.testVideo" = "mixkit-woman-running-vangelis-tiktok-format";
+"mp4"            = "mp4";
+
 // SF Symbols
 "SFSymbol.house"                = "house";
 "SFSymbol.magnifyingglass"      = "magnifyingglass";

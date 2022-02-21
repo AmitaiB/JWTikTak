@@ -18,10 +18,17 @@ internal enum L10n {
   internal static let forYou = L10n.tr("localizable", "forYou")
   /// Home
   internal static let home = L10n.tr("localizable", "home")
+  /// mp4
+  internal static let mp4 = L10n.tr("localizable", "mp4")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
+
+  internal enum Mock {
+    /// mixkit-woman-running-vangelis-tiktok-format
+    internal static let testVideo = L10n.tr("localizable", "Mock.testVideo")
+  }
 
   internal enum SFSymbol {
     /// bell

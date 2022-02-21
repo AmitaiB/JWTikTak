@@ -49,6 +49,7 @@
 		11D5BC7727C00BB2008CDA2D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC7627C00BB2008CDA2D /* Assets.swift */; };
 		11D5BC8127C303B3008CDA2D /* RandomColor in Frameworks */ = {isa = PBXBuildFile; productRef = 11D5BC8027C303B3008CDA2D /* RandomColor */; };
 		11D5BC8827C3D22D008CDA2D /* Secure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC8727C3D22D008CDA2D /* Secure.swift */; };
+		11D5BC9027C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		11D1EC7827BF574500A7766D /* Foundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extensions.swift"; sourceTree = "<group>"; };
 		11D5BC7627C00BB2008CDA2D /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		11D5BC8727C3D22D008CDA2D /* Secure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure.swift; sourceTree = "<group>"; };
+		11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mixkit-woman-running-vangelis-tiktok-format.mp4"; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				11A73ED427BAA4D700BD8A2E /* SwiftGen */,
 				11A73EC527B9DB4F00BD8A2E /* Extensions */,
 				11A73E5D27B31C3700BD8A2E /* Assets.xcassets */,
+				11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */,
 				11A73E5427B31C3400BD8A2E /* AppDelegate.swift */,
 				11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */,
 				11A73EBF27B5F7FB00BD8A2E /* GoogleService-Info.plist */,
@@ -369,6 +372,7 @@
 				11A73E6127B31C3700BD8A2E /* LaunchScreen.storyboard in Resources */,
 				11A73ED627BAA50200BD8A2E /* localizable.strings in Resources */,
 				11A73EC027B5F7FB00BD8A2E /* GoogleService-Info.plist in Resources */,
+				11D5BC9027C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 in Resources */,
 				11A73E5E27B31C3700BD8A2E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
