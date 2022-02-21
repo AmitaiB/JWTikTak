@@ -12,5 +12,5 @@ struct ExploreHashtagViewModel {
     let text: String
     /// Number of posts associated with a given tag
     let count: Int
-    let handler: (() -> Void)
+    let handler: (() -> Void)?
 }

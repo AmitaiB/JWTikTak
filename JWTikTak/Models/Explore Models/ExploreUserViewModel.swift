@@ -11,5 +11,5 @@ struct ExploreUserViewModel {
     let profilePicURL: URL?
     let username: String
     let followerCount: Int
-    let handler: (() -> Void)
+    let handler: (() -> Void)?
 }

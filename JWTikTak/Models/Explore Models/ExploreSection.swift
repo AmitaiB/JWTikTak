@@ -14,7 +14,7 @@ struct ExploreSection {
 
 enum ExploreSectionType: CustomStringConvertible, CaseIterable {
     case banners
-    case tendingPosts
+    case trending
     case users
     case trendingHashtags
     case recommended
@@ -27,7 +27,7 @@ enum ExploreSectionType: CustomStringConvertible, CaseIterable {
         switch self {
             case .banners:
                 return "Featured"
-            case .tendingPosts:
+            case .trending:
                 return "Trending Videos"
             case .users:
                 return "Fresh Creators"
