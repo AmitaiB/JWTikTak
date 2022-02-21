@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import JWPlayerKit
+import AVFoundation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +24,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+#warning("Make sure the JWPlayer license key is set.")
+        JWPlayerKitLicense.setLicenseKey(Secure.jwplayerKey)
+        
+        setAudioSessionToMoviePlaybackMode()
+        
         return true
+    }
+    
+    private func setAudioSessionToMoviePlaybackMode() {
+        do {
+            try AVAudioSession.sharedInstance()
+                .setCategory(.playback, mode: .moviePlayback, options: [])
+            
+            try AVAudioSession.sharedInstance()
+                .setActive(true, options: [])
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     // MARK: UISceneSession Lifecycle
