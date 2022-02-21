@@ -104,9 +104,9 @@
         "package": "RandomColor",
         "repositoryURL": "https://github.com/onevcat/RandomColorSwift",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "ab01c6eff99f40c5e23ffcb957eb3971f937f106",
-          "version": null
+          "version": "2.0.0"
         }
       },
       {
