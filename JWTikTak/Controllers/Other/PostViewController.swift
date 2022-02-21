@@ -10,31 +10,37 @@ import SnapKit
 import RandomColor
 import Actions
 
-class PostViewController: UITabBarController {
+protocol PostViewControllerDelegate: AnyObject {
+class PostViewController: UIViewController {
     var model: PostModel
-
+    
     // MARK: UI Objects
     private lazy var likeButton: UIButton = {
-        createButton(withSymbol: L10n.SFSymbol.heartFill)
+        createUserReactionButton(withSymbol: L10n.SFSymbol.heartFill)
     }()
     
     private lazy var commentButton: UIButton = {
-        createButton(withSymbol: L10n.SFSymbol.textBubbleFill)
+        createUserReactionButton(withSymbol: L10n.SFSymbol.textBubbleFill)
     }()
     
     private lazy var shareButton: UIButton = {
-        createButton(withSymbol: L10n.SFSymbol.squareAndArrowUp)
+        createUserReactionButton(withSymbol: L10n.SFSymbol.squareAndArrowUp)
     }()
+    
+    private lazy var profileButton: UIButton = {
+        createUserReactionButton(withSymbol: L10n.SFSymbol.photoCircle, asAvatar: true)
+    }()
+
     
     /// This is a placeholder for a more interactive UITextView in a real app.
     private let captionLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.text = "Check out this video! #fyp #foryou #foryoupage"
+        label.text            = "Check out this video! #fyp #foryou #foryoupage"
+        label.textAlignment   = .left
+        label.textColor       = .white
         label.backgroundColor = .systemGray
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 18)
+        label.font            = .systemFont(ofSize: 18)
+        label.numberOfLines   = 0
         return label
     }()
     
@@ -65,11 +71,17 @@ class PostViewController: UITabBarController {
         }
     }
     
-    private func createButton(withSymbol symbolName: String) -> UIButton {
+    // TODO: Once this loads a PostModel for real, split off the Profile button creation.
+    private func createUserReactionButton(withSymbol symbolName: String, asAvatar: Bool = false) -> UIButton {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: symbolName), for: .normal)
         button.tintColor = .white
+        button.clipsToBounds = true
         button.snp.makeConstraints { $0.width.height.equalTo(40)}
+        if asAvatar  {
+            button.layer.cornerRadius       = 20
+            button.imageView?.clipsToBounds = true
+        }
         return button
     }
     
@@ -93,7 +105,12 @@ class PostViewController: UITabBarController {
             present(shareSheet, animated: true)
         }
         
-        setupButtonsRow(with: likeButton, commentButton, shareButton)
+        profileButton.add(event: .touchUpInside) { [self] control in
+            guard let button = control as? UIButton else { return }
+            button.setBackgroundImage(Asset.test.image, for: .normal)
+        }
+        
+        setupButtonsRow(with: profileButton, likeButton, commentButton, shareButton)
     }
     
     private var buttonsRow: UIStackView!
