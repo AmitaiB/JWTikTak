@@ -52,6 +52,12 @@
 		11D5BC8A27C3D5BE008CDA2D /* JWPlayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC8927C3D5BE008CDA2D /* JWPlayer+Extensions.swift */; };
 		11D5BC9027C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */; };
 		11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC9527C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift */; };
+		11D5BC9927C40E9B008CDA2D /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC9827C40E9B008CDA2D /* ExploreCell.swift */; };
+		11D5BC9B27C40EB4008CDA2D /* ExploreSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC9A27C40EB4008CDA2D /* ExploreSection.swift */; };
+		11D5BC9D27C40FCD008CDA2D /* ExploreBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC9C27C40FCD008CDA2D /* ExploreBannerViewModel.swift */; };
+		11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */; };
+		11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */; };
+		11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +101,12 @@
 		11D5BC8927C3D5BE008CDA2D /* JWPlayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JWPlayer+Extensions.swift"; sourceTree = "<group>"; };
 		11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mixkit-woman-running-vangelis-tiktok-format.mp4"; sourceTree = "<group>"; };
 		11D5BC9527C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultJWPlayerXDelegate.swift; sourceTree = "<group>"; };
+		11D5BC9827C40E9B008CDA2D /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
+		11D5BC9A27C40EB4008CDA2D /* ExploreSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSection.swift; sourceTree = "<group>"; };
+		11D5BC9C27C40FCD008CDA2D /* ExploreBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBannerViewModel.swift; sourceTree = "<group>"; };
+		11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostViewModel.swift; sourceTree = "<group>"; };
+		11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserViewModel.swift; sourceTree = "<group>"; };
+		11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagViewModel.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +202,7 @@
 		11A73E6B27B59B9A00BD8A2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11D5BC9727C40E79008CDA2D /* Explore Models */,
 				11A73EC827BA0AFB00BD8A2E /* PostModel.swift */,
 				11D1EC6F27BF2BB200A7766D /* PostComment.swift */,
 				11D1EC7127BF2BEA00A7766D /* User.swift */,
@@ -277,6 +290,19 @@
 				11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */,
 			);
 			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		11D5BC9727C40E79008CDA2D /* Explore Models */ = {
+			isa = PBXGroup;
+			children = (
+				11D5BC9827C40E9B008CDA2D /* ExploreCell.swift */,
+				11D5BC9C27C40FCD008CDA2D /* ExploreBannerViewModel.swift */,
+				11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */,
+				11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */,
+				11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */,
+				11D5BC9A27C40EB4008CDA2D /* ExploreSection.swift */,
+			);
+			path = "Explore Models";
 			sourceTree = "<group>";
 		};
 		532FCD2C557B568EF93DF8A0 /* Pods */ = {
@@ -454,6 +480,7 @@
 				11A73ED927BAA73B00BD8A2E /* L10n-Constants.swift in Sources */,
 				11A73E8F27B59DBA00BD8A2E /* HapticsManager.swift in Sources */,
 				11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */,
+				11D5BC9B27C40EB4008CDA2D /* ExploreSection.swift in Sources */,
 				11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */,
 				11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
@@ -461,16 +488,20 @@
 				11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */,
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
+				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
 				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
 				11D5BC8A27C3D5BE008CDA2D /* JWPlayer+Extensions.swift in Sources */,
 				11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */,
+				11D5BC9D27C40FCD008CDA2D /* ExploreBannerViewModel.swift in Sources */,
 				11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */,
 				11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */,
 				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
 				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
+				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
 				11D5BC8827C3D22D008CDA2D /* Secure.swift in Sources */,
+				11D5BC9927C40E9B008CDA2D /* ExploreCell.swift in Sources */,
 				11D1EC7927BF574500A7766D /* Foundation+Extensions.swift in Sources */,
 				11A73EC927BA0AFB00BD8A2E /* PostModel.swift in Sources */,
 				11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */,
@@ -479,6 +510,7 @@
 				11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
 				11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */,
+				11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */,
 				11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */,
 				11D5BC7727C00BB2008CDA2D /* Assets.swift in Sources */,
 			);
