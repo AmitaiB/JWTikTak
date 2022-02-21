@@ -38,19 +38,75 @@ class ExploreViewController: UIViewController {
     
     // TODO: MOCK Cells
     private func configureModels() {
-        let cell = ExploreCell.banner(
+        let bannerCell = ExploreCell.banner(
             viewModel: ExploreBannerViewModel(
                 image: nil,
-                title: "Foo", handler: {
-                    
-                }
+                title: "Foo",
+                handler: nil
             )
         )
-                    
-        sections = [ExploreSection(
-            type: .banners,
-            cells: Array(repeating: cell, count: 100)
-        )]
+        
+        let postCell = ExploreCell.post(
+            viewModel: ExplorePostViewModel(
+                thumbnailImage: nil,
+                caption: "Crazy cool post!",
+                handler: nil
+            )
+        )
+        
+        let userCell = ExploreCell.user(
+            viewModel: ExploreUserViewModel(
+                profilePicURL: nil,
+                username: "The Dude",
+                followerCount: 613,
+                handler: nil
+            )
+        )
+        
+        let hashtagCell = ExploreCell.hashtag(
+            viewModel: ExploreHashtagViewModel(
+                icon: nil,
+                text: "#bestPosts",
+                count: 42,
+                handler: nil
+            )
+        )
+        
+        // Banners
+        sections += [ExploreSection(
+            type:  .banners,
+            cells: Array(repeating: bannerCell, count: 50))]
+            
+        // Trending Posts
+        sections += [ExploreSection(
+            type:  .trending,
+            cells: Array(repeating: postCell, count: 50))]
+        
+        // Users
+        sections += [ExploreSection(
+            type:  .users,
+            cells: Array(repeating: userCell, count: 50))]
+                
+        // Trending Hashtags
+        sections += [ExploreSection(
+            type:  .trendingHashtags,
+            cells: Array(repeating: hashtagCell, count: 50))]
+        
+        // Recommended
+        sections += [ExploreSection(
+            type:  .recommended,
+            cells: Array(repeating: postCell, count: 50))]
+        
+
+        // Popular
+        sections += [ExploreSection(
+            type:  .popular,
+            cells: Array(repeating: postCell, count: 50))]
+        
+        // New
+        sections += [ExploreSection(
+            type:  .new,
+            cells: Array(repeating: postCell, count: 50))]
     }
     
     private func setupCollectionView() {
@@ -123,6 +179,18 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = sections[indexPath.section].cells[indexPath.row]
+        
+        switch model {
+            case .banner(viewModel: let viewModel):
+                break
+            case .post(viewModel: let viewModel):
+                break
+            case .hashtag(viewModel: let viewModel):
+                break
+            case .user(viewModel: let viewModel):
+                break
+        }
+        
         let cell: Dummy_CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
         cell.backgroundColor = randomColor()
