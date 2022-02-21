@@ -20,7 +20,7 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
-        let profileVC       = ProfileViewController()
+        let profileVC       = ProfileViewController(user: User(username: "Rando", profilePictureURL: nil, identifier: "GET A NEW ONE"))
         
         // The camera VC does not need a title, and home VC has a control in that place.
         exploreVC.title       = L10n.explore

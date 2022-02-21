@@ -11,6 +11,11 @@ struct PostModel: Equatable {
     /// A unique identifier
     let identifier: String
     
+    let user = User(
+        username: "Jonny Appleseed",
+        profilePictureURL: nil,
+        identifier: UUID().uuidString)
+            
     var isLikedByCurrentUser = false
     
     // For debugging
