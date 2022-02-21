@@ -11,8 +11,13 @@ import RandomColor
 import Actions
 
 protocol PostViewControllerDelegate: AnyObject {
+    func postViewController(_ viewController: PostViewController, didLike post: PostModel)
+    func postViewController(_ viewController: PostViewController, didSelectProfileFor post: PostModel)
+}
+
 class PostViewController: UIViewController {
     var model: PostModel
+    weak var delegate: PostViewControllerDelegate?
     
     // MARK: UI Objects
     private lazy var likeButton: UIButton = {
@@ -45,8 +50,9 @@ class PostViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    init(model: PostModel) {
-        self.model = model
+    init(model: PostModel, delegate: PostViewControllerDelegate? = nil) {
+        self.model    = model
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = randomColor()
     }
@@ -88,6 +94,7 @@ class PostViewController: UIViewController {
     private func setupButtons() {
         likeButton.add(event: .touchUpInside) { [self] _ in
             self.toggleLike()
+            delegate?.postViewController(self, didLike: model)
         }
         
         commentButton.add(event: .touchUpInside) { [self] _ in
@@ -108,6 +115,7 @@ class PostViewController: UIViewController {
         profileButton.add(event: .touchUpInside) { [self] control in
             guard let button = control as? UIButton else { return }
             button.setBackgroundImage(Asset.test.image, for: .normal)
+            delegate?.postViewController(self, didSelectProfileFor: model)
         }
         
         setupButtonsRow(with: profileButton, likeButton, commentButton, shareButton)

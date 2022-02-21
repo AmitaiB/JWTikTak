@@ -94,7 +94,7 @@ class HomeViewController: UIViewController {
         guard let model = model else { return }
          
         pageViewController.setViewControllers(
-            [PostViewController(model: model)],
+            [PostViewController(model: model, delegate: self)],
             direction: .forward,
             animated: true,
             completion: nil)
@@ -109,6 +109,19 @@ class HomeViewController: UIViewController {
                                                height: hScrollView.height)
         addChild(pageViewController)
         pageViewController.didMove(toParent: self)
+    }
+}
+
+extension HomeViewController: PostViewControllerDelegate {
+    func postViewController(_ viewController: PostViewController, didLike post: PostModel) {
+        print(#function)
+    }
+    
+    func postViewController(_ viewController: PostViewController, didSelectProfileFor post: PostModel) {
+        let user = post.user
+        let vc = ProfileViewController(user: user)
+        navigationController?.pushViewController(vc, animated: true)
+        print(#function)
     }
 }
 
@@ -128,7 +141,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         
         let priorIndex = index - 1
         let model = currentPosts[priorIndex]
-        let vc = PostViewController(model: model)
+        let vc = PostViewController(model: model, delegate: self)
         return vc
     }
     
@@ -145,7 +158,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
         
         let nextIndex = index + 1
         let model = currentPosts[nextIndex]
-        let vc = PostViewController(model: model)
+        let vc = PostViewController(model: model, delegate: self)
         return vc
     }
     
@@ -172,6 +185,7 @@ extension HomeViewController: UIScrollViewDelegate {
     }
 }
 
+/// A `UIPageViewController` with the Tik-Tok-style pageview controller settings.
 class PageViewController: UIPageViewController {
     convenience init() {
         self.init(
