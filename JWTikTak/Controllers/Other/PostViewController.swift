@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RandomColor
 import Actions
+import JWPlayerKit
 
 protocol PostViewControllerDelegate: AnyObject {
     func postViewController(_ viewController: PostViewController, didLike post: PostModel)
@@ -49,6 +50,8 @@ class PostViewController: UIViewController {
         return label
     }()
     
+    var player: JWPlayer?
+    
     // MARK: - Lifecycle
     init(model: PostModel, delegate: PostViewControllerDelegate? = nil) {
         self.model    = model
@@ -63,7 +66,7 @@ class PostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureMockVideo()
         setupButtons()
         setupDoubleTapToLike()
         
@@ -76,6 +79,34 @@ class PostViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-100)
         }
     }
+    
+    private func configureMockVideo() {
+        guard let path = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
+        else { return }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            let playlistItem = try JWPlayerItemBuilder()
+                .file(url)
+                .build()
+                    
+            let config = try JWPlayerConfigBuilder()
+                // doubles playlistItem b/c of SDK-9317 bug.
+                .playlist([playlistItem, playlistItem])
+                .autostart(true)
+                .repeatContent(true)
+                .build()
+            
+            let playerView = JWPlayerView()
+            playerView.player.configurePlayer(with: config)
+            view = playerView
+            playerView.player.delegate = playerMockDelegateObject
+            playerView.player.playbackStateDelegate = playerMockDelegateObject
+        }
+        catch { print(error.localizedDescription)}
+    }
+    
+    let playerMockDelegateObject = DefaultJWPlayerXDelegate()
     
     // TODO: Once this loads a PostModel for real, split off the Profile button creation.
     private func createUserReactionButton(withSymbol symbolName: String, asAvatar: Bool = false) -> UIButton {
@@ -174,3 +205,4 @@ class PostViewController: UIViewController {
                          completion: { _ in imageView.fadeOut() })
     }
 }
+
