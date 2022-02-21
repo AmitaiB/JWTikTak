@@ -8,5 +8,5 @@ target 'JWTikTak' do
   pod 'Appirater'
   pod 'SDWebImage'
   pod 'Actions'
-#	pod 'JWPlayerKit'
+	pod 'JWPlayerKit'
 end

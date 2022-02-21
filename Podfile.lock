@@ -1,6 +1,7 @@
 PODS:
   - Actions (3.0.1)
   - Appirater (2.3.1)
+  - JWPlayerKit (4.4.0)
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
@@ -8,19 +9,22 @@ PODS:
 DEPENDENCIES:
   - Actions
   - Appirater
+  - JWPlayerKit
   - SDWebImage
 
 SPEC REPOS:
   trunk:
     - Actions
     - Appirater
+    - JWPlayerKit
     - SDWebImage
 
 SPEC CHECKSUMS:
   Actions: 696288b71e88903a69ec8d04123df05ad16125dc
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
+  JWPlayerKit: e2ae003f2793cacb90a14bd4ba21f6cd8c759f28
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: 3abdcdc0d5503cf4a26c19e642f79f80469db017
+PODFILE CHECKSUM: 3f1a18c4b3533e84f6a252ac41d40ea3b7ed58ac
 
 COCOAPODS: 1.11.2
