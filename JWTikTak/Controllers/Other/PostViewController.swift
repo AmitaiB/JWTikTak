@@ -72,7 +72,7 @@ class PostViewController: UIViewController {
         
         // Captions label placeholder
         view.addSubview(captionLabel)
-        captionLabel.sizeToFit()
+//        captionLabel.sizeToFit()
         captionLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
             make.right.equalTo(self.buttonsRow.snp.leftMargin).offset(20)

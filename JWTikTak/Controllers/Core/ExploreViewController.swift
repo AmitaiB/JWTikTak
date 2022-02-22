@@ -26,7 +26,7 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        configureModels()
+        configureMockModels()
         setupSearchBar()
         setupCollectionView()
     }
@@ -37,18 +37,18 @@ class ExploreViewController: UIViewController {
     }
     
     // TODO: MOCK Cells
-    private func configureModels() {
+    private func configureMockModels() {
         let bannerCell = ExploreCell.banner(
             viewModel: ExploreBannerViewModel(
-                image: nil,
+                image: Asset.test.image,
                 title: "Foo",
-                handler: nil
+                handler: {print("nil")}
             )
         )
         
         let postCell = ExploreCell.post(
             viewModel: ExplorePostViewModel(
-                thumbnailImage: nil,
+                thumbnailImage: Asset.test.image,
                 caption: "Crazy cool post!",
                 handler: nil
             )
@@ -65,8 +65,8 @@ class ExploreViewController: UIViewController {
         
         let hashtagCell = ExploreCell.hashtag(
             viewModel: ExploreHashtagViewModel(
-                icon: nil,
-                text: "#bestPosts",
+                icon: UIImage(systemName: L10n.SFSymbol.camera),
+                text: "#bestPosts #truth",
                 count: 42,
                 handler: nil
             )
@@ -114,7 +114,11 @@ class ExploreViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate   = self
         collectionView.dataSource = self
-        collectionView.register(cellType: Dummy_CollectionViewCell.self)
+        
+        collectionView.register(cellType: ExploreBannerCollectionViewCell.self)
+        collectionView.register(cellType: ExplorePostCollectionViewCell.self)
+        collectionView.register(cellType: ExploreUserCollectionViewCell.self)
+        collectionView.register(cellType: ExploreHashtagCollectionViewCell.self)
         
         collectionView.backgroundColor = .systemYellow
         
@@ -155,6 +159,37 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = sections[indexPath.section].cells[indexPath.row]
         
+        let cell: (UICollectionViewCell & ViewModelConfigurable)!
+        
+        switch model {
+            case .banner(viewModel: let viewModel):
+                cell = collectionView.dequeueReusableCell(
+                    for: indexPath, cellType: ExploreBannerCollectionViewCell.self)
+                cell.configure(with: viewModel)
+            case .post(viewModel: let viewModel):
+                cell = collectionView.dequeueReusableCell(
+                    for: indexPath, cellType: ExplorePostCollectionViewCell.self)
+                cell.configure(with: viewModel)
+            case .hashtag(viewModel: let viewModel):
+                cell = collectionView.dequeueReusableCell(
+                    for: indexPath, cellType: ExploreHashtagCollectionViewCell.self)
+                cell.configure(with: viewModel)
+            case .user(viewModel: let viewModel):
+                cell = collectionView.dequeueReusableCell(
+                    for: indexPath, cellType: ExploreUserCollectionViewCell.self)
+                cell.configure(with: viewModel)
+        }
+        
+        cell.backgroundColor = randomColor()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
+        
+        let model = sections[indexPath.section].cells[indexPath.row]
+        
         switch model {
             case .banner(viewModel: let viewModel):
                 break
@@ -165,20 +200,9 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             case .user(viewModel: let viewModel):
                 break
         }
-        
-        let cell: Dummy_CollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-        
-        cell.backgroundColor = randomColor()
-        return cell
     }
-    
-    
 }
 
 extension ExploreViewController: UISearchBarDelegate {
-    
-}
-
-class Dummy_CollectionViewCell: UICollectionViewCell, Reusable {
     
 }

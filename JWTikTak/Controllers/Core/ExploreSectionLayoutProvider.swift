@@ -106,7 +106,7 @@ class ExploreSectionLayoutProvider {
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .absolute(200),
-                heightDimension: .absolute(200)),
+                heightDimension: .absolute(220)),
             subitems: [item])
         
         // Section Layout
