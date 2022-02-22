@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ExploreHashtagViewModel {
+struct ExploreHashtagViewModel: ViewModel {
     let icon: UIImage?
     let text: String
     /// Number of posts associated with a given tag

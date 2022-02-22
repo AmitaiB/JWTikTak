@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ExploreBannerViewModel {
+struct ExploreBannerViewModel: ViewModel {
     let image: UIImage?
     let title: String
     let handler: (() -> Void)?

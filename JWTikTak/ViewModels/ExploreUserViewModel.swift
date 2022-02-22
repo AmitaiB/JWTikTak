@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ExploreUserViewModel {
+struct ExploreUserViewModel: ViewModel {
     let profilePicURL: URL?
     let username: String
     let followerCount: Int
