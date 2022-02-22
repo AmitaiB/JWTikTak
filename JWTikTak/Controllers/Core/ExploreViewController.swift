@@ -124,47 +124,22 @@ class ExploreViewController: UIViewController {
         self.collectionView = collectionView
     }
         
+    typealias Layouts = ExploreSectionLayoutProvider
     lazy var layoutForSection: UICollectionViewCompositionalLayoutSectionProvider = { section, _ -> NSCollectionLayoutSection? in
         let sectionType = self.sections[section].type
         
+        
+        var itemWidth, itemHeight, groupWidth, groupHeight: NSCollectionLayoutDimension!
+        var itemInsets: NSDirectionalEdgeInsets = .zero
+
         switch sectionType {
-            case .banners:
-                break
-            case .tendingPosts:
-                break
-            case .users:
-                break
-            case .trendingHashtags:
-                break
-            case .recommended:
-                break
-            case .popular:
-                break
-            case .new:
-                break
+            case .banners:          return Layouts.bannerSectionLayout
+            case .users:            return Layouts.usersSectionLayout
+            case .trendingHashtags: return Layouts.trendingHashtagsSectionLayout
+            case .popular:          return Layouts.popularPostsSectionLayout
+            case .trending, .recommended, .new: // various flavors of posts
+                return Layouts.postsSectionLayout
         }
-        // Item
-        let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalWidth(1)
-            )
-        )
-        item.contentInsets = NSDirectionalEdgeInsets.init(top: 4, leading: 4, bottom: 4, trailing: 4)
-        
-        // Group
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(0.90),
-                heightDimension: .absolute(150)),
-            subitems: [item])
-        
-        // Section Layout
-        let sectionLayout = NSCollectionLayoutSection(group: group)
-        sectionLayout.orthogonalScrollingBehavior = .groupPaging
-       
-        // Return
-        return sectionLayout
     }
 }
 
