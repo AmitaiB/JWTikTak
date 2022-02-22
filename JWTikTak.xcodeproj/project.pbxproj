@@ -215,6 +215,10 @@
 		11A73E6C27B59BA000BD8A2E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				11D5BC9C27C40FCD008CDA2D /* ExploreBannerViewModel.swift */,
+				11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */,
+				11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */,
+				11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -299,10 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				11D5BC9827C40E9B008CDA2D /* ExploreCell.swift */,
-				11D5BC9C27C40FCD008CDA2D /* ExploreBannerViewModel.swift */,
-				11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */,
-				11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */,
-				11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */,
 				11D5BC9A27C40EB4008CDA2D /* ExploreSection.swift */,
 			);
 			path = "Explore Models";
