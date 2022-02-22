@@ -59,6 +59,11 @@
 		11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */; };
 		11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */; };
 		11D5BCA527C46B34008CDA2D /* ExploreSectionLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA427C46B34008CDA2D /* ExploreSectionLayoutProvider.swift */; };
+		11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA627C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift */; };
+		11D5BCA927C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCA827C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift */; };
+		11D5BCAB27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCAA27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift */; };
+		11D5BCAD27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCAC27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift */; };
+		11D5BCAF27C474CD008CDA2D /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCAE27C474CD008CDA2D /* ViewModelConfigurable.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +114,11 @@
 		11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserViewModel.swift; sourceTree = "<group>"; };
 		11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagViewModel.swift; sourceTree = "<group>"; };
 		11D5BCA427C46B34008CDA2D /* ExploreSectionLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSectionLayoutProvider.swift; sourceTree = "<group>"; };
+		11D5BCA627C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		11D5BCA827C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
+		11D5BCAA27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostCollectionViewCell.swift; sourceTree = "<group>"; };
+		11D5BCAC27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		11D5BCAE27C474CD008CDA2D /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,6 +229,7 @@
 				11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */,
 				11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */,
 				11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */,
+				11D5BCAE27C474CD008CDA2D /* ViewModelConfigurable.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -274,6 +285,10 @@
 			isa = PBXGroup;
 			children = (
 				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
+				11D5BCA627C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift */,
+				11D5BCAA27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift */,
+				11D5BCAC27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift */,
+				11D5BCA827C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -488,12 +503,16 @@
 				11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
 				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
+				11D5BCAB27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift in Sources */,
 				11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */,
+				11D5BCAD27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift in Sources */,
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
 				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
+				11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */,
 				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
 				11D5BC8A27C3D5BE008CDA2D /* JWPlayer+Extensions.swift in Sources */,
+				11D5BCA927C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */,
 				11D5BC9D27C40FCD008CDA2D /* ExploreBannerViewModel.swift in Sources */,
 				11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */,
@@ -517,6 +536,7 @@
 				11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */,
 				11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */,
 				11D5BC7727C00BB2008CDA2D /* Assets.swift in Sources */,
+				11D5BCAF27C474CD008CDA2D /* ViewModelConfigurable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
