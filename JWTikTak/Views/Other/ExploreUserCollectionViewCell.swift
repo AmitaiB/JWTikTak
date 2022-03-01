@@ -13,7 +13,7 @@ class ExploreUserCollectionViewCell: UICollectionViewCell, Reusable, ViewModelCo
     private let profilePicImageView: UIImageView = {
         let imageView             = UIImageView()
         imageView.tintColor       = .systemBlue
-        imageView.contentMode     = .scaleAspectFit
+        imageView.contentMode     = .scaleAspectFill
         imageView.clipsToBounds   = true
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .secondarySystemBackground
@@ -77,11 +77,7 @@ class ExploreUserCollectionViewCell: UICollectionViewCell, Reusable, ViewModelCo
     
     func configure(with viewModel: ViewModel) {
         guard let viewModel = viewModel as? ExploreUserViewModel else { return }
-        profilePicImageView.sd_setImage(
-            with: viewModel.profilePicURL,
-            placeholderImage: UIImage(systemName: L10n.SFSymbol.personCircle),
-            options: [.continueInBackground])
-        
-        usernameLabel.text   = viewModel.username
+        profilePicImageView.image = viewModel.profileImage
+        usernameLabel.text        = viewModel.username
     }
 }

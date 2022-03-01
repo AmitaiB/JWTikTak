@@ -8,7 +8,7 @@
 import UIKit
 
 struct ExploreUserViewModel: ViewModel {
-    let profilePicURL: URL?
+    let profileImage: UIImage?
     let username: String
     let followerCount: Int
     let handler: (() -> Void)?

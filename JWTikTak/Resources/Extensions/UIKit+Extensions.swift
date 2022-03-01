@@ -29,3 +29,14 @@ extension UIView {
         views.forEach({addSubview($0)})
     }
 }
+
+extension UIImage {
+    convenience init?(contentsOf url: URL?) {
+        guard
+            let url = url,
+            let imageData = try? Data(contentsOf: url)
+        else { return nil }
+        
+        self.init(data: imageData)
+    }
+}
