@@ -16,10 +16,10 @@ enum ExploreSectionType: CustomStringConvertible, CaseIterable {
     case banners
     case trending
     case users
-    case trendingHashtags
+    case hashtags
     case recommended
     case popular
-    case new
+    case recent
     
     
     var description: String { title }
@@ -28,17 +28,17 @@ enum ExploreSectionType: CustomStringConvertible, CaseIterable {
             case .banners:
                 return "Featured"
             case .trending:
-                return "Trending Videos"
+                return "What's Trending"
             case .users:
                 return "Fresh Creators"
-            case .trendingHashtags:
+            case .hashtags:
                 return "Hashtags"
             case .recommended:
                 return "Recommended"
             case .popular:
                 return "Popular"
-            case .new:
-                return "Recent Posts"
+            case .recent:
+                return "Recent"
         }
     }
 }

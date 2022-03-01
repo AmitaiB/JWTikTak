@@ -9,6 +9,7 @@ import UIKit
 import Reusable
 import RandomColor
 import SnapKit
+import Actions
 
 class ExploreViewController: UIViewController {
     private let searchBar: UISearchBar = {
@@ -36,77 +37,80 @@ class ExploreViewController: UIViewController {
         searchBar.delegate = self
     }
     
+    private func configureRefreshControl () {
+        // Add the refresh control to your UIScrollView object.
+        collectionView?.refreshControl = UIRefreshControl()
+        collectionView?.refreshControl?.add(event: .valueChanged) {
+            self.collectionView?.reloadData()
+            self.collectionView?.refreshControl?.endRefreshing()
+        }
+            
+//            .addTarget(self, action:
+//                                                    #selector(handleRefreshControl),
+//                                                  for: .valueChanged)
+    }
+    
+//    @objc func handleRefreshControl() {
+//        // Update your content…
+//        
+//        // Dismiss the refresh control.
+//        DispatchQueue.main.async {
+//            self.myScrollingView.refreshControl?.endRefreshing()
+//        }
+//    }
+    
     // TODO: MOCK Cells
     private func configureMockModels() {
-        let bannerCell = ExploreCell.banner(
-            viewModel: ExploreBannerViewModel(
-                image: Asset.test.image,
-                title: "Foo",
-                handler: {print("nil")}
-            )
-        )
-        
-        let postCell = ExploreCell.post(
-            viewModel: ExplorePostViewModel(
-                thumbnailImage: Asset.test.image,
-                caption: "Crazy cool post!",
-                handler: nil
-            )
-        )
-        
-        let userCell = ExploreCell.user(
-            viewModel: ExploreUserViewModel(
-                profilePicURL: nil,
-                username: "The Dude",
-                followerCount: 613,
-                handler: nil
-            )
-        )
-        
-        let hashtagCell = ExploreCell.hashtag(
-            viewModel: ExploreHashtagViewModel(
-                icon: UIImage(systemName: L10n.SFSymbol.camera),
-                text: "#bestPosts #truth",
-                count: 42,
-                handler: nil
-            )
-        )
+        let mockResponse = ExploreDataManager.shared
         
         // Banners
         sections += [ExploreSection(
             type:  .banners,
-            cells: Array(repeating: bannerCell, count: 50))]
+            cells: mockResponse.getExploreBanners()
+                .map { ExploreCell.banner(viewModel: $0) }
+        )]
             
         // Trending Posts
         sections += [ExploreSection(
             type:  .trending,
-            cells: Array(repeating: postCell, count: 50))]
+            cells: mockResponse.getExploreTrending()
+                .map { ExploreCell.post(viewModel: $0) }
+        )]
         
         // Users
         sections += [ExploreSection(
             type:  .users,
-            cells: Array(repeating: userCell, count: 50))]
+            cells: mockResponse.getExploreCreators()
+                .map { ExploreCell.user(viewModel: $0) }
+        )]
                 
-        // Trending Hashtags
+        // Hashtags
         sections += [ExploreSection(
-            type:  .trendingHashtags,
-            cells: Array(repeating: hashtagCell, count: 50))]
+            type:  .hashtags,
+            cells: mockResponse.getExploreHashtags()
+                .map { ExploreCell.hashtag(viewModel: $0) }
+        )]
         
         // Recommended
         sections += [ExploreSection(
             type:  .recommended,
-            cells: Array(repeating: postCell, count: 50))]
-        
+            cells: mockResponse.getExploreRecommended()
+                .map { ExploreCell.post(viewModel: $0) }
+        )]
 
         // Popular
         sections += [ExploreSection(
             type:  .popular,
-            cells: Array(repeating: postCell, count: 50))]
+            cells: mockResponse.getExplorePopular()
+                .map { ExploreCell.post(viewModel: $0) }
+        )]
         
-        // New
+        // Recent Posts
         sections += [ExploreSection(
-            type:  .new,
-            cells: Array(repeating: postCell, count: 50))]
+            type:  .recent,
+            cells: mockResponse.getExploreRecent()
+                .map { ExploreCell.post(viewModel: $0) }
+            )]
     }
     
     private func setupCollectionView() {
@@ -127,7 +131,9 @@ class ExploreViewController: UIViewController {
         
         self.collectionView = collectionView
     }
-        
+    
+    // MARK: - Section Layouts
+    
     typealias Layouts = ExploreSectionLayoutProvider
     lazy var layoutForSection: UICollectionViewCompositionalLayoutSectionProvider = { section, _ -> NSCollectionLayoutSection? in
         let sectionType = self.sections[section].type
@@ -135,13 +141,13 @@ class ExploreViewController: UIViewController {
         
         var itemWidth, itemHeight, groupWidth, groupHeight: NSCollectionLayoutDimension!
         var itemInsets: NSDirectionalEdgeInsets = .zero
-
+        
         switch sectionType {
-            case .banners:          return Layouts.bannerSectionLayout
-            case .users:            return Layouts.usersSectionLayout
-            case .trendingHashtags: return Layouts.trendingHashtagsSectionLayout
-            case .popular:          return Layouts.popularPostsSectionLayout
-            case .trending, .recommended, .new: // various flavors of posts
+            case .banners:  return Layouts.bannerSectionLayout
+            case .users:    return Layouts.usersSectionLayout
+            case .hashtags: return Layouts.trendingHashtagsSectionLayout
+            case .popular:  return Layouts.popularPostsSectionLayout
+            case .trending, .recommended, .recent: // various flavors of posts ↲
                 return Layouts.postsSectionLayout
         }
     }
@@ -192,17 +198,13 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch model {
             case .banner(viewModel: let viewModel):
-                break
+                viewModel.handler?()
             case .post(viewModel: let viewModel):
-                break
+                viewModel.handler?()
             case .hashtag(viewModel: let viewModel):
-                break
+                viewModel.handler?()
             case .user(viewModel: let viewModel):
-                break
+                viewModel.handler?()
         }
     }
-}
-
-extension ExploreViewController: UISearchBarDelegate {
-    
 }

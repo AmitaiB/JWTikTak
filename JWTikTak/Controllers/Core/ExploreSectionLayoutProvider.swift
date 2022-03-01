@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Encapsulates the logic for the details of each section's layout.
 class ExploreSectionLayoutProvider {
     static var bannerSectionLayout: NSCollectionLayoutSection {
         // Item
