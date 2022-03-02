@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     private let hScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.bounces         = false
         scrollView.isPagingEnabled = true
         return scrollView

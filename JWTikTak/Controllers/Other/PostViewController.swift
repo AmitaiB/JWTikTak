@@ -45,7 +45,7 @@ class PostViewController: UIViewController {
         label.textAlignment   = .left
         label.textColor       = .white
         label.backgroundColor = .systemGray
-        label.font            = .systemFont(ofSize: 18)
+        label.font            = .systemFont(ofSize: 20, weight: .heavy)
         label.numberOfLines   = 0
         return label
     }()
@@ -73,10 +73,10 @@ class PostViewController: UIViewController {
         // Captions label placeholder
         view.addSubview(captionLabel)
 //        captionLabel.sizeToFit()
-        captionLabel.snp.makeConstraints { make in
+        captionLabel.snp.makeConstraints { [unowned self] make in
             make.left.equalToSuperview().offset(20)
             make.right.equalTo(self.buttonsRow.snp.leftMargin).offset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-100)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
         }
     }
     
@@ -99,9 +99,10 @@ class PostViewController: UIViewController {
             
             let playerView = JWPlayerView()
             playerView.player.configurePlayer(with: config)
-            view = playerView
-            playerView.player.delegate = playerMockDelegateObject
+            playerView.videoGravity = .resizeAspectFill
+            playerView.player.delegate              = playerMockDelegateObject
             playerView.player.playbackStateDelegate = playerMockDelegateObject
+            view = playerView
         }
         catch { print(error.localizedDescription)}
     }
