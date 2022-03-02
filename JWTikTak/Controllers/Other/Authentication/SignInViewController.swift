@@ -8,6 +8,9 @@
 import UIKit
 
 class SignInViewController: UIViewController {
+    /// Allows the presenting view controller to respond to this view controller's
+    /// dismissal, or otherwise presenting its function.
+    public var viewControllerCompletion: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()

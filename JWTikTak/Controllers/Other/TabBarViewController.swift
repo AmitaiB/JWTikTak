@@ -10,6 +10,8 @@ import SwiftUI
 
 class TabBarViewController: UITabBarController {
 
+    private var signInHasBeenPresented = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControllers()
@@ -17,12 +19,19 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presentSignInIfNeeded()
+        if !signInHasBeenPresented {
+            presentSignInIfNeeded()
+        }
     }
     
     private func presentSignInIfNeeded() {
         guard !AuthManager.shared.isSignedIn else { return }
+        signInHasBeenPresented = true
         let signInVC = SignInViewController()
+        signInVC.viewControllerCompletion = { [weak self] in
+            // resets
+            self?.signInHasBeenPresented = false
+        }
         let navVC = UINavigationController(rootViewController: signInVC)
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: false, completion: nil)
