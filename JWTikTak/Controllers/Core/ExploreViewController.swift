@@ -154,6 +154,23 @@ class ExploreViewController: UIViewController {
     }
 }
 
+
+// MARK: UISearchBarDelegate
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, action: { _ in
+            searchBar.text = nil
+            searchBar.resignFirstResponder()
+            self.navigationItem.rightBarButtonItem = nil
+        })
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = nil
+        searchBar.resignFirstResponder()
+    }
+}
+
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         sections.count
@@ -218,5 +235,7 @@ extension ExploreViewController: ExploreDataManagerDelegate {
     }
     
     func didTapHashtag(_ hashtag: String) {
+        searchBar.text = hashtag
+        searchBar.becomeFirstResponder()
     }
 }
