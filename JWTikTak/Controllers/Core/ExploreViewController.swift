@@ -27,6 +27,7 @@ class ExploreViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        ExploreDataManager.shared.delegate = self
         configureMockModels()
         setupSearchBar()
         setupCollectionView()
@@ -206,5 +207,16 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             case .user(viewModel: let viewModel):
                 viewModel.handler?()
         }
+    }
+}
+
+extension ExploreViewController: ExploreDataManagerDelegate {
+    func pushViewController(_ viewController: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func didTapHashtag(_ hashtag: String) {
     }
 }

@@ -8,18 +8,45 @@
 import UIKit
 import SDWebImage
 
+protocol ExploreDataManagerDelegate: AnyObject {
+    func pushViewController(_ viewController: UIViewController)
+    func didTapHashtag(_ hashtag: String)
+}
+
 final class ExploreDataManager {
     static let shared = ExploreDataManager()
     private init() {}
     
+    weak var delegate: ExploreDataManagerDelegate?
+    
+    enum BannerAction: String {
+        case post, hashtag, user
+    }
+    
     public func getExploreBanners() -> [ExploreBannerViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let bannerModels = response.banners.compactMap {
+                let bannerModels = response.banners.compactMap { model in
                     ExploreBannerViewModel(
-                        image: UIImage(named: $0.image), //UIImage(contentsOf: URL(string: $0.image)),
-                        title: $0.title,
-                        handler: nil)
+                        image: UIImage(named: model.image), //UIImage(contentsOf: URL(string: $0.image)),
+                        title: model.title) { [weak self] in
+                            guard let action = BannerAction(rawValue: model.action) else { return }
+                            let mockVC = UIViewController()
+                            mockVC.view.backgroundColor = .systemRed
+                            mockVC.title = action.rawValue.uppercased()
+                            self?.delegate?.pushViewController(mockVC)
+                            switch action {
+                                case .user:
+                                    break
+                                    // present user profile
+                                case .post:
+                                    break
+                                    // present post
+                                case .hashtag:
+                                    break
+                                    // search for hashtag
+                            }
+                        }
                 }
                 return bannerModels
             
@@ -33,12 +60,19 @@ final class ExploreDataManager {
     public func getExploreCreators() -> [ExploreUserViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let userModels = response.creators.compactMap {
+                let userModels = response.creators.compactMap { model in
                     ExploreUserViewModel(
-                        profileImage: UIImage(named: $0.image),
-                        username: $0.username,
-                        followerCount: $0.followersCount,
-                        handler: nil)
+                        profileImage: UIImage(named: model.image),
+                        username: model.username,
+                        followerCount: model.followersCount) { [weak self] in
+                            let userId = model.id
+                            // TODO: Fetch user object from firebase
+                            let mockVC = ProfileViewController(user: User(
+                                username: "Joe",
+                                profilePictureURL: nil,
+                                identifier: userId))
+                            self?.delegate?.pushViewController(mockVC)
+                        }
                 }
                 return userModels
                 
@@ -51,12 +85,12 @@ final class ExploreDataManager {
     public func getExploreHashtags() -> [ExploreHashtagViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let hashtagModels = response.hashtags.compactMap {
+                let hashtagModels = response.hashtags.compactMap { model in
                     ExploreHashtagViewModel(
-                        icon: UIImage(named: $0.image),
-                        text: "#" + $0.tag,
-                        count: $0.count,
-                        handler: nil)
+                        icon: UIImage(named: model.image),
+                        text: "#" + model.tag,
+                        count: model.count) { [weak self] in                            self?.delegate?.didTapHashtag(model.tag)
+                        }
                 }
                 return hashtagModels
                 
@@ -69,14 +103,7 @@ final class ExploreDataManager {
     public func getExploreTrending() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let popularPostModels = response.trendingPosts.compactMap {
-                    ExplorePostViewModel(
-                        thumbnailImage: UIImage(named: $0.image),
-                        caption: $0.caption,
-                        handler: nil)
-                }
-                return popularPostModels
-                
+                return getPostViewModels(from: response.trendingPosts, with: delegate)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
@@ -86,14 +113,7 @@ final class ExploreDataManager {
     public func getExplorePopular() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let popularPostModels = response.popular.compactMap {
-                    ExplorePostViewModel(
-                        thumbnailImage: UIImage(named: $0.image),
-                        caption: $0.caption,
-                        handler: nil)
-                }
-                return popularPostModels
-                
+                return getPostViewModels(from: response.popular, with: delegate)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
@@ -104,14 +124,7 @@ final class ExploreDataManager {
     public func getExploreRecent() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let newPostModels = response.recentPosts.compactMap {
-                    ExplorePostViewModel(
-                        thumbnailImage: UIImage(named: $0.image),
-                        caption: $0.caption,
-                        handler: nil)
-                }
-                return newPostModels
-                
+                return getPostViewModels(from: response.recentPosts, with: delegate)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
@@ -121,19 +134,27 @@ final class ExploreDataManager {
     public func getExploreRecommended() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                let recommendedPostModels = response.recommended.compactMap {
-                    ExplorePostViewModel(
-                        thumbnailImage: UIImage(named: $0.image),
-                        caption: $0.caption,
-                        handler: nil)
-                }
-                return recommendedPostModels
-                
+                return getPostViewModels(from: response.recommended, with: delegate)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
         }
     }
+        
+    private func getPostViewModels(from posts: [ExploreResponse.Post], with delegate: ExploreDataManagerDelegate?) -> [ExplorePostViewModel] {
+        posts.compactMap { model in
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: model.image),
+                caption: model.caption) {
+                    // use id to fetch post from firebase
+                    let mockPostModel = PostModel(identifier: model.id)
+                    let mockVC = PostViewController(model: mockPostModel)
+                    delegate?.pushViewController(mockVC)
+                }
+        }
+    }
+
+    
     
     enum ExploreError: Error {
         case path(String)
