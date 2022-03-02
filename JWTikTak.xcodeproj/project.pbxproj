@@ -17,8 +17,8 @@
 		11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */; };
 		11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */; };
 		11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */; };
-		11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */; };
-		11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */; };
+		11A73E7B27B59CFE00BD8A2E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */; };
+		11A73E7D27B59D0600BD8A2E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */; };
 		11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */; };
 		11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */; };
 		11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8427B59D6700BD8A2E /* PostViewController.swift */; };
@@ -83,8 +83,8 @@
 		11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
-		11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
-		11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupViewController.swift; sourceTree = "<group>"; };
+		11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		11A73E8427B59D6700BD8A2E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -267,8 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */,
-				11A73E7A27B59CFE00BD8A2E /* SigninViewController.swift */,
-				11A73E7C27B59D0600BD8A2E /* SingupViewController.swift */,
+				11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */,
+				11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */,
 				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
 				11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */,
 				11A73E8427B59D6700BD8A2E /* PostViewController.swift */,
@@ -515,7 +515,7 @@
 				11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */,
 				11D5BC9B27C40EB4008CDA2D /* ExploreSection.swift in Sources */,
 				11A73E8B27B59D9A00BD8A2E /* DatabaseManager.swift in Sources */,
-				11A73E7D27B59D0600BD8A2E /* SingupViewController.swift in Sources */,
+				11A73E7D27B59D0600BD8A2E /* SignUpViewController.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
 				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
 				11D5BCAB27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift in Sources */,
@@ -548,7 +548,7 @@
 				11D1EC7227BF2BEA00A7766D /* User.swift in Sources */,
 				11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
-				11A73E7B27B59CFE00BD8A2E /* SigninViewController.swift in Sources */,
+				11A73E7B27B59CFE00BD8A2E /* SignInViewController.swift in Sources */,
 				11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */,
 				11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */,
 				11D5BC7727C00BB2008CDA2D /* Assets.swift in Sources */,
