@@ -267,8 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */,
-				11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */,
-				11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */,
+				11D5BCE427CF2B23008CDA2D /* Authentication */,
 				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
 				11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */,
 				11A73E8427B59D6700BD8A2E /* PostViewController.swift */,
@@ -335,6 +334,15 @@
 				11D5BCB127C52D92008CDA2D /* explore.json */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		11D5BCE427CF2B23008CDA2D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */,
+				11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		532FCD2C557B568EF93DF8A0 /* Pods */ = {
