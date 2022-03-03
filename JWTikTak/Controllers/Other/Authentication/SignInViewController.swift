@@ -48,9 +48,7 @@ class SignInViewController: UIViewController {
             forgotPasswordButton
         ])
         
-        emailField.delegate    = self
-        passwordField.delegate = self
-        
+        configureFields()
         configureButtons()
     }
     
@@ -95,22 +93,70 @@ class SignInViewController: UIViewController {
     
     
     private func configureButtons() {
-        
-        
-        signInButton.add(event: .touchUpInside) {
+        signInButton.add(event: .touchUpInside) { [weak self] in
+            self?.dismissKeyboard()
             
+            // TODO: Better textfield validation
+            guard
+                let email = self?.emailField.text?.trimmingCharacters(in: .whitespaces),
+                let password = self?.passwordField.text?.trimmingCharacters(in: .whitespaces),
+                !email.isEmpty,
+                password.count >= 6
+            else { return }
+
+            AuthManager.shared.signIn(withEmail: email, password: password) {
+                let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: true, hideWhenBackgroundViewIsTapped: true)
+                let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 0.4, timeoutAction: { [weak self] in
+                    self?.dismiss(animated: true, completion: nil)
+                })
+                
+                switch $0 {
+                    case .success(_):
+                        // dismiss sign in vc
+                        SCLAlertView(appearance: appearance)
+                            .showSuccess("", timeout: dismissOnTimeout, animationStyle: .noAnimation)
+                    case .failure(let error):
+                        SCLAlertView()
+                            .showError("Error", subTitle: error.localizedDescription)
+                        print(error.localizedDescription)
+                }
+            }
         }
         
-        signUpButton.add(event: .touchUpInside) {
-            
+        signUpButton.add(event: .touchUpInside) { [weak self] in
+            self?.dismissKeyboard()
+            let signUpVC = SignUpViewController()
+            self?.navigationController?.pushViewController(signUpVC, animated: true)
         }
         
         forgotPasswordButton.add(event: .touchUpInside) {
-            
+            self.dismissKeyboard()
+            // TODO: Implement Password Retrieval
+            print(" *** IMPLEMENT PASSWORD RESET HERE")
         }
+    }
+    
+    private func configureFields() {
+        emailField.delegate    = self
+        passwordField.delegate = self
+
+        let doneButton = UIBarButtonItem(title: "Done", style: .done) { [weak self] in
+            self?.dismissKeyboard()
+        }
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
+        toolBar.items = [doneButton]
+        
+        emailField.inputAccessoryView    = toolBar
+        passwordField.inputAccessoryView = toolBar
+    }
+    
+    private func dismissKeyboard() {
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
     }
 }
 
 extension SignInViewController: UITextFieldDelegate {
-    
+    // TODO: Respond to "Done" button press.
 }

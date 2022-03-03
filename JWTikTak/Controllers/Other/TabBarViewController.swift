@@ -28,10 +28,10 @@ class TabBarViewController: UITabBarController {
         guard !AuthManager.shared.isSignedIn else { return }
         signInHasBeenPresented = true
         let signInVC = SignInViewController()
-        signInVC.viewControllerCompletion = { [weak self] in
-            // resets
-            self?.signInHasBeenPresented = false
-        }
+//        signInVC.viewControllerCompletion = { [weak self] in
+//            // resets
+//            self?.signInHasBeenPresented = false
+//        }
         let navVC = UINavigationController(rootViewController: signInVC)
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: false, completion: nil)

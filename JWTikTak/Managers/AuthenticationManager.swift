@@ -24,8 +24,17 @@ final class AuthManager {
     public var isSignedIn: Bool { Auth.auth().currentUser != nil }
     
     
-    public func signIn(with method: SignInMethod) {
+    public func signIn(withEmail email: String, password: String, completion: ((Result<AuthDataResult, Error>) -> Void)?) {
         
+        Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
+            guard let completion = completion else { return }
+
+            if let authDataResult = authDataResult {
+                completion(.success(authDataResult))
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
     }
     
     public func signOut(completion: (Bool) -> Void) {
