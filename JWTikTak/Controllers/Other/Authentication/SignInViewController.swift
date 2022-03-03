@@ -32,6 +32,16 @@ class SignInViewController: UIViewController {
     private let signInButton = AuthButton(type: .signIn, title: nil)
     private let signUpButton = AuthButton(type: .plain, title: "New user? Create account!")
     
+    lazy var subviews = [
+        emailField,
+        passwordField,
+        forgotPasswordButton,
+        signInButton,
+        signUpButton,
+    ]
+    
+    var textFields: [AuthField] { subviews.compactMap{$0 as? AuthField}}
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -137,8 +147,6 @@ class SignInViewController: UIViewController {
     }
     
     private func configureFields() {
-        emailField.delegate    = self
-        passwordField.delegate = self
 
         let doneButton = UIBarButtonItem(title: "Done", style: .done) { [weak self] in
             self?.dismissKeyboard()
@@ -147,13 +155,14 @@ class SignInViewController: UIViewController {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
         toolBar.items = [doneButton]
         
-        emailField.inputAccessoryView    = toolBar
-        passwordField.inputAccessoryView = toolBar
+        textFields.forEach {
+            $0.delegate = self
+            $0.inputAccessoryView = toolBar
+        }
     }
     
     private func dismissKeyboard() {
-        emailField.resignFirstResponder()
-        passwordField.resignFirstResponder()
+        textFields.forEach {$0.resignFirstResponder()}
     }
 }
 
