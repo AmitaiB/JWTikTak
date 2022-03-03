@@ -46,6 +46,7 @@ internal enum Asset {
   internal static let horn = ImageAsset(name: "horn")
   internal static let piano = ImageAsset(name: "piano")
   internal static let violin = ImageAsset(name: "violin")
+  internal static let logo = ImageAsset(name: "logo")
   internal static let test = ImageAsset(name: "test")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
