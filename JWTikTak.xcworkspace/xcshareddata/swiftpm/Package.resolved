@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "SCLAlertView",
+        "repositoryURL": "https://github.com/vikmeup/SCLAlertView-Swift",
+        "state": {
+          "branch": "master",
+          "revision": "f08ec93c299a221210e59462c84c79410050e5b7",
+          "version": null
+        }
+      },
+      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {

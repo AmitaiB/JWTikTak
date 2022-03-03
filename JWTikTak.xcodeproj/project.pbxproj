@@ -68,6 +68,7 @@
 		11D5BCB627C53125008CDA2D /* ExploreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCB527C53125008CDA2D /* ExploreDataManager.swift */; };
 		11D5BCE627CFB14A008CDA2D /* AuthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCE527CFB14A008CDA2D /* AuthField.swift */; };
 		11D5BCE827CFB174008CDA2D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCE727CFB174008CDA2D /* AuthButton.swift */; };
+		11D5BCEB27D04E09008CDA2D /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = 11D5BCEA27D04E09008CDA2D /* SCLAlertView */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 				11A73EBC27B5F71D00BD8A2E /* FirebaseStorage in Frameworks */,
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
 				11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */,
+				11D5BCEB27D04E09008CDA2D /* SCLAlertView in Frameworks */,
 				11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */,
 				11D1EC7727BF523000A7766D /* Reusable in Frameworks */,
 			);
@@ -398,6 +400,7 @@
 				11A73EE027BAFDA400BD8A2E /* SnapKit */,
 				11D1EC7627BF523000A7766D /* Reusable */,
 				11D5BC8027C303B3008CDA2D /* RandomColor */,
+				11D5BCEA27D04E09008CDA2D /* SCLAlertView */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -432,6 +435,7 @@
 				11A73EDF27BAFDA300BD8A2E /* XCRemoteSwiftPackageReference "SnapKit" */,
 				11D1EC7527BF523000A7766D /* XCRemoteSwiftPackageReference "Reusable" */,
 				11D5BC7F27C303B3008CDA2D /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
+				11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -819,6 +823,14 @@
 				kind = branch;
 			};
 		};
+		11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vikmeup/SCLAlertView-Swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -871,6 +883,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11D5BC7F27C303B3008CDA2D /* XCRemoteSwiftPackageReference "RandomColorSwift" */;
 			productName = RandomColor;
+		};
+		11D5BCEA27D04E09008CDA2D /* SCLAlertView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */;
+			productName = SCLAlertView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
