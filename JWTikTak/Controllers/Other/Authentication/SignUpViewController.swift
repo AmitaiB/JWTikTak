@@ -10,6 +10,7 @@ import Actions
 import SnapKit
 import SCLAlertView
 import SafariServices
+import IQKeyboardManagerSwift
 
 class SignUpViewController: UIViewController {
     /// Allows the presenting view controller to respond to this view controller's
@@ -52,8 +53,8 @@ class SignUpViewController: UIViewController {
         title = "Create Account"
         view.backgroundColor = .systemBackground
         view.addSubviews(subviews)
-        configureFields()
         configureButtons()
+        configureKeyboard()
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,9 +101,13 @@ class SignUpViewController: UIViewController {
         usernameField.becomeFirstResponder()
     }
     
+    private func configureKeyboard() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
+    
     private func configureButtons() {
         signUpButton.add(event: .touchUpInside) { [weak self] in
-            self?.dismissKeyboard()
             
             // TODO: Implement/Find textfield validation
             guard
@@ -140,33 +145,12 @@ class SignUpViewController: UIViewController {
         }
         
         termsOfServiceButton.add(event: .touchUpInside) { [weak self] in
-            self?.dismissKeyboard()
             // Show or link to TOS
             guard let tosURL = URL(string: "https://www.jwplayer.com/legal/tos") else { return }
             
             let tosVC = SFSafariViewController(url: tosURL)
             self?.present(tosVC, animated: true)
         }
-    }
-    
-    private func configureFields() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .done) { [weak self] in
-            self?.dismissKeyboard()
-        }
-        
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.width, height: 50))
-        toolBar.items = [doneButton]
-
-        textFields
-            .forEach {
-                $0.delegate = self
-                $0.inputAccessoryView = toolBar
-            }
-    }
-    
-    private func dismissKeyboard() {
-        textFields
-            .forEach {$0.resignFirstResponder()}
     }
 }
 

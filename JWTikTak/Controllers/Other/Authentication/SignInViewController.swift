@@ -9,6 +9,7 @@ import UIKit
 import Actions
 import SnapKit
 import SCLAlertView
+import IQKeyboardManagerSwift
 
 class SignInViewController: UIViewController {
     /// Allows the presenting view controller to respond to this view controller's
@@ -58,7 +59,7 @@ class SignInViewController: UIViewController {
             forgotPasswordButton
         ])
         
-        configureFields()
+        configureKeyboard()
         configureButtons()
     }
     
@@ -101,10 +102,18 @@ class SignInViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        emailField.becomeFirstResponder()
+    }
+    
+    private func configureKeyboard() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
     
     private func configureButtons() {
         signInButton.add(event: .touchUpInside) { [weak self] in
-            self?.dismissKeyboard()
             
             // TODO: Better textfield validation
             guard
@@ -134,13 +143,11 @@ class SignInViewController: UIViewController {
         }
         
         signUpButton.add(event: .touchUpInside) { [weak self] in
-            self?.dismissKeyboard()
             let signUpVC = SignUpViewController()
             self?.navigationController?.pushViewController(signUpVC, animated: true)
         }
         
-        forgotPasswordButton.add(event: .touchUpInside) {
-            self.dismissKeyboard()
+        forgotPasswordButton.add(event: .touchUpInside) { [weak self] in
             // TODO: Implement Password Retrieval
             print(" *** IMPLEMENT PASSWORD RESET HERE")
         }

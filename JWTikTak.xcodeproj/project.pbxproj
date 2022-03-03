@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1142F2CB27D16B3B00AEBB8F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1142F2CA27D16B3B00AEBB8F /* IQKeyboardManagerSwift */; };
 		11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5427B31C3400BD8A2E /* AppDelegate.swift */; };
 		11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */; };
 		11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5827B31C3400BD8A2E /* HomeViewController.swift */; };
@@ -148,6 +149,7 @@
 				11A73EBC27B5F71D00BD8A2E /* FirebaseStorage in Frameworks */,
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
 				11A73EB627B5F71D00BD8A2E /* FirebaseAuthCombine-Community in Frameworks */,
+				1142F2CB27D16B3B00AEBB8F /* IQKeyboardManagerSwift in Frameworks */,
 				11D5BCEB27D04E09008CDA2D /* SCLAlertView in Frameworks */,
 				11A73EE127BAFDA400BD8A2E /* SnapKit in Frameworks */,
 				11D1EC7727BF523000A7766D /* Reusable in Frameworks */,
@@ -404,6 +406,7 @@
 				11D1EC7627BF523000A7766D /* Reusable */,
 				11D5BC8027C303B3008CDA2D /* RandomColor */,
 				11D5BCEA27D04E09008CDA2D /* SCLAlertView */,
+				1142F2CA27D16B3B00AEBB8F /* IQKeyboardManagerSwift */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -439,6 +442,7 @@
 				11D1EC7527BF523000A7766D /* XCRemoteSwiftPackageReference "Reusable" */,
 				11D5BC7F27C303B3008CDA2D /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
 				11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
+				1142F2C927D16B3B00AEBB8F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -795,6 +799,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1142F2C927D16B3B00AEBB8F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -838,6 +850,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1142F2CA27D16B3B00AEBB8F /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1142F2C927D16B3B00AEBB8F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		11A73EB127B5F71D00BD8A2E /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11A73EB027B5F71D00BD8A2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
