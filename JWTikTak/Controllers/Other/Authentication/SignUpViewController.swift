@@ -27,9 +27,9 @@ class SignUpViewController: UIViewController {
         return imageView
     }()
     
+    private let usernameField = AuthField(type: .username)
     private let emailField    = AuthField(type: .email)
     private let passwordField = AuthField(type: .password)
-    private let usernameField = AuthField(type: .username)
     
     private let signUpButton = AuthButton(type: .signUp, title: nil)
     private let termsOfServiceButton = AuthButton(type: .plain, title: "Terms of Service")
@@ -43,6 +43,7 @@ class SignUpViewController: UIViewController {
         termsOfServiceButton
     ]
     
+    // TODO: No longer needed with IQKM
     var textFields: [AuthField] { subviews.compactMap { $0 as? AuthField }}
 
     // MARK: - Lifecycle

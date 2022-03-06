@@ -10,12 +10,14 @@ import UIKit
 class AuthField: UITextField {
 
     enum FieldType {
+        case username
         case email
         case password
         
         var title: String {
             switch self {
-                case .email: return "Email Address"
+                case .username: return "Username"
+                case .email:    return "Email Address"
                 case .password: return "Password"
             }
         }
@@ -41,16 +43,22 @@ class AuthField: UITextField {
         placeholder     = type.title
 
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: height))
-        leftViewMode = .always
+        leftViewMode           = .always
+        returnKeyType          = .done
+        autocorrectionType     = .no
+        autocapitalizationType = .none
 
-        // Keyboard
+        // Keyboard Type
         switch type {
+            case .username:
+                keyboardType    = .default
+                textContentType = .username
             case .email:
-                keyboardType = .emailAddress
+                keyboardType    = .emailAddress
+                textContentType = .emailAddress
             case .password:
                 isSecureTextEntry = true
+                textContentType   = .newPassword
         }
-        returnKeyType   = .done
-        autocorrectionType = .no
     }
 }

@@ -130,14 +130,15 @@ class SignInViewController: UIViewController {
                 })
                 
                 switch $0 {
-                    case .success(_):
+                    case .success(let email):
                         // dismiss sign in vc
                         SCLAlertView(appearance: appearance)
-                            .showSuccess("", timeout: dismissOnTimeout, animationStyle: .noAnimation)
+                            .showSuccess("User \(email) signed in.", timeout: dismissOnTimeout, animationStyle: .noAnimation)
                     case .failure(let error):
                         SCLAlertView()
                             .showError("Error", subTitle: error.localizedDescription)
                         print(error.localizedDescription)
+                        self?.passwordField.text = nil
                 }
             }
         }
