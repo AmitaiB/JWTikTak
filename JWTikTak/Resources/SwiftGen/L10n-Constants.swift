@@ -25,6 +25,13 @@ internal enum L10n {
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
 
+  internal enum Fir {
+    /// email
+    internal static let email = L10n.tr("localizable", "FIR.email")
+    /// users
+    internal static let users = L10n.tr("localizable", "FIR.users")
+  }
+
   internal enum Mock {
     /// mixkit-woman-running-vangelis-tiktok-format
     internal static let testVideo = L10n.tr("localizable", "Mock.testVideo")

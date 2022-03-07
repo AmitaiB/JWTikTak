@@ -20,6 +20,10 @@
 "Mock.testVideo" = "mixkit-woman-running-vangelis-tiktok-format";
 "mp4"            = "mp4";
 
+// Firebase
+"FIR.users" = "users";
+"FIR.email" = "email";
+
 // SF Symbols
 "SFSymbol.house"                = "house";
 "SFSymbol.magnifyingglass"      = "magnifyingglass";
