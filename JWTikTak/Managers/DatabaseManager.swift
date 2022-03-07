@@ -7,6 +7,10 @@
 
 import Foundation
 import FirebaseDatabase
+import CodableFirebase
+
+typealias AsynOperationCompletion = (Bool) -> Void
+typealias DatabaseRefResultCompletion = (Result<DatabaseReference, Error>) -> Void
 
 /// The Firebase db manager (for 'spreadsheet' data, such as users etc.).
 final class DatabaseManager {
@@ -23,6 +27,9 @@ final class DatabaseManager {
         username: String,
         completion: @escaping DatabaseRefResultCompletion
     ) {
+        // create users key?
+        // insert new entry?
+        // create root users?
     }
     
     public func getAllUsers(completion: ([String]) -> Void) {

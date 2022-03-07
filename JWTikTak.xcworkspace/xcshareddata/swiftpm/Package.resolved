@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "CodableFirebase",
+        "repositoryURL": "https://github.com/alickbass/CodableFirebase",
+        "state": {
+          "branch": "master",
+          "revision": "5491be775c22311c7ee0542dc5856b3ff4c99958",
+          "version": null
+        }
+      },
+      {
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
         "state": {

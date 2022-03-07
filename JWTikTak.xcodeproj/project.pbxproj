@@ -71,6 +71,7 @@
 		11D5BCE827CFB174008CDA2D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCE727CFB174008CDA2D /* AuthButton.swift */; };
 		11D5BCEB27D04E09008CDA2D /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = 11D5BCEA27D04E09008CDA2D /* SCLAlertView */; };
 		11D5BCED27D06634008CDA2D /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCEC27D06634008CDA2D /* OptionalExtensions.swift */; };
+		11DE65A927D53DE800816072 /* CodableFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = 11DE65A827D53DE800816072 /* CodableFirebase */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DE65A927D53DE800816072 /* CodableFirebase in Frameworks */,
 				11D5BC8127C303B3008CDA2D /* RandomColor in Frameworks */,
 				11A73EBA27B5F71D00BD8A2E /* FirebaseDatabase in Frameworks */,
 				11A73EB227B5F71D00BD8A2E /* FirebaseAnalytics in Frameworks */,
@@ -407,6 +409,7 @@
 				11D5BC8027C303B3008CDA2D /* RandomColor */,
 				11D5BCEA27D04E09008CDA2D /* SCLAlertView */,
 				1142F2CA27D16B3B00AEBB8F /* IQKeyboardManagerSwift */,
+				11DE65A827D53DE800816072 /* CodableFirebase */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -443,6 +446,7 @@
 				11D5BC7F27C303B3008CDA2D /* XCRemoteSwiftPackageReference "RandomColorSwift" */,
 				11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
 				1142F2C927D16B3B00AEBB8F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				11DE65A727D53DE800816072 /* XCRemoteSwiftPackageReference "CodableFirebase" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -847,6 +851,14 @@
 				kind = branch;
 			};
 		};
+		11DE65A727D53DE800816072 /* XCRemoteSwiftPackageReference "CodableFirebase" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alickbass/CodableFirebase";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -909,6 +921,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 11D5BCE927D04E09008CDA2D /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */;
 			productName = SCLAlertView;
+		};
+		11DE65A827D53DE800816072 /* CodableFirebase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11DE65A727D53DE800816072 /* XCRemoteSwiftPackageReference "CodableFirebase" */;
+			productName = CodableFirebase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
