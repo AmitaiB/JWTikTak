@@ -18,6 +18,13 @@ final class DatabaseManager {
     
     // Public
     
+    public func insertUser(
+        withEmail email: String,
+        username: String,
+        completion: @escaping DatabaseRefResultCompletion
+    ) {
+    }
+    
     public func getAllUsers(completion: ([String]) -> Void) {
         
     }

@@ -108,41 +108,26 @@ class SignUpViewController: UIViewController {
     }
     
     private func configureButtons() {
-        signUpButton.add(event: .touchUpInside) { [weak self] in
+        // Unowned is safe, since the button is a subview of this object.
+        signUpButton.add(event: .touchUpInside) { [unowned self] in
             
             // TODO: Implement/Find textfield validation
             guard
-                let username = self?.usernameField.text?.trimmingCharacters(in: .whitespaces),
+                let username = self.usernameField.text?.trimmingCharacters(in: .whitespaces),
                 username.count >= 4,
                 
-                let email = self?.emailField.text?.trimmingCharacters(in: .whitespaces),
+                let email = self.emailField.text?.trimmingCharacters(in: .whitespaces),
                 !email.isEmpty,
                 
-                let password = self?.passwordField.text?.trimmingCharacters(in: .whitespaces),
+                let password = self.passwordField.text?.trimmingCharacters(in: .whitespaces),
                 password.count >= 6
             else { return }
             
             AuthManager.shared.signUp(
                 withUsername: username,
                 email: email,
-                password: password)
-            {
-                let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: true, hideWhenBackgroundViewIsTapped: true)
-                let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 0.4, timeoutAction: { [weak self] in
-                    self?.dismiss(animated: true, completion: nil)
-                })
-                
-                switch $0 {
-                    case .success(_):
-                        // dismiss sign in vc
-                        SCLAlertView(appearance: appearance)
-                            .showSuccess("", timeout: dismissOnTimeout, animationStyle: .noAnimation)
-                    case .failure(let error):
-                        SCLAlertView()
-                            .showError("Error", subTitle: error.localizedDescription)
-                        print(error.localizedDescription)
-                }
-            }
+                password: password,
+                completion: self.showAlertHandlerForEmail)
         }
         
         termsOfServiceButton.add(event: .touchUpInside) { [weak self] in
@@ -152,6 +137,49 @@ class SignUpViewController: UIViewController {
             let tosVC = SFSafariViewController(url: tosURL)
             self?.present(tosVC, animated: true)
         }
+    }
+    
+    // MARK: - UI Alert handlers
+    lazy var showAlertHandlerForData:  AuthDataResultCompletion  = { [weak self] in
+        switch $0 {
+            case .success(let result):
+                self?.showAlertForSuccess()
+            case .failure(let error):
+                self?.showAlert(forError: error)
+        }
+    }
+    
+    lazy var showAlertHandlerForEmail: AuthEmailResultCompletion = { [weak self] in
+        switch $0 {
+            case .success(let result):
+                self?.showAlertForSuccess()
+            case .failure(let error):
+                self?.showAlert(forError: error)
+        }
+    }
+    
+    // A quick UI acknowledgement of success, seen-then-gone
+    private func showAlertForSuccess(message: String? = nil) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            shouldAutoDismiss: true,
+            hideWhenBackgroundViewIsTapped: true
+        )
+        
+        let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(
+            timeoutValue: 0.4,
+            timeoutAction: { self.dismiss(animated: true, completion: nil)}
+        )
+        
+        // dismiss sign in vc
+        SCLAlertView(appearance: appearance)
+            .showSuccess("",
+                         timeout: dismissOnTimeout,
+                         animationStyle: .noAnimation)
+    }
+    
+    private func showAlert(forError error: Error) {
+        SCLAlertView().showError("Error", subTitle: error.localizedDescription)
     }
 }
 

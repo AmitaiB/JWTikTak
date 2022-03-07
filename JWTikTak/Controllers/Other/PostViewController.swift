@@ -73,6 +73,8 @@ class PostViewController: UIViewController {
         // Captions label placeholder
         view.addSubview(captionLabel)
 //        captionLabel.sizeToFit()
+        
+        // Unowned is safe, since the view is guaranteed to have loaded
         captionLabel.snp.makeConstraints { [unowned self] make in
             make.left.equalToSuperview().offset(20)
             make.right.equalTo(self.buttonsRow.snp.leftMargin).offset(20)
