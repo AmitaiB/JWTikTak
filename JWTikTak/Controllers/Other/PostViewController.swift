@@ -68,7 +68,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         configureMockVideo()
         setupButtons()
-        setupDoubleTapToLike()
+        setupGestures()
         
         // Captions label placeholder
         view.addSubview(captionLabel)
@@ -104,6 +104,7 @@ class PostViewController: UIViewController {
             playerView.videoGravity = .resizeAspectFill
             playerView.player.delegate              = playerMockDelegateObject
             playerView.player.playbackStateDelegate = playerMockDelegateObject
+            self.player = playerView.player
             view = playerView
         }
         catch { print(error.localizedDescription)}
@@ -180,8 +181,13 @@ class PostViewController: UIViewController {
         }
     }
     
+    private func setupGestures() {
+        setupDoubleTapToLike()
+        setupTapToTogglePlayback()
+    }
+    
     private func setupDoubleTapToLike() {
-        let tap = UITapGestureRecognizer { [self] gesture in
+        let tap2x = UITapGestureRecognizer { [self] gesture in
             // 2xTap in TikTok is 'one-way' for liking, not unliking.
             if !model.isLikedByCurrentUser { toggleLike() }
             
@@ -189,8 +195,13 @@ class PostViewController: UIViewController {
             animateHeart(at: gesture.location(in: view))
         }
 
-        tap.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tap)
+        tap2x.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tap2x)
+    }
+    
+    private func setupTapToTogglePlayback() {
+        let tap1x = UITapGestureRecognizer { self.player?.togglePlayback() }
+        view.addGestureRecognizer(tap1x)
     }
     
     private func animateHeart(at touchPoint: CGPoint) {

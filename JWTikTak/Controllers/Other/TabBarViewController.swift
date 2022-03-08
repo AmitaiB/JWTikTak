@@ -17,8 +17,8 @@ class TabBarViewController: UITabBarController {
         setupControllers()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if !signInHasBeenPresented {
             presentSignInIfNeeded()
         }
@@ -43,12 +43,7 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
-        let profileVC       = ProfileViewController(user:
-                                                        User(
-                                                            username: "Rando",
-                                                            profilePictureURL: nil,
-                                                            identifier: "GET A NEW ONE")
-        )
+        let profileVC       = ProfileViewController(user: User.mock)
         
         // The camera VC does not need a title, and home VC has a control in that place.
         exploreVC.title       = L10n.explore
@@ -64,7 +59,7 @@ class TabBarViewController: UITabBarController {
         // Allows the Following/ForYou control to 'float'
         homeNav.navigationBar.backgroundColor = .clear
         homeNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        homeNav.navigationBar.shadowImage = UIImage()
+        homeNav.navigationBar.shadowImage     = UIImage()
         
         homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
         exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)

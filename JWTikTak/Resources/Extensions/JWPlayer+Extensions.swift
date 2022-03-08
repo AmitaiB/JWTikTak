@@ -13,3 +13,12 @@ typealias JWPlayerConfig        = JWPlayerConfiguration
 
 /// Typealias for ``JWPlayerKit/JWPlayerConfigurationBuilder``.
 typealias JWPlayerConfigBuilder = JWPlayerConfigurationBuilder
+
+extension JWPlayer {
+    var isPlaying: Bool { getState() == .playing }
+    
+    func togglePlayback() {
+        if isPlaying { pause() }
+        else         { play()  }
+    }
+}
