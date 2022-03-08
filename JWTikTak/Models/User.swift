@@ -7,8 +7,17 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     let username: String
     let profilePictureURL: URL?
     let identifier: String
+    
+    // test properties
+    var email: String? = nil
+    
+    static var mock = User(
+        username: "Jonny Appleseed",
+        profilePictureURL: nil,
+        identifier: UUID().uuidString,
+        email: "jonny@appleseed.com")
 }

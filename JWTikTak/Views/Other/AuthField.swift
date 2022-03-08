@@ -13,12 +13,14 @@ class AuthField: UITextField {
         case username
         case email
         case password
+        case newPassword
         
         var title: String {
             switch self {
                 case .username: return "Username"
                 case .email:    return "Email Address"
-                case .password: return "Password"
+                case .password, .newPassword:
+                    return "Password"
             }
         }
     }
@@ -57,6 +59,9 @@ class AuthField: UITextField {
                 keyboardType    = .emailAddress
                 textContentType = .emailAddress
             case .password:
+                isSecureTextEntry = true
+                textContentType   = .password
+            case .newPassword:
                 isSecureTextEntry = true
                 textContentType   = .newPassword
         }

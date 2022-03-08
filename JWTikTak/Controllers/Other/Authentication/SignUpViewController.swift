@@ -29,7 +29,7 @@ class SignUpViewController: UIViewController {
     
     private let usernameField = AuthField(type: .username)
     private let emailField    = AuthField(type: .email)
-    private let passwordField = AuthField(type: .password)
+    private let passwordField = AuthField(type: .newPassword)
     
     private let signUpButton = AuthButton(type: .signUp, title: nil)
     private let termsOfServiceButton = AuthButton(type: .plain, title: "Terms of Service")
@@ -82,7 +82,7 @@ class SignUpViewController: UIViewController {
         }
         
         passwordField.snp.makeConstraints { make in
-            make.top.equalTo(usernameField.snp.bottom).offset(interViewSpace)
+            make.top.equalTo(emailField.snp.bottom).offset(interViewSpace)
             make.width.height.centerX.equalTo(emailField)
         }
         

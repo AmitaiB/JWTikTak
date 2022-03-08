@@ -132,6 +132,7 @@
 		11D5BCE527CFB14A008CDA2D /* AuthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthField.swift; sourceTree = "<group>"; };
 		11D5BCE727CFB174008CDA2D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		11D5BCEC27D06634008CDA2D /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
+		11E28C6027D714D3008CF3BA /* JWTikTak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JWTikTak.entitlements; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +183,7 @@
 		11A73E5327B31C3400BD8A2E /* JWTikTak */ = {
 			isa = PBXGroup;
 			children = (
+				11E28C6027D714D3008CF3BA /* JWTikTak.entitlements */,
 				11A73E6D27B59BB800BD8A2E /* Managers */,
 				11A73E6C27B59BA000BD8A2E /* ViewModels */,
 				11A73E6B27B59B9A00BD8A2E /* Models */,
@@ -724,6 +726,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JWTikTak/JWTikTak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -755,6 +758,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JWTikTak/JWTikTak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8VC65F749H;
