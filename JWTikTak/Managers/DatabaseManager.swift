@@ -27,9 +27,22 @@ final class DatabaseManager {
         username: String,
         completion: @escaping DatabaseRefResultCompletion
     ) {
-        // create users key?
-        // insert new entry?
-        // create root users?
+        let newUser = User(username: username,
+                           profilePictureURL: nil,
+                           identifier: UUID().uuidString,
+                           email: email)
+        let newUserData = try! FirebaseEncoder().encode(newUser)
+        let newChildNodePath = L10n.Fir.users + "/" + username
+        
+        database.child(newChildNodePath)
+            .setValue(newUserData) { error, dbRef in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                } else {
+                    completion(.success(dbRef))
+                }
+            }
     }
     
     public func getAllUsers(completion: ([String]) -> Void) {

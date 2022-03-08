@@ -167,13 +167,13 @@ class SignUpViewController: UIViewController {
         )
         
         let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(
-            timeoutValue: 0.4,
-            timeoutAction: { self.dismiss(animated: true, completion: nil)}
+            timeoutAction: { [weak self] in
+                self?.dismiss(animated: true, completion: nil) }
         )
         
         // dismiss sign in vc
         SCLAlertView(appearance: appearance)
-            .showSuccess("",
+            .showSuccess("Success!",
                          timeout: dismissOnTimeout,
                          animationStyle: .noAnimation)
     }

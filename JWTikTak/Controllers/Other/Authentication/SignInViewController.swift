@@ -29,16 +29,16 @@ class SignInViewController: UIViewController {
     private let emailField    = AuthField(type: .email)
     private let passwordField = AuthField(type: .password)
     
-    private let forgotPasswordButton = AuthButton(type: .plain, title: "Forgot Password?")
-    private let signInButton = AuthButton(type: .signIn, title: nil)
-    private let signUpButton = AuthButton(type: .plain, title: "New user? Create account!")
+    private let forgotPasswordButton   = AuthButton(type: .plain, title: "Forgot Password?")
+    private let signInButton           = AuthButton(type: .signIn, title: nil)
+    private let showSignUpScreenButton = AuthButton(type: .plain, title: "New user? Create account!")
     
     lazy var subviews = [
         emailField,
         passwordField,
         forgotPasswordButton,
         signInButton,
-        signUpButton,
+        showSignUpScreenButton,
     ]
     
     var textFields: [AuthField] { subviews.compactMap{$0 as? AuthField}}
@@ -55,7 +55,7 @@ class SignInViewController: UIViewController {
             emailField,
             passwordField,
             signInButton,
-            signUpButton,
+            showSignUpScreenButton,
             forgotPasswordButton
         ])
         
@@ -96,7 +96,7 @@ class SignInViewController: UIViewController {
             make.width.height.centerX.equalTo(signInButton)
         }
         
-        signUpButton.snp.makeConstraints { make in
+        showSignUpScreenButton.snp.makeConstraints { make in
             make.top.equalTo(forgotPasswordButton.snp.bottom).offset(interViewSpace)
             make.width.height.centerX.equalTo(forgotPasswordButton)
         }
@@ -112,6 +112,7 @@ class SignInViewController: UIViewController {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
     
+    // TODO: Optimize here in parity with SignUpViewController
     private func configureButtons() {
         signInButton.add(event: .touchUpInside) { [weak self] in
             
@@ -124,16 +125,24 @@ class SignInViewController: UIViewController {
             else { return }
 
             AuthManager.shared.signIn(withEmail: email, password: password) {
-                let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, shouldAutoDismiss: true, hideWhenBackgroundViewIsTapped: true)
-                let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(timeoutValue: 0.4, timeoutAction: { [weak self] in
-                    self?.dismiss(animated: true, completion: nil)
-                })
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false,
+                    shouldAutoDismiss: true,
+                    hideWhenBackgroundViewIsTapped: true
+                )
+                let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(
+                    timeoutAction: { [weak self] in
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                )
                 
                 switch $0 {
                     case .success(let email):
                         // dismiss sign in vc
                         SCLAlertView(appearance: appearance)
-                            .showSuccess("User \(email) signed in.", timeout: dismissOnTimeout, animationStyle: .noAnimation)
+                            .showSuccess("User \(email) signed in.",
+                                         timeout: dismissOnTimeout,
+                                         animationStyle: .noAnimation)
                     case .failure(let error):
                         SCLAlertView()
                             .showError("Error", subTitle: error.localizedDescription)
@@ -143,7 +152,7 @@ class SignInViewController: UIViewController {
             }
         }
         
-        signUpButton.add(event: .touchUpInside) { [weak self] in
+        showSignUpScreenButton.add(event: .touchUpInside) { [weak self] in
             let signUpVC = SignUpViewController()
             self?.navigationController?.pushViewController(signUpVC, animated: true)
         }
