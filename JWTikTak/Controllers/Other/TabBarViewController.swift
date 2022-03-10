@@ -19,14 +19,14 @@ class TabBarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !signInHasBeenPresented {
+//        if !signInHasBeenPresented {
             presentSignInIfNeeded()
-        }
+//        }
     }
     
     private func presentSignInIfNeeded() {
         guard !AuthManager.shared.isSignedIn else { return }
-        signInHasBeenPresented = true
+//        signInHasBeenPresented = true
         let signInVC = SignInViewController()
 //        signInVC.viewControllerCompletion = { [weak self] in
 //            // resets
@@ -52,22 +52,33 @@ class TabBarViewController: UITabBarController {
         
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)
-        // The camera VC does not need a navigation controller
+        let cameraNav        = UINavigationController(rootViewController: cameraVC)
         let notificationsNav = UINavigationController(rootViewController: notificationsVC)
         let profileNav       = UINavigationController(rootViewController: profileVC)
         
-        // Allows the Following/ForYou control to 'float'
-        homeNav.navigationBar.backgroundColor = .clear
-        homeNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        homeNav.navigationBar.shadowImage     = UIImage()
+        
+        configureTransparentNavbar(for: homeNav, cameraNav)
         
         homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
         exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
-        cameraVC.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
+        cameraNav.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
         notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.bell), selectedImage: nil)
         profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.personCircle), selectedImage: nil)
         
-        setViewControllers([homeNav, exploreNav, cameraVC, notificationsNav, profileNav], animated: false)
+        setViewControllers([homeNav,
+                            exploreNav,
+                            cameraNav,
+                            notificationsNav,
+                            profileNav],
+                           animated: false)
     }
     
+    // Allows title bar controls (like "following/for you") to 'float'
+    private func configureTransparentNavbar(for navControllers: UINavigationController...) {
+        navControllers.forEach {
+            $0.navigationBar.backgroundColor = .clear
+            $0.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            $0.navigationBar.shadowImage     = UIImage()
+        }
+    }
 }

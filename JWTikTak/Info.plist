@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>If the app cannot use your camera, you may as well delete it, right?</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>If the app cannot use your microphone, I suppose you can do silent films, but do you really want to?</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
