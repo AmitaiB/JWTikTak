@@ -30,6 +30,7 @@ class CameraViewController: UIViewController {
         return view
     }()
     
+    private let recordButton = RecordButton(frame: .zero)
     private lazy var closeButton: UIBarButtonItem = {
         UIBarButtonItem(barButtonSystemItem: .close) { [weak self] in
             self?.captureSession.stopRunning()
@@ -47,7 +48,7 @@ class CameraViewController: UIViewController {
         view.addSubview(cameraView)
         cameraView.snp.makeConstraints( {$0.edges.equalToSuperview()} )
         setupCamera()
-        
+        setupRecordButton()
         navigationItem.leftBarButtonItem = closeButton
     }
     
@@ -92,9 +93,45 @@ class CameraViewController: UIViewController {
             cameraView.layer.addSublayer(previewLayer)
         }
         
-        
         // enable camera start
         captureSession.startRunning()
+    }
+    private func setupRecordButton() {
+        // layout
+        cameraView.addSubview(recordButton)
+        
+        recordButton.snp.makeConstraints { make in
+            make.height.width.equalTo(70)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-70)
+        }
+        
+        // function
+        recordButton.add(event: .touchUpInside) { [unowned self] button in
+            guard let recordButton = button as? RecordButton else { return }
+            
+            if self.captureOutput.isRecording { // then stop
+                captureOutput.stopRecording()
+                recordButton.toggle(for: .isNotRecording)
+            } else { // then start
+                // get url for startRecording
+                recordButton.toggle(for: .isRecording)
+                guard var localUrl = FileManager.default.urls(
+                    for: .documentDirectory,
+                       in:  .userDomainMask
+                ).first
+                else { return }
+                
+                localUrl.appendPathComponent("video.mov")
+                
+                // make sure the url is free
+                try? FileManager.default.removeItem(at: localUrl)
+                
+                captureOutput.startRecording(
+                    to: localUrl,
+                    recordingDelegate: self)
+            }
+        }
     }
 }
 
@@ -104,7 +141,7 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
             print(#function, error.localizedDescription)
             return
         }
-        
+
         print("Finished recording to url: \(outputFileURL.absoluteString)")
     }
 }
