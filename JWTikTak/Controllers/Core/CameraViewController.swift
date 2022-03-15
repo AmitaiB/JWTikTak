@@ -9,6 +9,8 @@ import UIKit
 import AVFoundation
 import SnapKit
 import Actions
+import SCLAlertView
+import JWPlayerKit
 
 class CameraViewController: UIViewController {
     // Capture session
@@ -31,11 +33,25 @@ class CameraViewController: UIViewController {
     }()
     
     private let recordButton = RecordButton(frame: .zero)
+    
+    // After the video is saved locally, let the user preview before uploading/deleting.
+    private var previewLayer: AVPlayerLayer?
+    /// Set in the delegate, this allows for uploading.
+    private var recordedVideoUrl: URL?
+    
+    /// If a video was recorded, this 'cancels' it (resets the camera).
+    /// Else, it exits the tab, and returns to the main tab.
     private lazy var closeButton: UIBarButtonItem = {
         UIBarButtonItem(barButtonSystemItem: .close) { [weak self] in
-            self?.captureSession.stopRunning()
-            self?.tabBarController?.tabBar.isHidden = false
-            self?.tabBarController?.selectedIndex   = 0
+            self?.navigationItem.rightBarButtonItem = nil // resets the "Next" button
+            
+            if let layer = self?.previewLayer {
+                self?.resetCamera()
+            } else {
+                self?.captureSession.stopRunning()
+                self?.tabBarController?.tabBar.isHidden = false
+                self?.tabBarController?.selectedIndex   = 0
+            }
         }
     }()
         
@@ -59,7 +75,7 @@ class CameraViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
-    func setupCamera() {
+    private func setupCamera() {
         // Add devices
         if
             let audioDevice = AVCaptureDevice.default(for: .audio),
@@ -67,7 +83,6 @@ class CameraViewController: UIViewController {
             captureSession.canAddInput(audioInput)
         {
             captureSession.addInput(audioInput)
-            
         }
         
         if
@@ -77,7 +92,6 @@ class CameraViewController: UIViewController {
         {
             captureSession.addInput(videoInput)
         }
-        
         
         // update the session
         captureSession.sessionPreset = .hd1280x720
@@ -96,6 +110,14 @@ class CameraViewController: UIViewController {
         // enable camera start
         captureSession.startRunning()
     }
+    
+    private func resetCamera() {
+        previewLayer?.removeFromSuperlayer()
+        previewLayer = nil
+        recordButton.isHidden = false
+        recordButton.toggle(for: .isNotRecording)
+    }
+    
     private func setupRecordButton() {
         // layout
         cameraView.addSubview(recordButton)
@@ -116,12 +138,8 @@ class CameraViewController: UIViewController {
             } else { // then start
                 // get url for startRecording
                 recordButton.toggle(for: .isRecording)
-                guard var localUrl = FileManager.default.urls(
-                    for: .documentDirectory,
-                       in:  .userDomainMask
-                ).first
-                else { return }
                 
+                guard var localUrl = FileManager.defaultLocalUrl else { return }
                 localUrl.appendPathComponent("video.mov")
                 
                 // make sure the url is free
@@ -135,13 +153,48 @@ class CameraViewController: UIViewController {
     }
 }
 
+
+// MARK: - AVCaptureFileOutputRecordingDelegate
+
 extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
+            SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+            resetCamera()
             print(#function, error.localizedDescription)
             return
         }
 
         print("Finished recording to url: \(outputFileURL.absoluteString)")
+        recordedVideoUrl = outputFileURL
+        startPreviewLayer(with: outputFileURL)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done) {
+            // TODO: Push CaptionController
+            
+        }
+    }
+    
+    func startPreviewLayer(with url: URL) {
+        // setting up preview functionality
+        // JWPlayer would be overkill here.
+        let player   = AVPlayer(url: url)
+        previewLayer = AVPlayerLayer(player: player)
+        
+        guard let previewLayer    = previewLayer else { return }
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.frame        = cameraView.bounds
+        cameraView.layer.addSublayer(previewLayer)
+        
+        recordButton.isHidden = true
+    }
+}
+
+extension FileManager {
+    fileprivate static var defaultLocalUrl: URL? {
+        FileManager.default.urls(
+            for: .documentDirectory,
+               in:  .userDomainMask
+        ).first
     }
 }
