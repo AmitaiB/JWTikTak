@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Error
+  internal static let error = L10n.tr("localizable", "Error")
   /// Explore
   internal static let explore = L10n.tr("localizable", "explore")
   /// Following
@@ -20,8 +22,12 @@ internal enum L10n {
   internal static let home = L10n.tr("localizable", "home")
   /// mp4
   internal static let mp4 = L10n.tr("localizable", "mp4")
+  /// Next
+  internal static let next = L10n.tr("localizable", "Next")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
+  /// Post
+  internal static let post = L10n.tr("localizable", "Post")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
 
@@ -30,6 +36,11 @@ internal enum L10n {
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// users
     internal static let users = L10n.tr("localizable", "FIR.users")
+  }
+
+  internal enum Key {
+    /// loggedInUsername
+    internal static let username = L10n.tr("localizable", "Key.username")
   }
 
   internal enum Mock {
