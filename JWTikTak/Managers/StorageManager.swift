@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseStorage
+import AVFoundation
 
 /// The Firebase storage manager to interface with the Firebase storage bucket (for big files, i.e., videos).
 final class StorageManager {
@@ -14,7 +15,8 @@ final class StorageManager {
     public static let shared = StorageManager()
     private init() {}
     
-    private let database = Storage.storage().reference()
+    private let storageBucket = Storage.storage().reference()
+    
     
     // Public
     
@@ -22,7 +24,27 @@ final class StorageManager {
         
     }
     
-    public func uploadVideoURL(from url: URL) {
+    public func uploadVideoURL(from url: URL, fileName: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
+ 
+        guard let username = AuthManager.shared.currentUsername else {
+            // throw not-signed in-error
+            return
+        }
         
+        storageBucket.child("videos/\(username)/\(fileName)")
+            .putFile(from: url, metadata: nil) { metaData, error in
+                metaData.ifThen { completion(.success($0)) }
+                error   .ifThen { completion(.failure($0)) }
+            }
+    }
+    
+    ///
+    public func generateVideoName() -> String {
+        let uuidString = UUID().uuidString
+        let number = Int.random(in: 0...1000)
+        let unixTimestamp = Date().timeIntervalSince1970
+        
+        // TODO: support detecting/handling of mp4
+        return "\(uuidString)_\(number)_\(unixTimestamp).mov"
     }
 }
