@@ -14,10 +14,13 @@ struct User: Codable {
     
     // test properties
     var email: String? = nil
+    var posts: [String]?
+    
     
     static var mock = User(
         username: "Jonny Appleseed",
         profilePictureURL: nil,
         identifier: UUID().uuidString,
-        email: "jonny@appleseed.com")
+        email: "jonny@appleseed.com"
+    )
 }

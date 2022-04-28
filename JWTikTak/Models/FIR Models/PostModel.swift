@@ -7,12 +7,10 @@
 
 import Foundation
 
-struct PostModel: Equatable {
+struct PostModel: Codable {
     /// A unique identifier
     let identifier: String
-    
-    let user = User.mock
-            
+    var user = User.mock
     var isLikedByCurrentUser = false
     
     // For debugging
@@ -21,7 +19,9 @@ struct PostModel: Equatable {
             PostModel(identifier: UUID().uuidString)
         })
     }
-    
+}
+
+extension PostModel: Equatable {
     static func ==(lhs: PostModel, rhs: PostModel) -> Bool {
         lhs.identifier == rhs.identifier
     }
