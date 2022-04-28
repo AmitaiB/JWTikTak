@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
 		116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
+		116AF902281B18F80096221E /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 116AF901281B18F80096221E /* ProgressHUD */; };
 		116C55AB27F3B46A008498A7 /* Reusable in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55AA27F3B46A008498A7 /* Reusable */; };
 		116C55AE27F3B4B2008498A7 /* CodableFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55AD27F3B4B2008498A7 /* CodableFirebase */; };
 		116C55B127F3B4D0008498A7 /* RandomColor in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55B027F3B4D0008498A7 /* RandomColor */; };
@@ -142,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				116C55AE27F3B4B2008498A7 /* CodableFirebase in Frameworks */,
+				116AF902281B18F80096221E /* ProgressHUD in Frameworks */,
 				C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */,
 				116C55AB27F3B46A008498A7 /* Reusable in Frameworks */,
 				116C55BA27F3B52D008498A7 /* SCLAlertView in Frameworks */,
@@ -408,6 +410,7 @@
 				116C55B327F3B4EF008498A7 /* SnapKit */,
 				116C55B627F3B504008498A7 /* IQKeyboardManagerSwift */,
 				116C55B927F3B52D008498A7 /* SCLAlertView */,
+				116AF901281B18F80096221E /* ProgressHUD */,
 			);
 			productName = JWTikTak;
 			productReference = 11A73E5127B31C3300BD8A2E /* JWTikTak.app */;
@@ -444,6 +447,7 @@
 				116C55B227F3B4EF008498A7 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				116C55B527F3B504008498A7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				116C55B827F3B52D008498A7 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
+				116AF900281B18F80096221E /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 11A73E5227B31C3300BD8A2E /* Products */;
 			projectDirPath = "";
@@ -510,7 +514,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "# If you installed firebase using cocoa pods use:\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n# If you installed firebase using Swift Package Manager use:\n# \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		C6AAF42873CC154C24E11633 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -805,6 +809,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		116AF900281B18F80096221E /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 		116C55A927F3B46A008498A7 /* XCRemoteSwiftPackageReference "Reusable" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/Reusable";
@@ -856,6 +868,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		116AF901281B18F80096221E /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 116AF900281B18F80096221E /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
 		116C55AA27F3B46A008498A7 /* Reusable */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 116C55A927F3B46A008498A7 /* XCRemoteSwiftPackageReference "Reusable" */;

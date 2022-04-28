@@ -7,6 +7,7 @@
 
 import UIKit
 import SCLAlertView
+import ProgressHUD
 
 class CaptionViewController: UIViewController {
     let videoURL: URL
@@ -37,8 +38,11 @@ class CaptionViewController: UIViewController {
         // Generate a unique video name based on id
         let newVideoName = StorageManager.shared.generateVideoName()
         
+        ProgressHUD.show(L10n.postingMessage)
+        
         // upload video
         StorageManager.shared.uploadVideoURL(from: videoURL, fileName: newVideoName) {
+            ProgressHUD.dismiss()
             switch $0 {
                 case .success(_):
                     // update db
@@ -58,6 +62,7 @@ class CaptionViewController: UIViewController {
     
     private func handlePostInsertionSuccess() {
         // reset camera, and switch to feed
+        HapticsManager.shared.vibrate(for: .success)
         navigationController?.popToRootViewController(animated: true)
         tabBarController?.selectedIndex = 0
         tabBarController?.tabBar.isHidden = false
@@ -65,6 +70,7 @@ class CaptionViewController: UIViewController {
     }
     
     private func handleOpError(_ error: Error) {
+        HapticsManager.shared.vibrate(for: .error)
         // alert
         SCLAlertView().showError(L10n.error, subTitle: error.localizedDescription)
     }

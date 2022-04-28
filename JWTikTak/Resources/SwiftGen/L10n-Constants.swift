@@ -30,6 +30,8 @@ internal enum L10n {
   internal static let notifications = L10n.tr("localizable", "notifications")
   /// Post
   internal static let post = L10n.tr("localizable", "Post")
+  /// Posting
+  internal static let postingMessage = L10n.tr("localizable", "PostingMessage")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
   /// Success

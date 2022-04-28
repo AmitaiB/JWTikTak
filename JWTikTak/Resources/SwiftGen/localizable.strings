@@ -31,6 +31,7 @@
 "Error"   = "Error";
 "Post"    = "Post";
 "Success" = "Success";
+"PostingMessage" = "Posting";
 
 // Keys
 "Key.username" = "loggedInUsername";
