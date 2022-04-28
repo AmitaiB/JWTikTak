@@ -192,7 +192,7 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.frame        = cameraView.bounds
         cameraView.layer.addSublayer(previewLayer)
-        
+        previewLayer.player?.play()
     }
 }
 
