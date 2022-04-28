@@ -72,10 +72,12 @@ class CameraViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // The camera view controller should occupy the entire screen.
         tabBarController?.tabBar.isHidden = true
     }
     
     private func setupCamera() {
+        // TODO: add true error handling/reporting
         // Add devices
         if
             let audioDevice = AVCaptureDevice.default(for: .audio),
@@ -115,9 +117,9 @@ class CameraViewController: UIViewController {
         previewLayer?.removeFromSuperlayer()
         previewLayer = nil
         recordButton.isHidden = false
-        recordButton.toggle(for: .isNotRecording)
+        recordButton.toggleUI(for: .isNotRecording)
     }
-    
+        
     private func setupRecordButton() {
         // layout
         cameraView.addSubview(recordButton)
@@ -132,24 +134,25 @@ class CameraViewController: UIViewController {
         recordButton.add(event: .touchUpInside) { [unowned self] button in
             guard let recordButton = button as? RecordButton else { return }
             
-            if self.captureOutput.isRecording { // then stop
+            // Toggle recording off/on
+            if self.captureOutput.isRecording {
+                recordButton.toggleUI(for: .isNotRecording)
                 captureOutput.stopRecording()
-                recordButton.toggle(for: .isNotRecording)
-            } else { // then start
-                // get url for startRecording
-                recordButton.toggle(for: .isRecording)
-                
-                guard var localUrl = FileManager.defaultLocalUrl else { return }
-                localUrl.appendPathComponent("video.mov")
-                
-                // make sure the url is free
-                try? FileManager.default.removeItem(at: localUrl)
-                
-                captureOutput.startRecording(
-                    to: localUrl,
-                    recordingDelegate: self)
+            } else {
+                recordButton.toggleUI(for: .isRecording)
+                self.safelyStartRecording()
             }
         }
+    }
+        
+    private func safelyStartRecording() {
+        guard var localUrl = FileManager.defaultLocalUrl else { return }
+        localUrl.appendPathComponent(L10n.defaultVideoFilename)
+        
+        do     { try FileManager.default.removeItem(at: localUrl) }
+        catch  { print(error.localizedDescription) }
+        
+        captureOutput.startRecording(to: localUrl, recordingDelegate: self)
     }
 }
 
@@ -158,27 +161,31 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        if let error = error {
-            SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+        guard error == nil else {
+            SCLAlertView().showError(L10n.error, subTitle: error!.localizedDescription)
             resetCamera()
-            print(#function, error.localizedDescription)
+            print(#function, error!.localizedDescription)
             return
         }
 
+        // happy path
         print("Finished recording to url: \(outputFileURL.absoluteString)")
         recordedVideoUrl = outputFileURL
         startPreviewLayer(with: outputFileURL)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done) {
-            // TODO: Push CaptionController
-            
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.next, style: .done) { [weak self] in
+            guard let localVideoURL = self?.recordedVideoUrl else { return }
+            let captionVC = CaptionViewController(videoURL: localVideoURL)
+            self?.navigationController?.pushViewController(captionVC, animated: true)
         }
     }
     
-    func startPreviewLayer(with url: URL) {
+    func startPreviewLayer(with outputFileURL: URL) {
         // setting up preview functionality
-        // JWPlayer would be overkill here.
-        let player   = AVPlayer(url: url)
+        recordButton.isHidden = true
+
+        // JWPlayerView would be overkill here.
+        let player   = AVPlayer(url: outputFileURL)
         previewLayer = AVPlayerLayer(player: player)
         
         guard let previewLayer    = previewLayer else { return }
@@ -186,15 +193,11 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
         previewLayer.frame        = cameraView.bounds
         cameraView.layer.addSublayer(previewLayer)
         
-        recordButton.isHidden = true
     }
 }
 
 extension FileManager {
     fileprivate static var defaultLocalUrl: URL? {
-        FileManager.default.urls(
-            for: .documentDirectory,
-               in:  .userDomainMask
-        ).first
+        FileManager.default.urls(for: .documentDirectory, in:  .userDomainMask).first
     }
 }

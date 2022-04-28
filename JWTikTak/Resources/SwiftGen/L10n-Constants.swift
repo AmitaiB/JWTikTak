@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// video.mov
+  internal static let defaultVideoFilename = L10n.tr("localizable", "defaultVideoFilename")
   /// Error
   internal static let error = L10n.tr("localizable", "Error")
   /// Explore
@@ -30,8 +32,12 @@ internal enum L10n {
   internal static let post = L10n.tr("localizable", "Post")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
+  /// Success
+  internal static let success = L10n.tr("localizable", "Success")
 
   internal enum Fir {
+    /// Firebase Array Placeholder
+    internal static let arrayPlaceholder = L10n.tr("localizable", "FIR.arrayPlaceholder")
     /// email
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// users

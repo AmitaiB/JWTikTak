@@ -19,15 +19,18 @@
 // Files
 "Mock.testVideo" = "mixkit-woman-running-vangelis-tiktok-format";
 "mp4"            = "mp4";
+"defaultVideoFilename" = "video.mov";
 
 // Firebase
 "FIR.users" = "users";
 "FIR.email" = "email";
+"FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 
 // Alerts and buttons
-"Next"  = "Next";
-"Error" = "Error";
-"Post"  = "Post";
+"Next"    = "Next";
+"Error"   = "Error";
+"Post"    = "Post";
+"Success" = "Success";
 
 // Keys
 "Key.username" = "loggedInUsername";

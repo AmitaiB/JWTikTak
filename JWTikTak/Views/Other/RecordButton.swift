@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+/// A UIButton subclass with some UI presets, and has a recording/notRecording state.
 class RecordButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +32,7 @@ class RecordButton: UIButton {
         case isNotRecording
     }
     
-    public func toggle(for state: State) {
+    public func toggleUI(for state: State) {
         backgroundColor = state == .isRecording ? .systemRed : nil
     }
 }
