@@ -51,13 +51,12 @@ class ExploreViewController: UIViewController {
 //                                                  for: .valueChanged)
     }
     
+//    @MainActor
 //    @objc func handleRefreshControl() {
 //        // Update your content…
 //        
 //        // Dismiss the refresh control.
-//        DispatchQueue.main.async {
 //            self.myScrollingView.refreshControl?.endRefreshing()
-//        }
 //    }
     
     // TODO: MOCK Cells
@@ -228,10 +227,9 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
 extension ExploreViewController: ExploreDataManagerDelegate {
+    @MainActor
     func pushViewController(_ viewController: UIViewController) {
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func didTapHashtag(_ hashtag: String) {
