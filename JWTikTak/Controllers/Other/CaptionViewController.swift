@@ -8,9 +8,20 @@
 import UIKit
 import SCLAlertView
 import ProgressHUD
+import SnapKit
 
 class CaptionViewController: UIViewController {
     let videoURL: URL
+    
+    private let captionTextView: UITextView = {
+        let textView = UITextView()
+        textView.contentInset        = [\.all: 5]
+        textView.placeholder         = "Testing out placeholders!"
+        textView.backgroundColor     = .secondarySystemBackground
+        textView.layer.cornerRadius  = 8
+        textView.layer.masksToBounds = true
+        return textView
+    }()
     
     init(videoURL: URL) {
         self.videoURL = videoURL
@@ -31,31 +42,61 @@ class CaptionViewController: UIViewController {
             style: .done,
             action: { [weak self] in self?.postVideo() }
         )
+        view.addSubview(captionTextView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        captionTextView.snp.makeConstraints { make in
+            make.width.equalToSuperview().offset(-10)
+            make.height.equalTo(150)
+            make.top.left.equalToSuperview().offset(-5)
+        }
+        captionTextView.becomeFirstResponder()
     }
 
+    /*
+     Needs to:
+     1. Upload the actual video to FIR storage
+     2. Update the RTDb:
+      a. Add owner (a post) to the Posts.
+      b. Add a ref to that Post in the owning User.
+     */
     private func postVideo() {
-        // TODO: post video here!
+        captionTextView.resignFirstResponder()
+        
         // Generate a unique video name based on id
-        let newVideoName = StorageManager.shared.generateVideoName()
+        let newVideoIdentifier = StorageManager.shared.generateVideoIdentifier()
         
         ProgressHUD.show(L10n.postingMessage)
         
         // upload video
-        StorageManager.shared.uploadVideoURL(from: videoURL, fileName: newVideoName) {
+        StorageManager.shared.uploadVideoURL(from: videoURL, filename: newVideoIdentifier) {
             ProgressHUD.dismiss()
             switch $0 {
                 case .success(_):
-                    // update db
-                    DatabaseManager.shared.insertPost(filename: newVideoName) { [weak self] result in
-                        switch result {
-                            case .success(_):
-                                self?.handlePostInsertionSuccess()
-                            case .failure(let error):
-                                self?.handleOpError(error)
-                        }
-                    }
+                    self.handlePostUploadToStorageSuccess(withFilename: newVideoIdentifier)
                 case .failure(let error):
                     self.handleOpError(error)
+            }
+        }
+    }
+    
+    private func handlePostUploadToStorageSuccess(withFilename filename: String) {
+        let caption = captionTextView.text ?? ""
+        
+        guard let username = DatabaseManager.shared.currentUser?.username else {
+            print(DatabaseManager.DatabaseError.cachedUsernameNil)
+            return
+        }
+        
+        let newPost = PostModel(username: username, filename: filename, caption: caption)
+        DatabaseManager.shared.insert(newPost: newPost) { [weak self] result in
+            switch result {
+                case .success(_):
+                    self?.handlePostInsertionSuccess()
+                case .failure(let error):
+                    self?.handleOpError(error)
             }
         }
     }
