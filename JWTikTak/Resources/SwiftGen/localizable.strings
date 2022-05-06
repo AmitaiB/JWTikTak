@@ -24,6 +24,7 @@
 // Firebase
 "FIR.users" = "users";
 "FIR.email" = "email";
+"FIR.posts" = "posts";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 
 // Alerts and buttons

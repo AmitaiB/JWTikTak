@@ -9,17 +9,17 @@ import Foundation
 
 struct User: Codable {
     let username: String
-    let profilePictureURL: URL?
+    var profilePictureURL: URL? = nil
     let identifier: String
     
     // test properties
     var email: String? = nil
-    var posts: [String]?
+    var ownedPosts: [String]?
+//    var likedPosts: [String]?
     
     
     static var mock = User(
         username: "Jonny Appleseed",
-        profilePictureURL: nil,
         identifier: UUID().uuidString,
         email: "jonny@appleseed.com"
     )

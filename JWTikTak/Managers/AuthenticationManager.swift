@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 
+// NOTE: DbManager and AuthManager are tightly coupled!
 typealias AuthDataResultCompletion  = ((Result<AuthDataResult, Error>) -> Void)
 typealias AuthEmailResultCompletion = ((Result<String, Error>) -> Void)
 
@@ -71,6 +72,7 @@ final class AuthManager {
         }
     }
     
+    // Called by the user tapping "Sign Up"
     public func signUp(
         withUsername username: String,
         email: String,
@@ -84,7 +86,6 @@ final class AuthManager {
                                     error: error,
                                     completion: completion)
         }
-        
     }
     
     
@@ -101,7 +102,7 @@ final class AuthManager {
     }
     
     private func handleUserCreation(
-        forUsername username: String,
+        forUsername newUsername: String,
         email: String,
         withResult result: AuthDataResult?,
         error: Error?,

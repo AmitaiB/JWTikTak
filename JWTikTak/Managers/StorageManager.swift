@@ -24,14 +24,14 @@ final class StorageManager {
         
     }
     
-    public func uploadVideoURL(from url: URL, fileName: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
+    public func uploadVideoURL(from url: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
  
         guard let username = AuthManager.shared.currentUsername else {
             // throw not-signed in-error
             return
         }
         
-        storageBucket.child("videos/\(username)/\(fileName)")
+        storageBucket.child("videos/\(username)/\(filename)")
             .putFile(from: url, metadata: nil) { metaData, error in
                 metaData.ifThen { completion(.success($0)) }
                 error   .ifThen { completion(.failure($0)) }
@@ -39,7 +39,7 @@ final class StorageManager {
     }
     
     ///
-    public func generateVideoName() -> String {
+    public func generateVideoIdentifier() -> String {
         let uuidString = UUID().uuidString
         let number = Int.random(in: 0...1000)
         let unixTimestamp = Date().timeIntervalSince1970

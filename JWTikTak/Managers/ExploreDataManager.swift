@@ -35,16 +35,17 @@ final class ExploreDataManager {
                             mockVC.view.backgroundColor = .systemRed
                             mockVC.title = action.rawValue.uppercased()
                             self?.delegate?.pushViewController(mockVC)
+                            
                             switch action {
                                 case .user:
+                                    // TODO: present user profile
                                     break
-                                    // present user profile
                                 case .post:
+                                    // TODO: present post
                                     break
-                                    // present post
                                 case .hashtag:
+                                    // TODO: search for hashtag
                                     break
-                                    // search for hashtag
                             }
                         }
                 }

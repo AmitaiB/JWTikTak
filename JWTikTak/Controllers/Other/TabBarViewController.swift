@@ -22,6 +22,7 @@ class TabBarViewController: UITabBarController {
         presentSignInIfNeeded()
     }
     
+    // TODO: Expose this to the AuthenticationManager via a delegate method.
     private func presentSignInIfNeeded() {
         guard !AuthManager.shared.isSignedIn else { return }
         let signInNavVC = UINavigationController(rootViewController: SignInViewController())
@@ -49,6 +50,7 @@ class TabBarViewController: UITabBarController {
         
         
         configureTransparentNavbar(for: homeNav, cameraNav)
+        cameraNav.navigationBar.tintColor = .white
         
         homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
         exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
