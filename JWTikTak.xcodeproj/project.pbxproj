@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */; };
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
 		116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
 		116AF902281B18F80096221E /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 116AF901281B18F80096221E /* ProgressHUD */; };
+		116AF906281B3F380096221E /* UITextView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF905281B3F380096221E /* UITextView+Placeholder.swift */; };
 		116C55AB27F3B46A008498A7 /* Reusable in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55AA27F3B46A008498A7 /* Reusable */; };
 		116C55AE27F3B4B2008498A7 /* CodableFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55AD27F3B4B2008498A7 /* CodableFirebase */; };
 		116C55B127F3B4D0008498A7 /* RandomColor in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55B027F3B4D0008498A7 /* RandomColor */; };
@@ -67,6 +69,7 @@
 		11D5BCE627CFB14A008CDA2D /* AuthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCE527CFB14A008CDA2D /* AuthField.swift */; };
 		11D5BCE827CFB174008CDA2D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCE727CFB174008CDA2D /* AuthButton.swift */; };
 		11D5BCED27D06634008CDA2D /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D5BCEC27D06634008CDA2D /* OptionalExtensions.swift */; };
+		11E105E328202F5B006D0061 /* Firebase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E105E228202F5B006D0061 /* Firebase+Extensions.swift */; };
 		11E28C6227D7CE9A008CF3BA /* SCLAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E28C6127D7CE99008CF3BA /* SCLAlert+Extensions.swift */; };
 		11E28C8427D9A5AA008CF3BA /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E28C8327D9A5AA008CF3BA /* RecordButton.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
@@ -75,6 +78,8 @@
 /* Begin PBXFileReference section */
 		0C841D7455384F33FCEE2A7B /* Pods-JWTikTak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.release.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.release.xcconfig"; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
+		116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformKeypathInitializable.swift; sourceTree = "<group>"; };
+		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A73E5427B31C3400BD8A2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +135,7 @@
 		11D5BCE527CFB14A008CDA2D /* AuthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthField.swift; sourceTree = "<group>"; };
 		11D5BCE727CFB174008CDA2D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		11D5BCEC27D06634008CDA2D /* OptionalExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
+		11E105E228202F5B006D0061 /* Firebase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firebase+Extensions.swift"; sourceTree = "<group>"; };
 		11E28C6027D714D3008CF3BA /* JWTikTak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JWTikTak.entitlements; sourceTree = "<group>"; };
 		11E28C6127D7CE99008CF3BA /* SCLAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCLAlert+Extensions.swift"; sourceTree = "<group>"; };
 		11E28C8327D9A5AA008CF3BA /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
@@ -326,6 +332,9 @@
 				11D1EC7827BF574500A7766D /* Foundation+Extensions.swift */,
 				11D5BC8927C3D5BE008CDA2D /* JWPlayer+Extensions.swift */,
 				11E28C6127D7CE99008CF3BA /* SCLAlert+Extensions.swift */,
+				116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */,
+				116AF905281B3F380096221E /* UITextView+Placeholder.swift */,
+				11E105E228202F5B006D0061 /* Firebase+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,10 +560,12 @@
 				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
 				11D5BCAB27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift in Sources */,
 				11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */,
+				116AF906281B3F380096221E /* UITextView+Placeholder.swift in Sources */,
 				11D5BCAD27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift in Sources */,
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11D5BCED27D06634008CDA2D /* OptionalExtensions.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
+				11E105E328202F5B006D0061 /* Firebase+Extensions.swift in Sources */,
 				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
 				11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */,
 				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
@@ -571,6 +582,7 @@
 				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
+				11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */,
 				11D5BC8827C3D22D008CDA2D /* Secure.swift in Sources */,
 				114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */,
 				11D5BC9927C40E9B008CDA2D /* ExploreCell.swift in Sources */,
