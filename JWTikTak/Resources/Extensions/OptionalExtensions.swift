@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - Notification Syntactic Sugar Helpers
+
 extension Optional {
     /// If the optional `isSome`, **then** call the closure on its unwrapped value.
     /// Useful shorthand for conditional value assignment.
@@ -16,7 +17,21 @@ extension Optional {
         if let wrapped = self { funcIfSome(wrapped) }
     }
     
-    var isSome: Bool { return self != nil }
-    var isNone: Bool { return !isSome }
+    var isSome: Bool { self != nil }
+    var isNone: Bool { !isSome }
+}
+
+// MARK: Arrays
+extension Optional {
+    
+    /// `self = (self ?? []) + [element]`
+    mutating func coalescingAppend<E>(_ element: Wrapped.Element) where Wrapped == [E] {
+        self = (self ?? []) + [element]
+    }
+    
+    /// `self = (self ?? []) + [newElements]`
+    mutating func coalescingAppend<S>(contentsOf newElements: S) where S: Sequence, Wrapped == [S.Element] {
+        self = (self ?? []) + newElements
+    }
 }
 

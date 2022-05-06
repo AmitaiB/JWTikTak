@@ -26,7 +26,7 @@ final class StorageManager {
     
     public func uploadVideoURL(from url: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
  
-        guard let username = AuthManager.shared.currentUsername else {
+        guard let username = DatabaseManager.shared.currentUser?.username else {
             // throw not-signed in-error
             return
         }

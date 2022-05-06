@@ -12,7 +12,7 @@ import FirebaseAuth
 typealias AuthDataResultCompletion  = ((Result<AuthDataResult, Error>) -> Void)
 typealias AuthEmailResultCompletion = ((Result<String, Error>) -> Void)
 
-/// Encapsulates authentication logic.
+/// Encapsulates authentication logic. Handles `FIRUser`, does not own `User` (and therefore, not `username`.
 final class AuthManager {
     // Singleton
     public static let shared = AuthManager()
@@ -33,7 +33,6 @@ final class AuthManager {
     
     // Public
     public var isSignedIn: Bool { Auth.auth().currentUser != nil }
-    public var currentUsername: String? { _currentUsername }
     
     /// Signs in using an email address and password.
     public func signIn(withEmail email: String,
@@ -63,7 +62,7 @@ final class AuthManager {
     public func signOut(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
-            _currentUsername = nil
+            DatabaseManager.shared.updateCachedUserWith(username: .none)
             completion(true)
         }
         catch {
@@ -94,7 +93,7 @@ final class AuthManager {
     private let handleUsernameFetch: (Result<String, Error>) -> Void = {
         switch $0 {
             case .success(let username):
-                _currentUsername = username
+                DatabaseManager.shared.updateCachedUserWith(username: username)
                 print("Got username: \(username)")
             case .failure(let error):
                 print(error.localizedDescription)
@@ -120,38 +119,34 @@ final class AuthManager {
 
                 // Happy path, if successful (user creation + sign in) -> register user in db
                 // and save the username locally
-            case (.some, .none):
-                self.handleSuccessfulUserCreationAttempt(
-                    email: email,
-                    username: username,
+            case (.some(let result), .none):
+                self.handleSuccessfulUserCreation(
+                    ofNewUser: result.user,
+                    withUsername: newUsername,
                     completion: completion
                 )
         }
     }
     
-    private func handleSuccessfulUserCreationAttempt(email: String,
-                                 username: String,
-                                 completion: @escaping AuthEmailResultCompletion) {
-        database?.insertUser(
-            withEmail: email,
-            username: username,
-            completion: { dbResult in
-                switch dbResult {
-                    case .success(_):
-                        // discard the dbRef, report success if no Auth or Firebase errors
-                        completion(.success(email))
-                        // and save the username locally
-                        _currentUsername = username
-                    case .failure(let dbEerror):
-                        completion(.failure(dbEerror))
-                }
+    /// The new `user` in the FIRAuth Db now needs to be stored in Realtime Db for business logic use.
+    /// - Parameters:
+    ///   - authId: The `FIRUserInfo.uid` string assigned by the FIRAuth server on User creation.
+    private func handleSuccessfulUserCreation(ofNewUser user: FIRUser,
+                                              withUsername newUsername: String,
+                                              completion: @escaping AuthEmailResultCompletion) {
+        database?.insert(newUser: user,
+                         withUsername: newUsername,
+                         completion: { dbResult in
+            switch dbResult {
+                case .success(_):
+                    // discard the dbRef, report success if no Auth or Firebase errors
+                    completion(.success(user.email ?? "??@??.??"))
+                    // and save the username locally
+                    DatabaseManager.shared.updateCachedUserWith(username: newUsername)
+                case .failure(let dbEerror):
+                    completion(.failure(dbEerror))
             }
+        }
         )
     }
-}
-
-// Workaround to allow for cleaner code blocks in this file.
-fileprivate var _currentUsername: String? {
-    set { UserDefaults.standard.set(newValue, forKey: L10n.Key.username) }
-    get { UserDefaults.standard.string(forKey: L10n.Key.username) }
 }
