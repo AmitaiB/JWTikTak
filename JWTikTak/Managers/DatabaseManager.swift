@@ -143,8 +143,8 @@ final class DatabaseManager {
     
     
     // MARK: - Notifications
-    public func getNotifications(completion: @escaping (Result<[MyNotification], Error>) -> Void) {
-        completion(.success([]))
+    public func getNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
+        completion(.success(Notification.mockData()))
     }
 }
 
@@ -161,7 +161,3 @@ fileprivate func dbSetValueCompletion(withItsOwn completion: @escaping DatabaseR
         }
     }
 }
-
-
-#warning("delete this!")
-class MyNotification {}

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */; };
+		1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD402829C9A8003AA9DD /* Notifications.swift */; };
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
 		116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
 		116AF902281B18F80096221E /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 116AF901281B18F80096221E /* ProgressHUD */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		0C841D7455384F33FCEE2A7B /* Pods-JWTikTak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.release.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.release.xcconfig"; sourceTree = "<group>"; };
+		1118FD402829C9A8003AA9DD /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformKeypathInitializable.swift; sourceTree = "<group>"; };
 		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
@@ -162,6 +164,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1118FD422829CB7F003AA9DD /* Notification Models */ = {
+			isa = PBXGroup;
+			children = (
+				1118FD402829C9A8003AA9DD /* Notifications.swift */,
+			);
+			path = "Notification Models";
+			sourceTree = "<group>";
+		};
 		1188703A27EB70470012CBB6 /* FIR Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +254,7 @@
 			children = (
 				11D5BC9727C40E79008CDA2D /* Explore Models */,
 				1188703A27EB70470012CBB6 /* FIR Models */,
+				1118FD422829CB7F003AA9DD /* Notification Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -592,6 +603,7 @@
 				11D5BCB627C53125008CDA2D /* ExploreDataManager.swift in Sources */,
 				11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */,
 				11D1EC7227BF2BEA00A7766D /* User.swift in Sources */,
+				1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */,
 				11D5BCE627CFB14A008CDA2D /* AuthField.swift in Sources */,
 				116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */,
 				11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */,

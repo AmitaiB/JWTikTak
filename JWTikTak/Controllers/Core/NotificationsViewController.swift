@@ -10,7 +10,7 @@ import SnapKit
 import ProgressHUD
 
 class NotificationsViewController: UIViewController {
-    var notifications = [MyNotification]()
+    var notifications = [Notification]()
     
     
     private let noNotificationsLabel: UILabel = {
@@ -82,11 +82,18 @@ extension NotificationsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = notifications[indexPath.row]
+        
+        switch model.type {
+            case .postLike: break
+            case .userFollow: break
+            case .postComment: break
+        }
         // placeholder cells
         let cell = UITableViewCell()
         
         var content = cell.defaultContentConfiguration()
-        content.text = "Hello world"
+        content.text = model.text
         
         cell.contentConfiguration = content
         
