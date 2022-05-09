@@ -140,6 +140,12 @@ final class DatabaseManager {
     public func getAllUsers(completion: ([String]) -> Void) {
         
     }
+    
+    
+    // MARK: - Notifications
+    public func getNotifications(completion: @escaping (Result<[MyNotification], Error>) -> Void) {
+        completion(.success([]))
+    }
 }
 
 /// A "D.R.Y." readability refactoring.
@@ -155,3 +161,7 @@ fileprivate func dbSetValueCompletion(withItsOwn completion: @escaping DatabaseR
         }
     }
 }
+
+
+#warning("delete this!")
+class MyNotification {}
