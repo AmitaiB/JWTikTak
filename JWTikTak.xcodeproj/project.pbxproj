@@ -165,11 +165,24 @@
 
 /* Begin PBXGroup section */
 		1118FD422829CB7F003AA9DD /* Notification Models */ = {
+		1118FD492829D03F003AA9DD /* Explore cells */ = {
 			isa = PBXGroup;
 			children = (
-				1118FD402829C9A8003AA9DD /* Notifications.swift */,
+				11D5BCA627C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift */,
+				11D5BCAA27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift */,
+				11D5BCAC27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift */,
+				11D5BCA827C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift */,
 			);
-			path = "Notification Models";
+			path = "Explore cells";
+			sourceTree = "<group>";
+		};
+		1118FD4A2829D059003AA9DD /* Auth controls */ = {
+			isa = PBXGroup;
+			children = (
+				11D5BCE727CFB174008CDA2D /* AuthButton.swift */,
+				11D5BCE527CFB14A008CDA2D /* AuthField.swift */,
+			);
+			path = "Auth controls";
 			sourceTree = "<group>";
 		};
 		1188703A27EB70470012CBB6 /* FIR Models */ = {
@@ -254,7 +267,7 @@
 			children = (
 				11D5BC9727C40E79008CDA2D /* Explore Models */,
 				1188703A27EB70470012CBB6 /* FIR Models */,
-				1118FD422829CB7F003AA9DD /* Notification Models */,
+				1118FD402829C9A8003AA9DD /* Notifications.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -322,13 +335,10 @@
 		11A73E8327B59D4E00BD8A2E /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				11D5BCE727CFB174008CDA2D /* AuthButton.swift */,
-				11D5BCE527CFB14A008CDA2D /* AuthField.swift */,
+				1118FD4A2829D059003AA9DD /* Auth controls */,
 				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
-				11D5BCA627C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift */,
-				11D5BCAA27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift */,
-				11D5BCAC27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift */,
-				11D5BCA827C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift */,
+				1118FD492829D03F003AA9DD /* Explore cells */,
+				1118FD422829CB7F003AA9DD /* Notification cells */,
 				11E28C8327D9A5AA008CF3BA /* RecordButton.swift */,
 			);
 			path = Other;
