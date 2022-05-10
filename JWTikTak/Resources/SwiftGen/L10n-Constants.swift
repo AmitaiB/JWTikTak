@@ -16,6 +16,8 @@ internal enum L10n {
   internal static let error = L10n.tr("localizable", "Error")
   /// Explore
   internal static let explore = L10n.tr("localizable", "explore")
+  /// Follow
+  internal static let follow = L10n.tr("localizable", "Follow")
   /// Following
   internal static let following = L10n.tr("localizable", "following")
   /// For You

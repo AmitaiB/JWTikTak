@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import ProgressHUD
+import Reusable
 
 class NotificationsViewController: UIViewController {
     var notifications = [Notification]()
@@ -37,6 +38,9 @@ class NotificationsViewController: UIViewController {
 
         tableView.delegate   = self
         tableView.dataSource = self
+        tableView.register(cellType: NotificationsUserFollowTableViewCell.self)
+        tableView.register(cellType: NotificationsPostLikeTableViewCell.self)
+        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
         
         fetchNotifications()
     }
@@ -85,19 +89,19 @@ extension NotificationsViewController: UITableViewDataSource {
         let model = notifications[indexPath.row]
         
         switch model.type {
-            case .postLike: break
-            case .userFollow: break
-            case .postComment: break
+            case .postLike(let postName):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostLikeTableViewCell.self)
+                cell.configure(with: postName, model: model)
+                return cell
+            case .userFollow(let username):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsUserFollowTableViewCell.self)
+                cell.configure(with: username, model: model)
+                return cell
+            case .postComment(let postName):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostCommentTableViewCell.self)
+                cell.configure(with: postName, model: model)
+                return cell
         }
-        // placeholder cells
-        let cell = UITableViewCell()
-        
-        var content = cell.defaultContentConfiguration()
-        content.text = model.text
-        
-        cell.contentConfiguration = content
-        
-        return cell
     }
 }
 

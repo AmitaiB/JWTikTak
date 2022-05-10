@@ -32,6 +32,7 @@
 "Error"   = "Error";
 "Post"    = "Post";
 "Success" = "Success";
+"Follow"  = "Follow";
 "PostingMessage" = "Posting";
 
 // Keys
