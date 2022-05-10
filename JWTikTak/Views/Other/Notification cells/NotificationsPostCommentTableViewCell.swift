@@ -34,6 +34,7 @@ class NotificationsPostCommentTableViewCell: UITableViewCell, Reusable {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
         contentView.addSubviews([postThumbnailImageView, label, dateLabel])
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,24 @@ class NotificationsPostCommentTableViewCell: UITableViewCell, Reusable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        let iconSize = 50
+        postThumbnailImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(iconSize)
+            make.left.top.equalToSuperview().offset(10)
+        }
+        
+        label.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalTo(postThumbnailImageView.snp.right).offset(10)
+            make.right.equalToSuperview()
+            make.bottom.equalTo(label.superview!.snp.centerY)
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(label)
+            make.bottom.equalToSuperview().offset(-10)
+            make.top.equalTo(dateLabel.superview!.snp.centerY).offset(2)
+        }
     }
     
     override func prepareForReuse() {
@@ -52,6 +71,8 @@ class NotificationsPostCommentTableViewCell: UITableViewCell, Reusable {
     }
     
     func configure(with postFilename: String, model: Notification) {
-        
+        postThumbnailImageView.image = Asset.test.image
+        label.text = model.text
+        dateLabel.text = .date(with: model.date)
     }
 }

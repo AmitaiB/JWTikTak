@@ -27,10 +27,24 @@ struct Notification {
     let date: Date
     
     static func mockData() -> [Notification] {
-        return Array(0...100).compactMap {
-            Notification(text: "Note text: \($0)",
-                         type: .userFollow(username: "charlidamelio"),
+        let postLikes = Array(0...5).compactMap {
+            Notification(text: "I like this!: \($0)",
+                         type: .postLike(postName: "best post eva"),
                          date: Date())
         }
+        
+        let postComments = Array(0...5).compactMap {
+            Notification(text: "Comment: \($0)",
+                         type: .postComment(postName: "best comment eva"),
+                         date: Date())
+        }
+        
+        let userFollows = Array(0...5).compactMap {
+            Notification(text: "Follow me: \($0)",
+                         type: .userFollow(username: "Donkey Kong"),
+                         date: Date())
+        }
+        
+        return (postLikes + postComments + userFollows).shuffled()
     }
 }
