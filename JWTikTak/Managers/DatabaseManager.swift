@@ -146,6 +146,10 @@ final class DatabaseManager {
     public func getNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
         completion(.success(Notification.mockData()))
     }
+    
+    public func markNotificationAsHidden(withId id: String, completion: @escaping (Bool) -> Void) {
+        completion(true)
+    }
 }
 
 /// A "D.R.Y." readability refactoring.

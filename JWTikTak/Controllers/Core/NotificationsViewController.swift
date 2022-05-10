@@ -112,5 +112,30 @@ extension NotificationsViewController: UITableViewDataSource {
 }
 
 extension NotificationsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        
+        let model = notifications[indexPath.row]
+       
+        DatabaseManager.shared.markNotificationAsHidden(withId: model.id) { [weak self] success in
+            guard success else {return}
+            DispatchQueue.main.async {
+                model.isHidden = true
+                self?.removeHiddenNotificationsFromDataSource()
+                self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
+    
+    private func removeHiddenNotificationsFromDataSource() {
+        notifications = notifications.filter({ $0.isHidden == false })
+    }
 }
