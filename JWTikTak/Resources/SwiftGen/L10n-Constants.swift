@@ -32,12 +32,18 @@ internal enum L10n {
   internal static let notifications = L10n.tr("localizable", "notifications")
   /// Post
   internal static let post = L10n.tr("localizable", "Post")
+  /// postComment
+  internal static let postComment = L10n.tr("localizable", "postComment")
   /// Posting
   internal static let postingMessage = L10n.tr("localizable", "PostingMessage")
+  /// postLike
+  internal static let postLike = L10n.tr("localizable", "postLike")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
+  /// userFollow
+  internal static let userFollow = L10n.tr("localizable", "userFollow")
 
   internal enum Fir {
     /// Firebase Array Placeholder

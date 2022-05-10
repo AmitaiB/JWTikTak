@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */; };
 		1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD402829C9A8003AA9DD /* Notifications.swift */; };
-		1118FD442829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD432829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift */; };
-		1118FD462829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD452829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift */; };
-		1118FD482829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */; };
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
+		1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */; };
 		116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
 		116AF902281B18F80096221E /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 116AF901281B18F80096221E /* ProgressHUD */; };
 		116AF906281B3F380096221E /* UITextView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF905281B3F380096221E /* UITextView+Placeholder.swift */; };
@@ -86,6 +84,7 @@
 		1118FD452829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostCommentTableViewCell.swift; sourceTree = "<group>"; };
 		1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostLikeTableViewCell.swift; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
+		1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformKeypathInitializable.swift; sourceTree = "<group>"; };
 		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +172,7 @@
 		1118FD422829CB7F003AA9DD /* Notification cells */ = {
 			isa = PBXGroup;
 			children = (
+				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
 				1118FD432829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift */,
 				1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */,
 				1118FD452829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift */,
@@ -591,6 +591,7 @@
 				11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */,
 				11D5BC9B27C40EB4008CDA2D /* ExploreSection.swift in Sources */,
 				11A73E7D27B59D0600BD8A2E /* SignUpViewController.swift in Sources */,
+				1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
 				11E28C8427D9A5AA008CF3BA /* RecordButton.swift in Sources */,
 				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
@@ -598,7 +599,6 @@
 				11A73E8527B59D6700BD8A2E /* PostViewController.swift in Sources */,
 				116AF906281B3F380096221E /* UITextView+Placeholder.swift in Sources */,
 				11D5BCAD27C46CB1008CDA2D /* ExploreUserCollectionViewCell.swift in Sources */,
-				1118FD462829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift in Sources */,
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11D5BCED27D06634008CDA2D /* OptionalExtensions.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
@@ -617,7 +617,6 @@
 				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
 				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
 				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,
-				1118FD482829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
 				11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */,
@@ -639,7 +638,6 @@
 				11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */,
 				11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */,
 				11D5BC7727C00BB2008CDA2D /* Assets.swift in Sources */,
-				1118FD442829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift in Sources */,
 				11D5BCAF27C474CD008CDA2D /* ViewModelConfigurable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -38,10 +38,10 @@ class NotificationsViewController: UIViewController {
 
         tableView.delegate   = self
         tableView.dataSource = self
-        tableView.register(cellType: NotificationsUserFollowTableViewCell.self)
-        tableView.register(cellType: NotificationsPostLikeTableViewCell.self)
-        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
-        
+//        tableView.register(cellType: NotificationsUserFollowTableViewCell.self)
+//        tableView.register(cellType: NotificationsPostLikeTableViewCell.self)
+//        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
+        tableView.register(cellType: NotificationTableViewCell.self)
         fetchNotifications()
     }
     
@@ -87,21 +87,23 @@ extension NotificationsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = notifications[indexPath.row]
-        
-        switch model.type {
-            case .postLike(let postName):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostLikeTableViewCell.self)
-                cell.configure(with: postName, model: model)
-                return cell
-            case .userFollow(let username):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsUserFollowTableViewCell.self)
-                cell.configure(with: username, model: model)
-                return cell
-            case .postComment(let postName):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostCommentTableViewCell.self)
-                cell.configure(with: postName, model: model)
-                return cell
-        }
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationTableViewCell.self)
+        cell.model = model
+        return cell
+//        switch model.type {
+//            case .postLike(let postName):
+//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostLikeTableViewCell.self)
+//                cell.configure(with: postName, model: model)
+//                return cell
+//            case .userFollow(let username):
+//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsUserFollowTableViewCell.self)
+//                cell.configure(with: username, model: model)
+//                return cell
+//            case .postComment(let postName):
+//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostCommentTableViewCell.self)
+//                cell.configure(with: postName, model: model)
+//                return cell
+//        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

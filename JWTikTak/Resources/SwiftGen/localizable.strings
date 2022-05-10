@@ -35,6 +35,11 @@
 "Follow"  = "Follow";
 "PostingMessage" = "Posting";
 
+// Notification cells
+"postLike"    = "postLike";
+"userFollow"  = "userFollow";
+"postComment" = "postComment";
+
 // Keys
 "Key.username" = "loggedInUsername";
 
