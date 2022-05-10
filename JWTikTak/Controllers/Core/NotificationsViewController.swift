@@ -43,6 +43,28 @@ class NotificationsViewController: UIViewController {
 //        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
         tableView.register(cellType: NotificationTableViewCell.self)
         fetchNotifications()
+        tableView.refreshControl = UIRefreshControl(
+            frame: .zero,
+            primaryAction: UIAction { [weak self] _ in
+                self?.refreshTable(sender: self?.tableView.refreshControl)
+        })
+    }
+    
+    @MainActor
+    func refreshTable(sender: UIRefreshControl?) {
+        sender?.beginRefreshing()
+        
+        DatabaseManager.shared.getNotifications { [weak self] in
+            switch $0 {
+                case .success(let notifications):
+                    self?.notifications = notifications
+                    self?.tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+            
+            sender?.endRefreshing()
+        }
     }
     
     override func viewDidLayoutSubviews() {

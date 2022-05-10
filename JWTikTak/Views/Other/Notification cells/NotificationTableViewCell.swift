@@ -30,32 +30,31 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
     private let primaryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 25 // iconSize is 50.
+        imageView.layer.cornerRadius  = 25 // iconSize is 50.
+        imageView.contentMode         = .scaleAspectFill
         return imageView
     }()
     
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.textColor = .label
+        label.textColor     = .label
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.textColor = .secondaryLabel
+        label.textColor     = .secondaryLabel
         return label
     }()
     
-    // only for userFollow cells
-    private var followButton: UIButton? = {
+    private var followButton: UIButton = {
         let button = UIButton()
         button.setTitle(L10n.follow, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 6
+        button.backgroundColor     = .systemBlue
+        button.layer.cornerRadius  = 6
         button.layer.masksToBounds = true
         return button
     }()
@@ -63,7 +62,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.clipsToBounds = true
-        let subviews = [primaryImageView, label, dateLabel, followButton].compactMap{$0}
+        let subviews = [primaryImageView, label, dateLabel, followButton]
         contentView.addSubviews(subviews)
         selectionStyle = .none
     }
@@ -86,8 +85,8 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
             make.bottom.equalTo(label.superview!.snp.centerY)
 
             // conditionally add a right constraint.
-            let rightAnchor = followButton?.snp.left ?? label.superview?.snp.right
-            rightAnchor.ifThen { make.right.equalTo($0).offset(10) }
+            let rightAnchor = followButton.isHidden ? label.superview!.snp.right : followButton.snp.left
+            make.right.equalTo(rightAnchor).offset(10)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -96,22 +95,20 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
             make.top.equalTo(dateLabel.superview!.snp.centerY).offset(2)
         }
         
-        guard let followButton = followButton
-        else { return }
-        
         followButton.snp.makeConstraints { make in
             make.height.equalTo(iconSize * 0.75)
             make.width.equalTo(iconSize * 1.5)
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-5)
+            make.right.equalToSuperview().offset(-10)
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         primaryImageView.image = nil
-        label.text = nil
-        dateLabel.text = nil
+        label.text             = nil
+        dateLabel.text         = nil
+        followButton.isHidden  = true
     }
     
     private func configureForModel() {
@@ -120,11 +117,8 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         guard let model = model else { return }
 
         primaryImageView.image = Asset.creator1.image
-        label.text = model.text
-        dateLabel.text = .date(with: model.date)
-        
-        if type != .userFollow {
-            followButton = nil
-        }
+        label.text             = model.text
+        dateLabel.text         = .date(with: model.date)
+        followButton.isHidden  = type != .userFollow
     }
 }
