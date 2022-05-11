@@ -111,6 +111,7 @@ extension NotificationsViewController: UITableViewDataSource {
         let model = notifications[indexPath.row]
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationTableViewCell.self)
         cell.model = model
+        cell.delegate = self
         return cell
 //        switch model.type {
 //            case .postLike(let postName):
@@ -159,5 +160,32 @@ extension NotificationsViewController: UITableViewDelegate {
     
     private func removeHiddenNotificationsFromDataSource() {
         notifications = notifications.filter({ $0.isHidden == false })
+    }
+}
+
+// MARK: NotificationTableViewCellDelegate
+extension NotificationsViewController: NotificationTableViewCellDelegate {
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapFollowFor username: String) {
+        guard cell.model?.type == .userFollow(username: username)
+        else { return }
+        
+        DatabaseManager.shared.follow(username: username) { result in
+            switch result {
+                case .success(_):
+                    print("Do something here??? \(#function), line \(#line)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapAvatarFor username: String) {
+        guard cell.model?.type == .userFollow(username: username)
+        else { return }
+        
+        let debugUserObj = User(username: username, identifier: "123-ABC")
+        let profileVC = ProfileViewController(user: debugUserObj)
+        profileVC.title = username.uppercased()
+        navigationController?.pushViewController(profileVC, animated: true)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NotificationType {
+enum NotificationType: Equatable {
     case postLike(postName: String)
     case userFollow(username: String)
     case postComment(postName: String)

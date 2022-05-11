@@ -147,8 +147,16 @@ final class DatabaseManager {
         completion(.success(Notification.mockData()))
     }
     
+    // TODO: replace the (Bool) -> Voids with Result<User, Error> or whatnot.
+    // TODO: TODO: Replace completion blocks with await/async!
     public func markNotificationAsHidden(withId id: String, completion: @escaping (Bool) -> Void) {
+        // debug trivial mock result
         completion(true)
+    }
+    
+    public func follow(username: String, completion: @escaping (Result<User, Error>) -> Void) {
+        // debug trivial mock result
+        completion(.success(User(username: username, identifier: "fake user ID")))
     }
 }
 

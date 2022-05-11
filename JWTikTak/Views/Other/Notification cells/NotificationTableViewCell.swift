@@ -9,7 +9,15 @@ import UIKit
 import Reusable
 import SnapKit
 
+protocol NotificationTableViewCellDelegate: AnyObject {
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapFollowFor username: String)
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapAvatarFor username: String)
+    
+}
+
 class NotificationTableViewCell: UITableViewCell, Reusable {
+    weak var delegate: NotificationTableViewCellDelegate?
+    
     var model: Notification? {
         didSet { configureForModel() }
     }
@@ -56,6 +64,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         button.backgroundColor     = .systemBlue
         button.layer.cornerRadius  = 6
         button.layer.masksToBounds = true
+        
         return button
     }()
     
@@ -65,6 +74,41 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         let subviews = [primaryImageView, label, dateLabel, followButton]
         contentView.addSubviews(subviews)
         selectionStyle = .none
+        
+        followButton.addTarget(self, action: #selector(didTapFollow), for: .touchUpInside)
+        
+        let gesture = UITapGestureRecognizer { [weak self] in
+            self?.didTapImageView()
+        }
+        primaryImageView.isUserInteractionEnabled = true
+        primaryImageView.addGestureRecognizer(gesture)
+    }
+       
+    @objc
+    private func didTapFollow() {
+        guard let modelType = self.model?.type
+        else { return }
+        
+        switch modelType {
+            case .userFollow(let username):
+                delegate?.notificationTableViewCell(self, didTapFollowFor: username)
+            default: break
+        }
+    }
+
+    
+    private func didTapImageView() {
+        guard let modelType = self.model?.type
+        else { return }
+        
+        switch modelType {
+            case .postLike(let postName): break
+                // thumbnail
+            case .userFollow(let username): break
+                // avatar
+            case .postComment(let postName): break
+                // thumbnail
+        }
     }
     
     required init?(coder: NSCoder) {
