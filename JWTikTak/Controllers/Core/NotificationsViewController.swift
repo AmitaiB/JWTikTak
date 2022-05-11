@@ -11,9 +11,10 @@ import ProgressHUD
 import Reusable
 
 class NotificationsViewController: UIViewController {
+    /// The datasource.
     var notifications = [Notification]()
     
-    
+    /// Shown when the datasource is empty.
     private let noNotificationsLabel: UILabel = {
        let label = UILabel()
         label.isHidden      = true
@@ -25,12 +26,12 @@ class NotificationsViewController: UIViewController {
     
     private let tableView: UITableView = {
        let tableView = UITableView()
+        tableView.register(cellType: NotificationTableViewCell.self)
         tableView.isHidden = true
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "replace me with Reusable")
         return tableView
     }()
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubviews([tableView, noNotificationsLabel])
@@ -41,30 +42,13 @@ class NotificationsViewController: UIViewController {
 //        tableView.register(cellType: NotificationsUserFollowTableViewCell.self)
 //        tableView.register(cellType: NotificationsPostLikeTableViewCell.self)
 //        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
-        tableView.register(cellType: NotificationTableViewCell.self)
-        fetchNotifications()
+        
+        refreshTable()
         tableView.refreshControl = UIRefreshControl(
             frame: .zero,
             primaryAction: UIAction { [weak self] _ in
                 self?.refreshTable(sender: self?.tableView.refreshControl)
         })
-    }
-    
-    @MainActor
-    func refreshTable(sender: UIRefreshControl?) {
-        sender?.beginRefreshing()
-        
-        DatabaseManager.shared.getNotifications { [weak self] in
-            switch $0 {
-                case .success(let notifications):
-                    self?.notifications = notifications
-                    self?.tableView.reloadData()
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-            
-            sender?.endRefreshing()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -78,39 +62,43 @@ class NotificationsViewController: UIViewController {
     }
     
     @MainActor
-    private func fetchNotifications() {
-        ProgressHUD.show()
+    func refreshTable(sender: UIRefreshControl? = nil) {
+        sender.ifSome { $0.beginRefreshing() }
+        sender.ifNone {   ProgressHUD.show() }
         
         DatabaseManager.shared.getNotifications { [weak self] in
             switch $0 {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    ProgressHUD.showFailed()
                 case .success(let fetchedNotifications):
                     self?.notifications = fetchedNotifications
-                    self?.updateUI()
-                    ProgressHUD.showSucceed()
+                    self?.reloadUI()
+                    sender.ifNone { ProgressHUD.showSuccess() }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    sender.ifNone { ProgressHUD.showFailed() }
             }
+            sender.ifSome { $0.endRefreshing() }
         }
     }
-    
-    private func updateUI() {
+        
+    private func reloadUI() {
         tableView.isHidden = notifications.isEmpty
         noNotificationsLabel.isHidden = !tableView.isHidden
-        
         tableView.reloadData()
     }
 }
 
+
+// MARK: UITableViewDataSource
 extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         notifications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = notifications[indexPath.row]
-        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationTableViewCell.self)
-        cell.model = model
+        let model     = notifications[indexPath.row]
+        let cell      = tableView.dequeueReusableCell(
+            for: indexPath, cellType: NotificationTableViewCell.self)
+        cell.model    = model
         cell.delegate = self
         return cell
 //        switch model.type {
@@ -134,6 +122,7 @@ extension NotificationsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension NotificationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
