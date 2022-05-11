@@ -13,8 +13,14 @@ import Foundation
 extension Optional {
     /// If the optional `isSome`, **then** call the closure on its unwrapped value.
     /// Useful shorthand for conditional value assignment.
-    func ifThen(_ funcIfSome: (Wrapped) -> Void) {
+    func ifSome(_ funcIfSome: (Wrapped) -> Void) {
         if let wrapped = self { funcIfSome(wrapped) }
+    }
+
+    /// If the optional `isNone`, **then** call the closure.
+    /// Useful shorthand for conditional value assignment.
+    func ifNone(_ funcIfNone: () -> Void) {
+        if self.isNone { funcIfNone() }
     }
     
     var isSome: Bool { self != nil }

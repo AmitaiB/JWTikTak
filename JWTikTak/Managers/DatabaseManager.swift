@@ -82,7 +82,7 @@ final class DatabaseManager {
                     usersDict
                         .values
                         .first(where: {email == $0.email})
-                        .ifThen { completion(.success($0.username)) }
+                        .ifSome { completion(.success($0.username)) }
                     
                 } catch { print(error.localizedDescription) }
             }

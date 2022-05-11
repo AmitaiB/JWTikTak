@@ -33,8 +33,8 @@ final class StorageManager {
         
         storageBucket.child("videos/\(username)/\(filename)")
             .putFile(from: url, metadata: nil) { metaData, error in
-                metaData.ifThen { completion(.success($0)) }
-                error   .ifThen { completion(.failure($0)) }
+                metaData.ifSome { completion(.success($0)) }
+                error   .ifSome { completion(.failure($0)) }
             }
     }
     
