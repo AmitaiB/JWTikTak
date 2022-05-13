@@ -74,6 +74,7 @@ class NotificationsViewController: UIViewController {
                     sender.ifNone { ProgressHUD.showFailed() }
             }
             sender.ifSome { $0.endRefreshing() }
+            ProgressHUD.dismiss() // covers edge case...?
         }
     }
         

@@ -168,14 +168,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1118FD422829CB7F003AA9DD /* Notification cells */ = {
-			isa = PBXGroup;
-			children = (
-				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
-			);
-			path = "Notification cells";
-			sourceTree = "<group>";
-		};
 		1118FD492829D03F003AA9DD /* Explore cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,7 +341,7 @@
 				1118FD4A2829D059003AA9DD /* Auth controls */,
 				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
 				1118FD492829D03F003AA9DD /* Explore cells */,
-				1118FD422829CB7F003AA9DD /* Notification cells */,
+				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
 				1159DA4C282B61E90067C116 /* FollowButton.swift */,
 				11E28C8327D9A5AA008CF3BA /* RecordButton.swift */,
 			);

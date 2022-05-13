@@ -105,6 +105,7 @@ class PostViewController: UIViewController {
             playerView.player.delegate              = playerMockDelegateObject
             playerView.player.playbackStateDelegate = playerMockDelegateObject
             self.player = playerView.player
+            self.player?.delegate = self
             view = playerView
         }
         catch { print(error.localizedDescription)}
@@ -220,3 +221,28 @@ class PostViewController: UIViewController {
     }
 }
 
+extension PostViewController: JWPlayerDelegate {
+    func jwplayerIsReady(_ player: JWPlayer) {
+        player.volume = 0
+    }
+    
+    func jwplayer(_ player: JWPlayer, failedWithError code: UInt, message: String) {
+        
+    }
+    
+    func jwplayer(_ player: JWPlayer, failedWithSetupError code: UInt, message: String) {
+        
+    }
+    
+    func jwplayer(_ player: JWPlayer, encounteredWarning code: UInt, message: String) {
+        
+    }
+    
+    func jwplayer(_ player: JWPlayer, encounteredAdWarning code: UInt, message: String) {
+        
+    }
+    
+    func jwplayer(_ player: JWPlayer, encounteredAdError code: UInt, message: String) {
+        
+    }
+}

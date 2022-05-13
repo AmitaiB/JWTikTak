@@ -37,27 +37,39 @@ class TabBarViewController: UITabBarController {
         let notificationsVC = NotificationsViewController()
         let profileVC       = ProfileViewController(user: User.mock)
         
-        // The camera VC does not need a title, and home VC has a control in that place.
-        exploreVC.title       = L10n.explore
-        notificationsVC.title = L10n.notifications
-        profileVC.title       = L10n.profile
-        
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)
         let cameraNav        = UINavigationController(rootViewController: cameraVC)
         let notificationsNav = UINavigationController(rootViewController: notificationsVC)
         let profileNav       = UINavigationController(rootViewController: profileVC)
+
+        // The camera VC does not need a title, and home VC has a control in that place.
+        exploreVC.title       = L10n.explore
+        notificationsVC.title = L10n.notifications
+        profileVC.title       = L10n.profile
         
-        
+        // Misc UI configurations.
         configureTransparentNavbar(for: homeNav, cameraNav)
         cameraNav.navigationBar.tintColor = .white
+        notificationsNav.navigationBar.tintColor = .label
+        UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
         
-        homeNav.tabBarItem          = UITabBarItem(title: nil, image:  UIImage(systemName: L10n.SFSymbol.house), selectedImage: nil)
-        exploreNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.magnifyingglass), selectedImage: nil)
-        cameraNav.tabBarItem         = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.camera), selectedImage: nil)
-        notificationsNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.bell), selectedImage: nil)
-        profileNav.tabBarItem       = UITabBarItem(title: nil, image: UIImage(systemName: L10n.SFSymbol.personCircle), selectedImage: nil)
-        
+        // Set each tab's image.
+        [
+            homeNav     : L10n.SFSymbol.house,
+            exploreNav  : L10n.SFSymbol.magnifyingglass,
+            cameraNav   : L10n.SFSymbol.camera,
+            notificationsNav: L10n.SFSymbol.bell,
+            profileNav  : L10n.SFSymbol.personCircle,
+        ]
+            .forEach { nav, imageName in
+                nav.tabBarItem = UITabBarItem(
+                    title: nil,
+                    image: UIImage(systemName: imageName),
+                    selectedImage: nil)
+            }
+
+        // Set each tab's VC.
         setViewControllers([homeNav,
                             exploreNav,
                             cameraNav,
