@@ -12,13 +12,13 @@ import SnapKit
 protocol NotificationTableViewCellDelegate: AnyObject {
     func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapFollowFor username: String)
     func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapAvatarFor username: String)
-    
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapThumbnailFor postId: String)
 }
 
 class NotificationTableViewCell: UITableViewCell, Reusable {
     weak var delegate: NotificationTableViewCellDelegate?
     
-    var model: Notification? {
+    public var model: Notification? {
         didSet { configureForModel() }
     }
     
@@ -57,16 +57,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         return label
     }()
     
-    private var followButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(L10n.follow, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor     = .systemBlue
-        button.layer.cornerRadius  = 6
-        button.layer.masksToBounds = true
-        
-        return button
-    }()
+    private var followButton = FollowButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,39 +66,36 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         contentView.addSubviews(subviews)
         selectionStyle = .none
         
-        followButton.addTarget(self, action: #selector(didTapFollow), for: .touchUpInside)
+        followButton.addTarget(self, action: #selector(didTapFollow(_:)), for: .touchUpInside)
         
-        let gesture = UITapGestureRecognizer { [weak self] in
-            self?.didTapImageView()
-        }
-        primaryImageView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapImageView))
         primaryImageView.addGestureRecognizer(gesture)
+        primaryImageView.isUserInteractionEnabled = true
     }
        
     @objc
-    private func didTapFollow() {
+    private func didTapFollow(_ sender: FollowButton) {
         guard let modelType = self.model?.type
         else { return }
         
         switch modelType {
             case .userFollow(let username):
                 delegate?.notificationTableViewCell(self, didTapFollowFor: username)
+                sender.toggleState()
             default: break
         }
     }
 
-    
+    @objc
     private func didTapImageView() {
         guard let modelType = self.model?.type
         else { return }
         
         switch modelType {
-            case .postLike(let postName): break
-                // thumbnail
-            case .userFollow(let username): break
-                // avatar
-            case .postComment(let postName): break
-                // thumbnail
+            case .postLike(let postName), .postComment(let postName):
+                delegate?.notificationTableViewCell(self, didTapThumbnailFor: postName)
+            case .userFollow(let username):
+                delegate?.notificationTableViewCell(self, didTapAvatarFor: username)
         }
     }
     
@@ -127,10 +115,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
             make.top.equalToSuperview().offset(10)
             make.left.equalTo(primaryImageView.snp.right).offset(10)
             make.bottom.equalTo(label.superview!.snp.centerY)
-
-            // conditionally add a right constraint.
-            let rightAnchor = followButton.isHidden ? label.superview!.snp.right : followButton.snp.left
-            make.right.equalTo(rightAnchor).offset(10)
+            make.right.equalTo(label.superview!.snp.right).offset(10)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -139,12 +124,8 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
             make.top.equalTo(dateLabel.superview!.snp.centerY).offset(2)
         }
         
-        followButton.snp.makeConstraints { make in
-            make.height.equalTo(iconSize * 0.75)
-            make.width.equalTo(iconSize * 1.5)
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-10)
-        }
+        accessoryView = followButton
+        followButton.sizeToFit()
     }
     
     override func prepareForReuse() {
@@ -153,6 +134,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         label.text             = nil
         dateLabel.text         = nil
         followButton.isHidden  = true
+        followButton.resetButtonStateForReuse()
     }
     
     private func configureForModel() {

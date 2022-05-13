@@ -11,6 +11,7 @@
 		1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD402829C9A8003AA9DD /* Notifications.swift */; };
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
 		1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */; };
+		1159DA4D282B61E90067C116 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159DA4C282B61E90067C116 /* FollowButton.swift */; };
 		116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E8A27B59D9A00BD8A2E /* DatabaseManager.swift */; };
 		116AF902281B18F80096221E /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 116AF901281B18F80096221E /* ProgressHUD */; };
 		116AF906281B3F380096221E /* UITextView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF905281B3F380096221E /* UITextView+Placeholder.swift */; };
@@ -85,6 +86,7 @@
 		1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostLikeTableViewCell.swift; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		1159DA4C282B61E90067C116 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
 		116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformKeypathInitializable.swift; sourceTree = "<group>"; };
 		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -354,6 +356,7 @@
 				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
 				1118FD492829D03F003AA9DD /* Explore cells */,
 				1118FD422829CB7F003AA9DD /* Notification cells */,
+				1159DA4C282B61E90067C116 /* FollowButton.swift */,
 				11E28C8327D9A5AA008CF3BA /* RecordButton.swift */,
 			);
 			path = Other;
@@ -611,6 +614,7 @@
 				11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */,
 				11D5BC9D27C40FCD008CDA2D /* ExploreBannerViewModel.swift in Sources */,
 				11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */,
+				1159DA4D282B61E90067C116 /* FollowButton.swift in Sources */,
 				11E28C6227D7CE9A008CF3BA /* SCLAlert+Extensions.swift in Sources */,
 				11D5BCA527C46B34008CDA2D /* ExploreSectionLayoutProvider.swift in Sources */,
 				11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */,

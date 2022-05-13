@@ -19,7 +19,7 @@ class NotificationsViewController: UIViewController {
        let label = UILabel()
         label.isHidden      = true
         label.textColor     = .secondaryLabel
-        label.text          = "No Notifications"
+        label.text          = L10n.noNotifications
         label.textAlignment = .center
         return label
     }()
@@ -161,7 +161,7 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         DatabaseManager.shared.follow(username: username) { result in
             switch result {
                 case .success(_):
-                    print("Do something here??? \(#function), line \(#line)")
+                    print("SUCCESS — not yet implemented \(#function), line \(#line)")
                 case .failure(let error):
                     print(error.localizedDescription)
             }
@@ -169,12 +169,22 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
     }
     
     func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapAvatarFor username: String) {
+        print(#function)
         guard cell.model?.type == .userFollow(username: username)
         else { return }
+        
         
         let debugUserObj = User(username: username, identifier: "123-ABC")
         let profileVC = ProfileViewController(user: debugUserObj)
         profileVC.title = username.uppercased()
         navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapThumbnailFor postId: String) {
+        guard cell.model?.type == .postComment(postName: postId)
+                || cell.model?.type == .postLike(postName: postId)
+        else { return }
+        
+        print(#function)
     }
 }

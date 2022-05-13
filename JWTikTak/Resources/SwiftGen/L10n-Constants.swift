@@ -28,6 +28,8 @@ internal enum L10n {
   internal static let mp4 = L10n.tr("localizable", "mp4")
   /// Next
   internal static let next = L10n.tr("localizable", "Next")
+  /// No Notifications
+  internal static let noNotifications = L10n.tr("localizable", "No Notifications")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
   /// Post
