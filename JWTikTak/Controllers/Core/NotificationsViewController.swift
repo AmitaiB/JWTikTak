@@ -39,9 +39,6 @@ class NotificationsViewController: UIViewController {
 
         tableView.delegate   = self
         tableView.dataSource = self
-//        tableView.register(cellType: NotificationsUserFollowTableViewCell.self)
-//        tableView.register(cellType: NotificationsPostLikeTableViewCell.self)
-//        tableView.register(cellType: NotificationsPostCommentTableViewCell.self)
         
         refreshTable()
         tableView.refreshControl = UIRefreshControl(
@@ -101,20 +98,6 @@ extension NotificationsViewController: UITableViewDataSource {
         cell.model    = model
         cell.delegate = self
         return cell
-//        switch model.type {
-//            case .postLike(let postName):
-//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostLikeTableViewCell.self)
-//                cell.configure(with: postName, model: model)
-//                return cell
-//            case .userFollow(let username):
-//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsUserFollowTableViewCell.self)
-//                cell.configure(with: username, model: model)
-//                return cell
-//            case .postComment(let postName):
-//                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: NotificationsPostCommentTableViewCell.self)
-//                cell.configure(with: postName, model: model)
-//                return cell
-//        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

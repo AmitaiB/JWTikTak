@@ -81,9 +81,6 @@
 /* Begin PBXFileReference section */
 		0C841D7455384F33FCEE2A7B /* Pods-JWTikTak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.release.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.release.xcconfig"; sourceTree = "<group>"; };
 		1118FD402829C9A8003AA9DD /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		1118FD432829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUserFollowTableViewCell.swift; sourceTree = "<group>"; };
-		1118FD452829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostCommentTableViewCell.swift; sourceTree = "<group>"; };
-		1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostLikeTableViewCell.swift; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		1159DA4C282B61E90067C116 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
@@ -175,9 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
-				1118FD432829CE95003AA9DD /* NotificationsUserFollowTableViewCell.swift */,
-				1118FD472829CF7D003AA9DD /* NotificationsPostLikeTableViewCell.swift */,
-				1118FD452829CF6E003AA9DD /* NotificationsPostCommentTableViewCell.swift */,
 			);
 			path = "Notification cells";
 			sourceTree = "<group>";
