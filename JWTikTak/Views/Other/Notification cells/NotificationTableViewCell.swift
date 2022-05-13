@@ -92,8 +92,8 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
         else { return }
         
         switch modelType {
-            case .postLike(let postName), .postComment(let postName):
-                delegate?.notificationTableViewCell(self, didTapThumbnailFor: postName)
+            case .postLike(let postId), .postComment(let postId):
+                delegate?.notificationTableViewCell(self, didTapThumbnailFor: postId)
             case .userFollow(let username):
                 delegate?.notificationTableViewCell(self, didTapAvatarFor: username)
         }
@@ -142,7 +142,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
 
         guard let model = model else { return }
 
-        primaryImageView.image = Asset.creator1.image
+        primaryImageView.image = Asset.creator1.image // TODO: replace/holder
         label.text             = model.text
         dateLabel.text         = .date(with: model.date)
         followButton.isHidden  = type != .userFollow

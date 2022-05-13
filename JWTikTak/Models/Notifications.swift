@@ -8,9 +8,9 @@
 import Foundation
 
 enum NotificationType: Equatable {
-    case postLike(postName: String)
+    case postLike(postId: String)
     case userFollow(username: String)
-    case postComment(postName: String)
+    case postComment(postId: String)
     
     var id: String {
         switch self {
@@ -21,6 +21,8 @@ enum NotificationType: Equatable {
     }
 }
 
+// TODO: The postId/postId should equal the `id` property.
+/// A Notification has a `NotificationType` enum, from which the primary key can be extracted.
 class Notification {
     var id = UUID().uuidString
     var isHidden = false
@@ -37,13 +39,13 @@ class Notification {
     static func mockData() -> [Notification] {
         let postLikes = Array(0...5).compactMap {
             Notification(text: "I like this!: \($0)",
-                         type: .postLike(postName: "best post eva"),
+                         type: .postLike(postId: "best post eva"),
                          date: Date())
         }
         
         let postComments = Array(0...5).compactMap {
             Notification(text: "Comment: \($0)",
-                         type: .postComment(postName: "best comment eva"),
+                         type: .postComment(postId: "best comment eva"),
                          date: Date())
         }
         

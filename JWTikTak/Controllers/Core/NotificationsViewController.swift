@@ -151,6 +151,7 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         }
     }
     
+    // Tap an avatar, go to the profile of that avatar.
     func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapAvatarFor username: String) {
         print(#function)
         guard cell.model?.type == .userFollow(username: username)
@@ -163,11 +164,21 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
+    // Tap on a post's thumbnail, go to that post.
     func notificationTableViewCell(_ cell: NotificationTableViewCell, didTapThumbnailFor postId: String) {
-        guard cell.model?.type == .postComment(postName: postId)
-                || cell.model?.type == .postLike(postName: postId)
-        else { return }
+        guard let model = cell.model else { return }
         
-        print(#function)
+        switch model.type {
+            case .postLike(postId: let postId), .postComment(postId: let postId):
+                openPost(withId: postId)
+            default:
+                break
+        }
+    }
+    
+    private func openPost(withId postId: String) {
+        let postVC = PostViewController(model: PostModel(identifier: postId))
+        postVC.title = "Placeholder VC Title"
+        navigationController?.pushViewController(postVC, animated: true)
     }
 }
