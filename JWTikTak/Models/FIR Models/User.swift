@@ -8,7 +8,7 @@
 import Foundation
 
 // TODO: Switch scheme to match FIRUser: (1) username -> String?, (2) add `displayName`, (3) make email the secondary key instead of username (primary is the UUID).
-struct User: Codable {
+struct User: Codable, Equatable {
     let username: String
     var profilePictureURL: URL? = nil
     let identifier: String
@@ -24,4 +24,9 @@ struct User: Codable {
         identifier: UUID().uuidString,
         email: "jonny@appleseed.com"
     )
+    
+    static func ==(lhs: User, rhs: User) -> Bool {
+        lhs.identifier == rhs.identifier
+    }
 }
+

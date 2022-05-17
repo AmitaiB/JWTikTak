@@ -73,6 +73,8 @@ internal enum L10n {
     internal static let bell = L10n.tr("localizable", "SFSymbol.bell")
     /// camera
     internal static let camera = L10n.tr("localizable", "SFSymbol.camera")
+    /// gear
+    internal static let gear = L10n.tr("localizable", "SFSymbol.gear")
     /// heart
     internal static let heart = L10n.tr("localizable", "SFSymbol.heart")
     /// heart.fill

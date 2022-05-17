@@ -35,7 +35,7 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
-        let profileVC       = ProfileViewController(user: User.mock)
+        let profileVC       = ProfileViewController(user: DatabaseManager.shared.currentUser ?? .mock)
         
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)

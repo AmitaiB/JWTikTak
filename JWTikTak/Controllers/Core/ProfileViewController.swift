@@ -13,7 +13,8 @@ class PlaceholderCollectionViewCell: UICollectionViewCell, Reusable {}
 
 class ProfileViewController: UIViewController {
     let user: User
-
+    var isProfileOfLoggedInUser: Bool {user == DatabaseManager.shared.currentUser}
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -22,6 +23,8 @@ class ProfileViewController: UIViewController {
         cView.backgroundColor = .systemBackground
         cView.showsVerticalScrollIndicator = false
         cView.register(cellType: PlaceholderCollectionViewCell.self)
+        cView.register(supplementaryViewType: ProfileHeaderCollectionReusableView.self,
+                       ofKind: .elementKindSectionHeader)
         return cView
     }()
     
@@ -43,6 +46,16 @@ class ProfileViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate   = self
+        
+        if isProfileOfLoggedInUser {
+            navigationItem.rightBarButtonItem = .init(image: UIImage(
+                systemName: L10n.SFSymbol.gear)) { [weak self] in
+                    let settingsVC = SettingsViewController()
+                    self?.present(settingsVC, animated: true)
+                    // or
+//                    self?.navigationController?.pushViewController(settingsVC, animated: true)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -64,6 +77,24 @@ extension ProfileViewController: UICollectionViewDataSource {
         cell.backgroundColor = .systemBlue
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == .elementKindSectionHeader
+        else { return UICollectionReusableView() }
+        
+        let header: ProfileHeaderCollectionReusableView =
+        collectionView.dequeueReusableSupplementaryView(
+            ofKind: .elementKindSectionHeader,
+            for: indexPath
+        )
+        
+
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.width, height: 300)
+    }
 }
 
 // MARK: UICollectionViewDelegate
@@ -84,4 +115,10 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         let height = (view.height - 2 * layout.minimumLineSpacing) / 4
         return CGSize(width: width, height: height)
     }
+}
+
+// MARK: Helper
+fileprivate extension String {
+    /// A supplementary view that identifies the header for a given section.
+    static var elementKindSectionHeader: String { UICollectionView.elementKindSectionHeader }
 }
