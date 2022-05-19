@@ -56,12 +56,12 @@ class FollowButton: UIButton {
         switch state {
             case .isFollowing:
                 setTitle(L10n.following.padded, for: .normal)
-                setTitleColor(.darkText, for: .normal)
+                setTitleColor(.lightText, for: .normal)
                 backgroundColor   = .clear
-                layer.borderColor = UIColor.lightGray.cgColor
+                layer.borderColor = UIColor.systemGray.cgColor
             case .isNotFollowing:
                 setTitle(L10n.follow.padded, for: .normal)
-                setTitleColor(.white, for: .normal)
+                setTitleColor(.darkText, for: .normal)
                 backgroundColor   = .systemBlue
                 layer.borderColor = nil
         }

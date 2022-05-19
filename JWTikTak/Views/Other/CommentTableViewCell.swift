@@ -20,7 +20,6 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     private let commentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = .label
         return label
     }()
 

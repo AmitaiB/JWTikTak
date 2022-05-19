@@ -52,8 +52,7 @@ class NotificationTableViewCell: UITableViewCell, Reusable {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
-        label.textColor     = .secondaryLabel
+        label.textColor = .secondaryLabel
         return label
     }()
     

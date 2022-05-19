@@ -20,7 +20,6 @@ class ExploreHashtagCollectionViewCell: UICollectionViewCell, Reusable, ViewMode
     
     private let hashtagLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20)
         return label
