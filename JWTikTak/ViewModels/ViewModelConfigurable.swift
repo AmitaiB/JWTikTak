@@ -11,4 +11,5 @@ protocol ViewModelConfigurable {
     func configure(with viewModel: ViewModel)
 }
 
+/// Used to explictly signify the function call's intention.
 protocol ViewModel {}

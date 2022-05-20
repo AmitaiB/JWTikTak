@@ -33,6 +33,8 @@
 "Post"    = "Post";
 "Success" = "Success";
 "Follow"  = "Follow";
+"Followers" = "Followers";
+//"Following" = "Following"; // Already declared in "titles" section
 "PostingMessage" = "Posting";
 "No Notifications" = "No Notifications";
 

@@ -76,6 +76,7 @@
 		11E105E328202F5B006D0061 /* Firebase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E105E228202F5B006D0061 /* Firebase+Extensions.swift */; };
 		11E28C6227D7CE9A008CF3BA /* SCLAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E28C6127D7CE99008CF3BA /* SCLAlert+Extensions.swift */; };
 		11E28C8427D9A5AA008CF3BA /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E28C8327D9A5AA008CF3BA /* RecordButton.swift */; };
+		11EDB2CF2836CD5700B19757 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EDB2CE2836CD5700B19757 /* ProfileHeaderViewModel.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +148,7 @@
 		11E28C6027D714D3008CF3BA /* JWTikTak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JWTikTak.entitlements; sourceTree = "<group>"; };
 		11E28C6127D7CE99008CF3BA /* SCLAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCLAlert+Extensions.swift"; sourceTree = "<group>"; };
 		11E28C8327D9A5AA008CF3BA /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		11EDB2CE2836CD5700B19757 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWTikTak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DAEFD21A83784A2B118231 /* Pods-JWTikTak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.debug.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,6 +286,7 @@
 				11D5BC9E27C40FD5008CDA2D /* ExplorePostViewModel.swift */,
 				11D5BCA227C40FDC008CDA2D /* ExploreHashtagViewModel.swift */,
 				11D5BCA027C40FD7008CDA2D /* ExploreUserViewModel.swift */,
+				11EDB2CE2836CD5700B19757 /* ProfileHeaderViewModel.swift */,
 				11D5BCAE27C474CD008CDA2D /* ViewModelConfigurable.swift */,
 			);
 			path = ViewModels;
@@ -585,6 +588,7 @@
 				11A73E7D27B59D0600BD8A2E /* SignUpViewController.swift in Sources */,
 				1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
+				11EDB2CF2836CD5700B19757 /* ProfileHeaderViewModel.swift in Sources */,
 				11E28C8427D9A5AA008CF3BA /* RecordButton.swift in Sources */,
 				11A73E7F27B59D0D00BD8A2E /* SettingsViewController.swift in Sources */,
 				11D5BCAB27C46CAF008CDA2D /* ExplorePostCollectionViewCell.swift in Sources */,
