@@ -6,24 +6,70 @@
 //
 
 import UIKit
+import Reusable
+import SnapKit
+
+
+class DeleteMeTableViewCell: UITableViewCell, Reusable {}
 
 class UserListViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(cellType: DeleteMeTableViewCell.self)
+        return tableView
+    }()
+    
+    enum ListType {
+        case followers
+        case following
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    let type: ListType
+    let user: User
+    
+    init(type: ListType, user: User) {
+        self.type = type
+        self.user = user
+        super.init()
     }
-    */
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        
+        switch type {
+            case .followers: title = L10n.followers
+            case .following: title = L10n.following
+        }
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        tableView.dataSource = self
+        tableView.delegate   = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
+}
 
+extension UserListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 10 }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
+}
+
+extension UserListViewController: UITableViewDelegate {
+    
 }
