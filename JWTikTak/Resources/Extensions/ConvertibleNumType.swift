@@ -24,6 +24,7 @@ public extension ConvertibleNumberType {
     var UInt32Value:   UInt32    { get {UInt32(doubleValue)}}
     var UIntValue:     UInt      { get {UInt(doubleValue)}}
     var NSNumberValue: NSNumber  { get {NSNumber(value: doubleValue)}}
+    var intStringValue:String    { get {String(intValue)}}
 }
 
 /// Numbers that can be fully represented as Doubles.

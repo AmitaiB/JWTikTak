@@ -31,8 +31,8 @@ class SignUpViewController: UIViewController {
     private let emailField    = AuthField(type: .email)
     private let passwordField = AuthField(type: .newPassword)
     
-    private let signUpButton = AuthButton(type: .signUp, title: nil)
-    private let termsOfServiceButton = AuthButton(type: .plain, title: "Terms of Service")
+    private let signUpButton         = AuthButton(type: .signUp, title: nil)
+    private let termsOfServiceButton = AuthButton(type: .plain,  title: "Terms of Service")
     
     lazy var subviews = [
         logoImageView,

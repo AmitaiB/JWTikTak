@@ -88,7 +88,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             for: indexPath
         )
         
-
+        
         return header
     }
     
@@ -111,7 +111,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         else { return .zero }
         
-        let width = (view.width - 2 * layout.minimumInteritemSpacing) / 3
+        let width  = (view.width  - 2 * layout.minimumInteritemSpacing) / 3
         let height = (view.height - 2 * layout.minimumLineSpacing) / 4
         return CGSize(width: width, height: height)
     }
