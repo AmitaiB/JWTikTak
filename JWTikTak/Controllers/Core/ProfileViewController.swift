@@ -88,6 +88,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             for: indexPath
         )
         
+        header.delegate = self
         
         return header
     }
@@ -114,6 +115,27 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
         let width  = (view.width  - 2 * layout.minimumInteritemSpacing) / 3
         let height = (view.height - 2 * layout.minimumLineSpacing) / 4
         return CGSize(width: width, height: height)
+    }
+}
+
+extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapPrimaryButtonWith viewModel: ViewModel) {
+        if isProfileOfLoggedInUser {
+            // edit profile
+        } else {
+            // loggedInUser should follow/unfollow this VC's self.user
+        }
+    }
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapFollowersButtonWith viewModel: ViewModel) {
+        
+    }
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapFollowingButtonWith viewModel: ViewModel) {
+        
     }
 }
 

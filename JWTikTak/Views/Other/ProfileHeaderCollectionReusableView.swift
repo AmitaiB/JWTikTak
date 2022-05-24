@@ -10,7 +10,9 @@ import Reusable
 import SnapKit
 
 protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
-    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapPrimaryButtonWith viewModel: ViewModel)
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapFollowersButtonWith viewModel: ViewModel)
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapFollowingButtonWith viewModel: ViewModel)
 }
 
 
@@ -38,6 +40,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
             guard let viewModel = viewModel
             else { return }
 
+            delegate?.profileHeaderCollectionReusableView(self, didTapPrimaryButtonWith: viewModel)
         }
         return button
     }()
@@ -48,6 +51,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
             guard let viewModel = viewModel
             else { return }
 
+            delegate?.profileHeaderCollectionReusableView(self, didTapFollowersButtonWith: viewModel)
         }
         return button
     }()
@@ -58,6 +62,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
             guard let viewModel = viewModel
             else { return }
             
+            delegate?.profileHeaderCollectionReusableView(self, didTapFollowingButtonWith: viewModel)
         }
         return button
     }()
