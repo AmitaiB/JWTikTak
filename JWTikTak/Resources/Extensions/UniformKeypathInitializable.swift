@@ -73,3 +73,34 @@ extension UIEdgeInsets: UniformKeypathInitializable {
         set { (vertical, horizontal) = (newValue, newValue) }
     }
 }
+
+
+extension NSDirectionalEdgeInsets: UniformKeypathInitializable {
+    public typealias Value = ConvertibleNumberType
+    public typealias Key = WritableKeyPath<NSDirectionalEdgeInsets, CGFloat>
+    
+    public init(dictionaryLiteral elements: (WritableKeyPath<NSDirectionalEdgeInsets, CGFloat>, Value)...) {
+        self = NSDirectionalEdgeInsets()
+        for (inset, value) in elements {
+            self[keyPath: inset] = value.CGFloatValue
+        }
+    }
+    
+    /// Sets the `top` and `bottom` values.
+    public var vertical: CGFloat {
+        get { return 0 } // meaningless but not fatal
+        set { (top, bottom) = (newValue, newValue) }
+    }
+    
+    /// Sets the `leading` and `trailing` values.
+    public var horizontal: CGFloat {
+        get { return 0 } // meaningless but not fatal
+        set { (leading, trailing) = (newValue, newValue) }
+    }
+    
+    /// Sets all 4 values for `NSDirectionalEdgeInsets`.
+    public var all: CGFloat {
+        get { return 0 } // meaningless but not fatal
+        set { (vertical, horizontal) = (newValue, newValue) }
+    }
+}
