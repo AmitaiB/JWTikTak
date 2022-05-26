@@ -12,6 +12,8 @@ import Foundation
 internal enum L10n {
   /// video.mov
   internal static let defaultVideoFilename = L10n.tr("localizable", "defaultVideoFilename")
+  /// Edit Profile
+  internal static let editProfile = L10n.tr("localizable", "Edit Profile")
   /// Error
   internal static let error = L10n.tr("localizable", "Error")
   /// Explore
@@ -46,6 +48,8 @@ internal enum L10n {
   internal static let profile = L10n.tr("localizable", "profile")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
+  /// Unfollow
+  internal static let unfollow = L10n.tr("localizable", "Unfollow")
   /// userFollow
   internal static let userFollow = L10n.tr("localizable", "userFollow")
 

@@ -32,9 +32,11 @@
 "Error"   = "Error";
 "Post"    = "Post";
 "Success" = "Success";
-"Follow"  = "Follow";
-"Followers" = "Followers";
+"Follow"      = "Follow";
+"Unfollow"    = "Unfollow";
+"Followers"   = "Followers";
 //"Following" = "Following"; // Already declared in "titles" section
+"Edit Profile" = "Edit Profile";
 "PostingMessage" = "Posting";
 "No Notifications" = "No Notifications";
 

@@ -89,8 +89,22 @@ extension ProfileViewController: UICollectionViewDataSource {
         )
         
         header.delegate = self
+        let headerViewModel = ProfileHeaderViewModel(avatarImageURL: nil,
+                                                     followerCount: 120,
+                                                     followingCount: 200,
+                                                     profileStyle: getProfileStyle())
+        header.configure(with: headerViewModel)
         
         return header
+    }
+    
+    // TODO: Account for .isFollowing Status
+    func getProfileStyle() -> ProfileHeaderViewModel.Style {
+        if DatabaseManager.shared.currentUser == user {
+            return .isLoggedInUser // good
+        } else {
+            return .isNotFollowing // needs TODO
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

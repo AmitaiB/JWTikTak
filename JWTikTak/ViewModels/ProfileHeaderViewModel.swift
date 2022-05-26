@@ -11,6 +11,11 @@ struct ProfileHeaderViewModel: ViewModel {
     let avatarImageURL: URL?
     let followerCount: Int
     let followingCount: Int
-    let isFollowing: Bool?
-    var isLoggedInUserProfile: Bool { isFollowing.isNone }
+    let profileStyle: Style
+    
+    enum Style {
+        case isFollowing
+        case isNotFollowing
+        case isLoggedInUser
+    }
 }

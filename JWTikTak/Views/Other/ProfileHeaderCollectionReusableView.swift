@@ -8,6 +8,7 @@
 import UIKit
 import Reusable
 import SnapKit
+import SDWebImage
 
 protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapPrimaryButtonWith viewModel: ViewModel)
@@ -46,7 +47,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     }()
     
     private lazy var followersButton: UIButton = {
-        let button = getButton(withTitle: L10n.followers, displayCount: 0, numberOfLines: 2)
+        let button = getButton(withTitle: L10n.followers,
+                               displayCount: 0,
+                               numberOfLines: 2)
         button.addAction { [self] in
             guard let viewModel = viewModel
             else { return }
@@ -57,7 +60,9 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     }()
     
     private lazy var followingButton: UIButton = {
-        let button = getButton(withTitle: L10n.following, displayCount: 0, numberOfLines: 2)
+        let button = getButton(withTitle: L10n.following,
+                               displayCount: 0,
+                               numberOfLines: 2)
         button.addAction { [self] in
             guard let viewModel = viewModel
             else { return }
@@ -75,16 +80,17 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     {
         var config = UIButton.Configuration.filled()
         config.background.backgroundColor = backgroundColor
-        config.cornerStyle    = .dynamic
-        config.title          = displayCount?.intStringValue
+        config.cornerStyle    = .fixed
+        config.title          = title
+        config.subtitle       = displayCount?.intStringValue
         config.titleAlignment = .center
-        config.subtitle       = title
-        config.contentInsets  = NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5)
+        config.contentInsets  = [\.horizontal: 5, \.vertical: 2]
         config.titlePadding   = 2
         
         let button = UIButton(configuration: config)
         button.titleLabel?.numberOfLines = 2
         button.titleLabel?.font = .preferredFont(forTextStyle: fontStyle)
+        button.layer.cornerRadius = 6
         return button
     }
 
@@ -137,26 +143,28 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
 
 extension ProfileHeaderCollectionReusableView: ViewModelConfigurable {
     func configure(with viewModel: ViewModel) {
-        avatarImageView.layer.cornerRadius = avatarImageView.height / 2
         guard let viewModel = viewModel as? ProfileHeaderViewModel
         else { return }
         
-        followersButton.titleLabel?.text = viewModel.followerCount.intStringValue
-        followingButton.titleLabel?.text = viewModel.followingCount.intStringValue
+        followersButton.subtitleLabel?.text = viewModel.followerCount .intStringValue
+        followingButton.subtitleLabel?.text = viewModel.followingCount.intStringValue
         
         if let avatarURL = viewModel.avatarImageURL {
-            // download and assign
+            avatarImageView.sd_setImage(with: avatarURL)
         } else {
             avatarImageView.image = Asset.test.image
         }
         
-        if let isFollowing = viewModel.isFollowing {
-            primaryButton.backgroundColor = isFollowing ? .secondarySystemBackground : .systemPink
-            primaryButton.setTitle(isFollowing ? "Unfollow" : "Follow",
-                                   for: .normal)
-        } else {
-            primaryButton.backgroundColor = .secondarySystemBackground
-            primaryButton.setTitle("Edit Profile", for: .normal)
+        switch viewModel.profileStyle {
+            case .isFollowing:
+                primaryButton.backgroundColor = .secondarySystemBackground
+                primaryButton.setTitle(L10n.unfollow, for: .normal)
+            case .isNotFollowing:
+                primaryButton.backgroundColor = .systemPink
+                primaryButton.setTitle(L10n.follow, for: .normal)
+            case .isLoggedInUser:
+                primaryButton.backgroundColor = .secondarySystemBackground
+                primaryButton.setTitle(L10n.editProfile, for: .normal)
         }
     }
 }
