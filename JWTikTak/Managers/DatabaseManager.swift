@@ -103,7 +103,7 @@ final class DatabaseManager {
     /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
     private func updateRootArrayOfPosts(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         let newPostData = try? FirebaseEncoder().encode(newPost)
-        let postsDbRef = database.child(L10n.Fir.posts)
+        let postsDbRef  = database.child(L10n.Fir.posts)
         postsDbRef.setValue(newPostData,
                             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
     }

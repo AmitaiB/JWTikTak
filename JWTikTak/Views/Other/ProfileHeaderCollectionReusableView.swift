@@ -12,8 +12,12 @@ import SDWebImage
 
 protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapPrimaryButtonWith viewModel: ViewModel)
+    
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapFollowersButtonWith viewModel: ViewModel)
+    
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapFollowingButtonWith viewModel: ViewModel)
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarImageWith viewModel: ViewModel)
 }
 
 
@@ -33,6 +37,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
         return imageView
     }()
     
+    
+    // MARK: - Subviews
     private lazy var primaryButton: UIButton = {
         let button = getButton(withTitle: "FOLLOW",
                                fontStyle: .largeTitle,
@@ -72,28 +78,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
         return button
     }()
     
-    private func getButton(withTitle title: String,
-                           displayCount: Int? = nil,
-                           numberOfLines: Int = 0,
-                           fontStyle: UIFont.TextStyle = .title2,
-                           backgroundColor: UIColor = .systemFill) -> UIButton
-    {
-        var config = UIButton.Configuration.filled()
-        config.background.backgroundColor = backgroundColor
-        config.cornerStyle    = .fixed
-        config.title          = title
-        config.subtitle       = displayCount?.intStringValue
-        config.titleAlignment = .center
-        config.contentInsets  = [\.horizontal: 5, \.vertical: 2]
-        config.titlePadding   = 2
-        
-        let button = UIButton(configuration: config)
-        button.titleLabel?.numberOfLines = 2
-        button.titleLabel?.font = .preferredFont(forTextStyle: fontStyle)
-        button.layer.cornerRadius = 6
-        return button
-    }
-
     lazy var followStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [followingButton, followersButton])
         stack.spacing = 20
@@ -108,6 +92,18 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
         clipsToBounds   = true
         backgroundColor = .systemBackground
         addSubviews([avatarImageView, primaryButton, followStack])
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapAvatarImage))
+        avatarImageView.addGestureRecognizer(tap)
+        avatarImageView.isUserInteractionEnabled = true
+    }
+    
+    @objc
+    func didTapAvatarImage() {
+        
+        guard let viewModel = viewModel
+        else { return }
+
+        delegate?.profileHeaderCollectionReusableView(self, didTapAvatarImageWith: viewModel)
     }
     
     required init?(coder: NSCoder) {
@@ -139,12 +135,37 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
             make.height.equalTo(44)
         }
     }
+    
+    // MARK: - Helpers
+    private func getButton(withTitle title: String,
+                           displayCount: Int? = nil,
+                           numberOfLines: Int = 0,
+                           fontStyle: UIFont.TextStyle = .title2,
+                           backgroundColor: UIColor = .systemFill) -> UIButton
+    {
+        var config = UIButton.Configuration.filled()
+        config.background.backgroundColor = backgroundColor
+        config.cornerStyle    = .fixed
+        config.title          = title
+        config.subtitle       = displayCount?.intStringValue
+        config.titleAlignment = .center
+        config.contentInsets  = [\.horizontal: 5, \.vertical: 2]
+        config.titlePadding   = 2
+        
+        let button = UIButton(configuration: config)
+        button.titleLabel?.numberOfLines = 2
+        button.titleLabel?.font = .preferredFont(forTextStyle: fontStyle)
+        button.layer.cornerRadius = 6
+        return button
+    }
 }
 
 extension ProfileHeaderCollectionReusableView: ViewModelConfigurable {
     func configure(with viewModel: ViewModel) {
         guard let viewModel = viewModel as? ProfileHeaderViewModel
         else { return }
+        // TODO: Decide whether to pass in the viewModel, or to store it.
+        self.viewModel = viewModel
         
         followersButton.subtitleLabel?.text = viewModel.followerCount .intStringValue
         followingButton.subtitleLabel?.text = viewModel.followingCount.intStringValue

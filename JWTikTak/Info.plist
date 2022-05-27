@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used to update Profile avatar image</string>
 	<key>NSCameraUsageDescription</key>
 	<string>If the app cannot use your camera, you may as well delete it, right?</string>
 	<key>NSMicrophoneUsageDescription</key>

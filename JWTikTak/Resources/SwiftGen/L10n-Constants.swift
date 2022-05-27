@@ -10,6 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Camera
+  internal static let camera = L10n.tr("localizable", "Camera")
+  /// Cancel
+  internal static let cancel = L10n.tr("localizable", "Cancel")
   /// video.mov
   internal static let defaultVideoFilename = L10n.tr("localizable", "defaultVideoFilename")
   /// Edit Profile
@@ -36,6 +40,8 @@ internal enum L10n {
   internal static let noNotifications = L10n.tr("localizable", "No Notifications")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
+  /// Photos Library
+  internal static let photosLibrary = L10n.tr("localizable", "Photos Library")
   /// Post
   internal static let post = L10n.tr("localizable", "Post")
   /// postComment
@@ -46,6 +52,8 @@ internal enum L10n {
   internal static let postLike = L10n.tr("localizable", "postLike")
   /// Profile
   internal static let profile = L10n.tr("localizable", "profile")
+  /// Profile Picture
+  internal static let profilePicture = L10n.tr("localizable", "Profile Picture")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
   /// Unfollow

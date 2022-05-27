@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: username -> displayName; user -> uuid, maybe?
 struct PostModel: Codable {
     init(identifier: String = UUID().uuidString,
          user: User = User.mock,

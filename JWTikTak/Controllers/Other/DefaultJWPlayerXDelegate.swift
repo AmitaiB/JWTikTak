@@ -82,6 +82,7 @@ class DefaultJWPlayerXDelegate: JWPlayerDelegate, JWPlayerStateDelegate {
     }
     
     func jwplayer(_ player: JWPlayer, isVisible: Bool) {
+        isVisible ? player.play() : player.pause()
         print(#function)
     }
     

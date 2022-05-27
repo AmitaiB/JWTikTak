@@ -39,6 +39,11 @@
 "Edit Profile" = "Edit Profile";
 "PostingMessage" = "Posting";
 "No Notifications" = "No Notifications";
+"Camera" = "Camera";
+"Photos Library" = "Photos Library";
+"Profile Picture" = "Profile Picture";
+"Cancel" = "Cancel";
+
 
 // Notification cells
 "postLike"    = "postLike";

@@ -9,8 +9,8 @@ import Foundation
 import FirebaseAuth
 
 // NOTE: DbManager and AuthManager are tightly coupled!
-typealias AuthDataResultCompletion  = ((Result<AuthDataResult, Error>) -> Void)
-typealias AuthEmailResultCompletion = ((Result<String, Error>) -> Void)
+typealias AuthDataResultCompletion   = ((Result<AuthDataResult, Error>) -> Void)
+typealias AuthStringResultCompletion = ((Result<String, Error>) -> Void)
 
 /// Encapsulates authentication logic. Handles `FIRUser`, does not own `User` (and therefore, not `username`.
 final class AuthManager {
@@ -37,7 +37,7 @@ final class AuthManager {
     /// Signs in using an email address and password.
     public func signIn(withEmail email: String,
                        password: String,
-                       completion: @escaping AuthEmailResultCompletion) {
+                       completion: @escaping AuthStringResultCompletion) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             switch (result, error) {
                     // Firebase reported an error.
@@ -76,9 +76,10 @@ final class AuthManager {
         withUsername username: String,
         email: String,
         password: String,
-        completion: @escaping AuthEmailResultCompletion
+        completion: @escaping AuthStringResultCompletion
     ) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            // retrieve the new user's uid, then make a new User with email, password, displayname, and UID.
             self.handleUserCreation(forUsername: username,
                                     email: email,
                                     withResult: result,
@@ -105,20 +106,21 @@ final class AuthManager {
         email: String,
         withResult result: AuthDataResult?,
         error: Error?,
-        completion: @escaping AuthEmailResultCompletion
+        completion: @escaping AuthStringResultCompletion
     ) {
         switch (result, error) {
-                // Firebase reported an error.
+                // Firebase server reported an error.
                 // TODO: Check for username availability before attempting creation?
             case (_, .some(let firebaseError)):
                 completion(.failure(firebaseError))
 
-                // No firebase response = app-level error
+                // No firebase response = local, 'app-level' error
             case (.none, _):
                 completion(.failure(AuthError.userCreationFailed))
 
-                // Happy path, if successful (user creation + sign in) -> register user in db
-                // and save the username locally
+                // Happy path: successful user creation (also signs in).
+                // Now: (1) create a User object and insert it into the db, and
+                // (2) trigger the sign in flow.
             case (.some(let result), .none):
                 self.handleSuccessfulUserCreation(
                     ofNewUser: result.user,

@@ -100,7 +100,7 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     // TODO: Account for .isFollowing Status
     func getProfileStyle() -> ProfileHeaderViewModel.Style {
-        if DatabaseManager.shared.currentUser == user {
+        if isProfileOfLoggedInUser {
             return .isLoggedInUser // good
         } else {
             return .isNotFollowing // needs TODO
@@ -135,6 +135,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ViewModel) {
+        print(#function)
         if isProfileOfLoggedInUser {
             // edit profile
         } else {
@@ -144,11 +145,17 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ViewModel) {
-        
+        print(#function)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ViewModel) {
+        print(#function)
+    }
+    
+    }
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarImageWith viewModel: ViewModel) {
         
     }
 }

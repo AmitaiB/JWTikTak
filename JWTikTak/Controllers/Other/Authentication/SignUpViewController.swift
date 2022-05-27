@@ -109,6 +109,7 @@ class SignUpViewController: UIViewController {
     
     private func configureButtons() {
         // Unowned is safe, since the button is a subview of this object.
+        // TODO: Replace the Actions dependency with iOS's `addAction: UIAction`
         signUpButton.add(event: .touchUpInside) { [unowned self] in
             
             // TODO: Implement/Find textfield validation
@@ -127,7 +128,7 @@ class SignUpViewController: UIViewController {
                 withUsername: username,
                 email: email,
                 password: password,
-                completion: self.showAlertHandlerForEmail)
+                completion: self.showAlertHandlerForStringResult)
         }
         
         termsOfServiceButton.add(event: .touchUpInside) { [weak self] in
@@ -140,7 +141,16 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: - UI Alert handlers
-    lazy var showAlertHandlerForData:  AuthDataResultCompletion  = { [weak self] in
+//    lazy var showAlertHandlerForDataResult:  AuthDataResultCompletion  = { [weak self] in
+//        switch $0 {
+//            case .success(let result):
+//                self?.showAlertForSuccess()
+//            case .failure(let error):
+//                self?.showAlert(forError: error)
+//        }
+//    }
+//
+    lazy var showAlertHandlerForStringResult: AuthStringResultCompletion = { [weak self] in
         switch $0 {
             case .success(let result):
                 self?.showAlertForSuccess()
@@ -148,15 +158,18 @@ class SignUpViewController: UIViewController {
                 self?.showAlert(forError: error)
         }
     }
-    
-    lazy var showAlertHandlerForEmail: AuthEmailResultCompletion = { [weak self] in
+
+    // TODO: Replace above two handler with this single one.
+    /*
+    lazy var showAlertForResult: (Result<Any, Error>) -> Void = { [weak self] in
         switch $0 {
-            case .success(let result):
+            case .success(_):
                 self?.showAlertForSuccess()
             case .failure(let error):
                 self?.showAlert(forError: error)
         }
     }
+    */
     
     // A quick UI acknowledgement of success, seen-then-gone
     private func showAlertForSuccess(message: String? = nil) {
