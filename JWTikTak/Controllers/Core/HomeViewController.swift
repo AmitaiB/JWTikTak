@@ -119,8 +119,7 @@ extension HomeViewController: PostViewControllerDelegate {
     }
     
     func postViewController(_ viewController: PostViewController, didSelectProfileFor post: PostModel) {
-        guard let user = post.user else { abort() }
-        let vc = ProfileViewController(user: user)
+        let vc = ProfileViewController(user: post.user)
         navigationController?.pushViewController(vc, animated: true)
         print(#function)
     }

@@ -85,12 +85,12 @@ class CaptionViewController: UIViewController {
     private func handlePostUploadToStorageSuccess(withFilename filename: String) {
         let caption = captionTextView.text ?? ""
         
-        guard let username = DatabaseManager.shared.currentUser?.username else {
-            print(DatabaseManager.DatabaseError.cachedUsernameNil)
+        guard let currentUser = DatabaseManager.shared.currentUser else {
+            print(DatabaseManager.DatabaseError.cachedUserUidNil)
             return
         }
         
-        let newPost = PostModel(username: username, filename: filename, caption: caption)
+        let newPost = PostModel(user: currentUser, filename: filename, caption: caption)
         DatabaseManager.shared.insert(newPost: newPost) { [weak self] result in
             switch result {
                 case .success(_):

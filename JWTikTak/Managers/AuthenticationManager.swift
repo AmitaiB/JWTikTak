@@ -11,13 +11,27 @@ import FirebaseAuth
 // NOTE: DbManager and AuthManager are tightly coupled!
 typealias AuthDataResultCompletion   = ((Result<AuthDataResult, Error>) -> Void)
 typealias AuthStringResultCompletion = ((Result<String, Error>) -> Void)
+typealias UserResultCompletion       = ((Result<User, Error>) -> Void)
 
 /// Encapsulates authentication logic. Handles `FIRUser`, does not own `User` (and therefore, not `username`.
 final class AuthManager {
     // Singleton
     public static let shared = AuthManager()
-    private init() {}
+    private init() {
+        // TODO: Fix sign in process.
+        authStateListner = Auth.auth().addStateDidChangeListener(
+            { _, currentUser in
+                guard let currentUser = currentUser
+                else { return }
+                
+                DatabaseManager.shared
+                    .updateCachedUser(with: User(withFIRUser: currentUser))
+            }
+        )
+    }
+
     
+    private var authStateListner: AuthStateDidChangeListenerHandle?
     private weak var database = DatabaseManager.shared
     
     enum SignInMethod {
@@ -51,10 +65,8 @@ final class AuthManager {
                     // Happy path, successful sign in —> also save username in memory
                 case (.some, .none):
                     completion(.success(email))
-                    self.database?.getUsername(
-                        for: email,
-                        completion: self.handleUsernameFetch
-                    )
+                    self.database?.getUser(for: email,
+                                           completion: self.handleUserFetch)
             }
         }
     }
@@ -62,7 +74,7 @@ final class AuthManager {
     public func signOut(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
-            DatabaseManager.shared.updateCachedUserWith(username: .none)
+            DatabaseManager.shared.updateCachedUser(with: .none)
             completion(true)
         }
         catch {
@@ -91,16 +103,16 @@ final class AuthManager {
     
     // MARK: - Helper methods
     
-    private let handleUsernameFetch: (Result<String, Error>) -> Void = {
+    private let handleUserFetch: UserResultCompletion = {
         switch $0 {
-            case .success(let username):
-                DatabaseManager.shared.updateCachedUserWith(username: username)
-                print("Got username: \(username)")
+            case .success(let user):
+                DatabaseManager.shared.updateCachedUser(with: user)
             case .failure(let error):
+                DatabaseManager.shared.updateCachedUser(with: .none)
                 print(error.localizedDescription)
         }
     }
-    
+        
     private func handleUserCreation(
         forUsername newUsername: String,
         email: String,
@@ -132,19 +144,24 @@ final class AuthManager {
     
     /// The new `user` in the FIRAuth Db now needs to be stored in Realtime Db for business logic use.
     /// - Parameters:
-    ///   - authId: The `FIRUserInfo.uid` string assigned by the FIRAuth server on User creation.
-    private func handleSuccessfulUserCreation(ofNewUser user: FIRUser,
+    ///   - firUser: The object created by FIR servers, including its User UID.
+    ///   - newUsername: aka, the `displayName`
+    ///   - completion: Passes along the username to indicate success in the UI.
+    private func handleSuccessfulUserCreation(ofNewUser firUser: FIRUser,
                                               withUsername newUsername: String,
-                                              completion: @escaping AuthEmailResultCompletion) {
-        database?.insert(newUser: user,
-                         withUsername: newUsername,
+                                              completion: @escaping AuthStringResultCompletion) {
+        var newUser = User(withFIRUser: firUser)
+        newUser.displayName ?= newUsername
+        
+        database?.insert(newUser: newUser,
                          completion: { dbResult in
             switch dbResult {
                 case .success(_):
                     // discard the dbRef, report success if no Auth or Firebase errors
-                    completion(.success(user.email ?? "??@??.??"))
-                    // and save the username locally
-                    DatabaseManager.shared.updateCachedUserWith(username: newUsername)
+                    completion(.success(newUser.displayString))
+                    // and save the user locally
+                    DatabaseManager.shared.updateCachedUser(with: newUser)
+                    
                 case .failure(let dbEerror):
                     completion(.failure(dbEerror))
             }

@@ -10,16 +10,16 @@ import Foundation
 // TODO: username -> displayName; user -> uuid, maybe?
 struct PostModel: Codable {
     init(identifier: String = UUID().uuidString,
-         user: User = User.mock,
-         username: String = DatabaseManager.shared.currentUser?.username ?? "",
+         user: User       = DatabaseManager.shared.currentUser ?? .mock,
+//         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? "",
          filename: String = "",
-         caption: String = "",
+         caption:  String = "",
          isLikedByCurrentUser: Bool = false
     ) {
         self.identifier = identifier
         // TODO: remove the `User` property from this model.
         self.user     = user
-        self.username = username
+//        self.userUid = userUid
         self.filename = filename
         self.caption  = caption
         self.isLikedByCurrentUser = isLikedByCurrentUser
@@ -27,8 +27,8 @@ struct PostModel: Codable {
     // 'Backend' properties
     /// A unique identifier
     let identifier: String
-    var user: User?
-    var username: String
+    var user: User
+//    var userUid: String
     /// Video filename
     var filename: String
     var caption: String

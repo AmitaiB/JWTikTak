@@ -7,26 +7,66 @@
 
 import Foundation
 
-// TODO: Switch scheme to match FIRUser: (1) username -> String?, (2) add `displayName`, (3) make email the secondary key instead of username (primary is the UUID).
-struct User: Codable, Equatable {
+/// To help distinguish `JWTikTak.User` from `FIRUser`
+typealias UserModel = User
+
+// User UID is the primary key (see https://bit.ly/FirebaseDocs_StructureYourDb ).
+struct User: Codable {
+    // MARK: 'FIRAuth' properties
     /// Should be equal to its corresponding FIRUser's `uid`
-    var profilePictureURL: URL? = nil
     let identifier: String
+    var email: String?        = nil
+    var displayName: String?  = nil
     
-    // test properties
-    var email: String? = nil
+    // MARK: 'Realtime Db' properties
+    var profilePictureURL: URL? = nil
     var ownedPosts: [String]?
-//    var likedPosts: [String]?
+    //    var likedPosts: [String]?
     
+    /// - warning: For UI purposes only. The email, in particular is an illegal path in FIR.
+    /// - returns: Returns the `displayName`, else the `username`, else the `email`, else part of the User UID.
+    var displayString: String { displayName ?? username ?? email ?? "\(identifier.prefix(5))..." }
+    
+    // TODO: phasee out the 'username'?
+    var username: String? = nil
     
     static var mock = User(
-        username: "Jonny Appleseed",
         identifier: UUID().uuidString,
-        email: "jonny@appleseed.com"
+        email: "jonny@appleseed.com",
+        displayName: "Jonny Appleseed"
     )
     
+    
+    // MARK: Inits
+    
+    init(withFIRUser fbUser: FIRUser) {
+        identifier  = fbUser.uid
+        email       = fbUser.email
+        displayName = fbUser.displayName
+    }
+    
+    init(
+        identifier: String,
+        email: String? = nil,
+        displayName: String? = nil,
+        profilePictureURL: URL? = nil,
+        ownedPosts: [String]? = nil,
+        username: String? = nil
+    ) {
+        self.identifier        = identifier
+        self.email             = email
+        self.displayName       = displayName
+        self.profilePictureURL = profilePictureURL
+        self.ownedPosts        = ownedPosts
+        self.username          = username
+    }
+}
+
+
+// MARK: Equatable
+
+extension User: Equatable {
     static func ==(lhs: User, rhs: User) -> Bool {
         lhs.identifier == rhs.identifier
     }
 }
-

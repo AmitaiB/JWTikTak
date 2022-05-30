@@ -41,7 +41,7 @@ class ProfileViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = user.username.uppercased()
+        title = user.username?.uppercased()
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.dataSource = self

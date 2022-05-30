@@ -68,6 +68,8 @@ internal enum L10n {
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// posts
     internal static let posts = L10n.tr("localizable", "FIR.posts")
+    /// profile_pictures
+    internal static let profilePictures = L10n.tr("localizable", "FIR.profilePictures")
     /// users
     internal static let users = L10n.tr("localizable", "FIR.users")
   }

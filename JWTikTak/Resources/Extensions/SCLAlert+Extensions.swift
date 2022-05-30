@@ -18,3 +18,7 @@ extension TimeInterval {
     /// Currently set to `1.0`
     fileprivate static var defaultTimeoutInterval: TimeInterval { 1 }
 }
+
+extension SCLAlertView.SCLAppearance {
+    static let defaultCloseButtonIsHidden = Self(showCloseButton: false)
+}

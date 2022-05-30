@@ -69,9 +69,10 @@ final class ExploreDataManager {
                             let userId = model.id
                             // TODO: Fetch user object from firebase
                             let mockVC = ProfileViewController(user: User(
-                                username: "Joe",
+                                identifier: userId,
                                 profilePictureURL: nil,
-                                identifier: userId))
+                                username: "Joe")
+                            )
                             self?.delegate?.pushViewController(mockVC)
                         }
                 }

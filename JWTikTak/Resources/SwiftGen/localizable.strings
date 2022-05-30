@@ -25,6 +25,7 @@
 "FIR.users" = "users";
 "FIR.email" = "email";
 "FIR.posts" = "posts";
+"FIR.profilePictures" = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 
 // Alerts, buttons, and labels

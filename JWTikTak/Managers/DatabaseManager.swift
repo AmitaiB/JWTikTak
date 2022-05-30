@@ -20,57 +20,56 @@ final class DatabaseManager {
     
     private let database = Database.database().reference()
     
-    private(set) var currentUser: User? {
-        didSet {
-            print("*** DID SET CACHED USER **")
-            // TODO:
-//            1. The AuthManager needs to update this when the app opens.
-//            2. The User object's identifier needs to be the FIRUser UID.
-        }
-    }
+    private(set) var currentUser: User? = {
+        guard let currentUser = Auth.auth().currentUser
+        else { return nil }
+        return User(withFIRUser: currentUser)
+    }()
     
-    public func updateCachedUserWith(username: String?) {
-        guard let username = username else { return }
-
-        let currentUserChildNodePath = L10n.Fir.users + "/" + username
-        database.child(currentUserChildNodePath).observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value else {
-                print(DatabaseError.fetchedValueNil(line: "line: \(#line)"))
-                return
-            }
-            
-            self.currentUser = try? FirebaseDecoder().decode(User.self, from: value)
-        }
+    public func updateCachedUser(with user: User?) {
+        currentUser = user
     }
+        
+    // TODO: Remove this function.
+//    public func updateCachedUserWith(username: String?) {
+//        guard let username = username else { return }
+//
+//        let currentUserChildNodePath = L10n.Fir.users + "/" + username
+//        database.child(currentUserChildNodePath).observeSingleEvent(of: .value) { snapshot in
+//            guard let value = snapshot.value else {
+//                print(DatabaseError.fetchedValueNil(line: "line: \(#line)"))
+//                return
+//            }
+//
+//            self.currentUser = try? FirebaseDecoder().decode(User.self, from: value)
+//        }
+//    }
     
     enum DatabaseError: Error {
         case fetchedValueNil(line: String)
         case cachedUsernameNil
+        case cachedUserUidNil
     }
     
     // Public
-    
     /// Adds the new user to the realtime database (different from FIR's authentication database).
     /// - returns: A `Result` with a FIR Db reference containing a snapshot.
-    public func insert(newUser user: FIRUser,
-                       withUsername username: String,
+    public func insert(newUser user: UserModel,
                        completion: @escaping DatabaseRefResultCompletion
     ) {
-        let newUser = User(username: username,
-                           identifier: user.uid,
-                           email: user.email)
-        let newUserData = try! FirebaseEncoder().encode(newUser)
-        let newChildNodePath = L10n.Fir.users + "/" + username
+        let newUserData = try! FirebaseEncoder().encode(user)
+        let newChildNodePath = L10n.Fir.users + "/" + user.identifier
         
         database.child(newChildNodePath).setValue(
             newUserData,
             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
     }
-    
-    public func getUsername(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
+
+    public func getUser(for email: String, completion: @escaping UserResultCompletion) {
         database.child(L10n.Fir.users)
             .observeSingleEvent(of: .value) { snapshot in
-                guard let value = snapshot.value else {
+                guard let value = snapshot.value
+                else {
                     let error = DatabaseError.fetchedValueNil(line: "line: \(#line)")
                     completion(.failure(error))
                     return
@@ -79,15 +78,15 @@ final class DatabaseManager {
                 do {
                     let usersDict = try FirebaseDecoder().decode(UserDictionary.self,
                                                                  from: value)
+                    // pass the matching user to the handler
                     usersDict
                         .values
                         .first(where: {email == $0.email})
-                        .ifSome { completion(.success($0.username)) }
+                        .ifSome { completion(.success($0)) }
                     
                 } catch { print(error.localizedDescription) }
             }
     }
-    
     
     /// Adds a post to the Firebase RealTime Database
     /// - Parameters:
@@ -110,12 +109,12 @@ final class DatabaseManager {
     
     /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
     private func updateUserListOfPostsIDs(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
-        guard let username = currentUser?.username else {
-            completion(.failure(DatabaseError.cachedUsernameNil))
+        guard let uid = currentUser?.identifier else {
+            completion(.failure(DatabaseError.cachedUserUidNil))
             return
         }
         
-        let userDbRef = database.child(L10n.Fir.users).child(username)
+        let userDbRef = database.child(L10n.Fir.users).child(uid)
         
         userDbRef.observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value else {
@@ -156,7 +155,7 @@ final class DatabaseManager {
     
     public func follow(username: String, completion: @escaping (Result<User, Error>) -> Void) {
         // debug trivial mock result
-        completion(.success(User(username: username, identifier: "fake user ID")))
+        completion(.success(User(identifier: "fake user ID", username: username)))
     }
 }
 

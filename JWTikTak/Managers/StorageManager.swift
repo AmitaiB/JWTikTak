@@ -26,12 +26,12 @@ final class StorageManager {
     
     public func uploadVideoURL(from url: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
  
-        guard let username = DatabaseManager.shared.currentUser?.username else {
-            // throw not-signed in-error
+        guard let userUid = DatabaseManager.shared.currentUser?.identifier else {
+            // TODO: throw 'not-signed in-error'
             return
         }
         
-        storageBucket.child("videos/\(username)/\(filename)")
+        storageBucket.child("videos/uid_\(userUid)/\(filename)")
             .putFile(from: url, metadata: nil) { metaData, error in
                 metaData.ifSome { completion(.success($0)) }
                 error   .ifSome { completion(.failure($0)) }
