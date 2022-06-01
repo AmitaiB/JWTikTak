@@ -38,12 +38,6 @@ struct User: Codable {
     
     // MARK: Inits
     
-    init(withFIRUser fbUser: FIRUser) {
-        identifier  = fbUser.uid
-        email       = fbUser.email
-        displayName = fbUser.displayName
-    }
-    
     init(
         identifier: String,
         email: String? = nil,

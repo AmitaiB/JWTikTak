@@ -145,11 +145,13 @@ final class AuthManager {
     private func handleSuccessfulUserCreation(ofNewUser firUser: FIRUser,
                                               withUsername newUsername: String,
                                               completion: @escaping AuthStringResultCompletion) {
-        var newUser = User(withFIRUser: firUser)
-        newUser.displayName =?? newUsername
+        let newUser = User(identifier: firUser.uid,
+                           email: firUser.email,
+                           displayName: firUser.displayName ?? newUsername,
+                           profilePictureURL: firUser.photoURL
+        )
         
-        database?.insert(newUser: newUser,
-                         completion: { dbResult in
+        database?.insert(user: newUser) { dbResult in
             switch dbResult {
                 case .success(_):
                     // discard the dbRef, report success if no Auth or Firebase errors
@@ -161,6 +163,5 @@ final class AuthManager {
                     completion(.failure(dbEerror))
             }
         }
-        )
     }
 }
