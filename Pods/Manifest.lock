@@ -1,7 +1,6 @@
 PODS:
   - Actions (3.0.1)
   - Appirater (2.3.1)
-  - CodableFirebase (0.2.1)
   - Firebase/Auth (8.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 8.15.0)
@@ -85,7 +84,6 @@ PODS:
 DEPENDENCIES:
   - Actions
   - Appirater
-  - CodableFirebase
   - Firebase/Auth
   - Firebase/Crashlytics
   - Firebase/Database
@@ -97,7 +95,6 @@ SPEC REPOS:
   trunk:
     - Actions
     - Appirater
-    - CodableFirebase
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -118,7 +115,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Actions: 696288b71e88903a69ec8d04123df05ad16125dc
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
-  CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
   FirebaseAuth: 3e73bf8abf4fbb40f8b421f361f4cc48ee57388c
   FirebaseCore: 5743c5785c074a794d35f2fff7ecc254a91e08b1
@@ -136,6 +132,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: 7d6296753824b55891675e0148249f601c163d27
+PODFILE CHECKSUM: 49fa4b1363e7e03ad1a88a23de780fecbffc0f04
 
 COCOAPODS: 1.11.3

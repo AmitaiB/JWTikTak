@@ -119,7 +119,6 @@ class PostViewController: UIViewController {
         button.setBackgroundImage(UIImage(systemName: symbolName), for: .normal)
         button.tintColor = .white
         button.clipsToBounds = true
-        button.snp.makeConstraints { $0.width.height.equalTo(40)}
         if asAvatar  {
             button.layer.cornerRadius       = 20
             button.imageView?.clipsToBounds = true

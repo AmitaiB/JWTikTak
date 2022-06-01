@@ -9,7 +9,7 @@ target 'JWTikTak' do
   pod 'SDWebImage'
   pod 'Actions'
 	pod 'JWPlayerKit', '4.5.2'
-  pod 'CodableFirebase'
+#  pod 'CodableFirebase'
   
   pod 'Firebase/Storage'
   pod 'Firebase/Crashlytics'
