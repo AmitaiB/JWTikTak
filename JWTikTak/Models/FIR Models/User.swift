@@ -30,10 +30,9 @@ struct User: Codable {
     // TODO: phasee out the 'username'?
     var username: String? = nil
     
-    static var mock = User(
-        identifier: UUID().uuidString,
-        email: "jonny@appleseed.com",
-        displayName: "Jonny Appleseed"
+    static var empty = User(
+        identifier: "867-5309",
+        email: "please@sign.in"
     )
     
     

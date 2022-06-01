@@ -64,6 +64,8 @@ internal enum L10n {
   internal enum Fir {
     /// Firebase Array Placeholder
     internal static let arrayPlaceholder = L10n.tr("localizable", "FIR.arrayPlaceholder")
+    /// FIRAuthStateDidChangeNotification
+    internal static let authStateDidChangeNotification = L10n.tr("localizable", "FIR.AuthStateDidChangeNotification")
     /// email
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// posts
@@ -72,6 +74,10 @@ internal enum L10n {
     internal static let profilePictures = L10n.tr("localizable", "FIR.profilePictures")
     /// users
     internal static let users = L10n.tr("localizable", "FIR.users")
+    /// users/%@
+    internal static func userWithId(_ p1: Any) -> String {
+      return L10n.tr("localizable", "FIR.userWithId", String(describing: p1))
+    }
   }
 
   internal enum Key {
@@ -82,6 +88,13 @@ internal enum L10n {
   internal enum Mock {
     /// mixkit-woman-running-vangelis-tiktok-format
     internal static let testVideo = L10n.tr("localizable", "Mock.testVideo")
+  }
+
+  internal enum NotificationName {
+    /// DbmDidUpdateCurrentUser
+    internal static let databaseManagerDidUpdateCurrentUser = L10n.tr("localizable", "NotificationName.DatabaseManagerDidUpdateCurrentUser")
+    /// FIRAuthStateDidChangeNotification
+    internal static let firAuthStateDidChange = L10n.tr("localizable", "NotificationName.FIRAuthStateDidChange")
   }
 
   internal enum SFSymbol {

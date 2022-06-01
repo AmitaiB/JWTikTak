@@ -23,10 +23,15 @@
 
 // Firebase
 "FIR.users" = "users";
+"FIR.userWithId" = "users/%@";
 "FIR.email" = "email";
 "FIR.posts" = "posts";
 "FIR.profilePictures" = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
+"FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";
+
+"NotificationName.FIRAuthStateDidChange" = "FIRAuthStateDidChangeNotification";
+"NotificationName.DatabaseManagerDidUpdateCurrentUser" = "DbmDidUpdateCurrentUser";
 
 // Alerts, buttons, and labels
 "Next"    = "Next";

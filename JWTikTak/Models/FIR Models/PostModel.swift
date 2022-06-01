@@ -10,7 +10,7 @@ import Foundation
 // TODO: username -> displayName; user -> uuid, maybe?
 struct PostModel: Codable {
     init(identifier: String = UUID().uuidString,
-         user: User       = DatabaseManager.shared.currentUser ?? .mock,
+         user: User       = DatabaseManager.shared.currentUser ?? .empty,
 //         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? "",
          filename: String = "",
          caption:  String = "",

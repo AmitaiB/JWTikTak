@@ -125,12 +125,12 @@ class SignInViewController: UIViewController {
             else { return }
 
             AuthManager.shared.signIn(withEmail: email, password: password) {
-                let appearance = SCLAlertView.SCLAppearance(
+                // Prepare alert appearance and timeout
+                let successAppearance = SCLAlertView.SCLAppearance(
                     showCloseButton: false,
-                    shouldAutoDismiss: true,
                     hideWhenBackgroundViewIsTapped: true
                 )
-                let dismissOnTimeout = SCLAlertView.SCLTimeoutConfiguration(
+                let timeoutHandler = SCLAlertView.SCLTimeoutConfiguration(
                     timeoutAction: { [weak self] in
                         self?.dismiss(animated: true, completion: nil)
                     }
@@ -139,13 +139,13 @@ class SignInViewController: UIViewController {
                 switch $0 {
                     case .success(let email):
                         // dismiss sign in vc
-                        SCLAlertView(appearance: appearance)
+                        SCLAlertView(appearance: successAppearance)
                             .showSuccess("User \(email) signed in.",
-                                         timeout: dismissOnTimeout,
+                                         timeout: timeoutHandler,
                                          animationStyle: .noAnimation)
                     case .failure(let error):
                         SCLAlertView()
-                            .showError("Error", subTitle: error.localizedDescription)
+                            .showError(L10n.error, subTitle: error.localizedDescription)
                         print(error.localizedDescription)
                         self?.passwordField.text = nil
                 }
