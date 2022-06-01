@@ -18,14 +18,10 @@ final class AuthManager {
     // Singleton
     public static let shared = AuthManager()
     private init() {
-        // TODO: Fix sign in process.
         authStateListner = Auth.auth().addStateDidChangeListener(
             { _, currentUser in
-                guard let currentUser = currentUser
-                else { return }
-                
-                DatabaseManager.shared
-                    .updateCachedUser(with: User(withFIRUser: currentUser))
+                NotificationCenter.default
+                    .post(name: .FIRAuthStateDidChange, object: currentUser)
             }
         )
     }

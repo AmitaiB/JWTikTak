@@ -12,7 +12,7 @@ import Reusable
 class PlaceholderCollectionViewCell: UICollectionViewCell, Reusable {}
 
 class ProfileViewController: UIViewController {
-    let user: User
+    private(set)var user: User
     var isProfileOfLoggedInUser: Bool {user == DatabaseManager.shared.currentUser}
     
     private let collectionView: UICollectionView = {
@@ -32,6 +32,12 @@ class ProfileViewController: UIViewController {
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    @MainActor
+    func configure(with user: UserModel) {
+        self.user = user
+        collectionView.reloadData()
     }
     
     required init?(coder: NSCoder) {

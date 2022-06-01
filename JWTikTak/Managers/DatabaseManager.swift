@@ -14,55 +14,128 @@ typealias UserDictionary = [String: User]
 typealias DatabaseRefResultCompletion = (Result<DatabaseReference, Error>) -> Void
 
 /// The Firebase db manager (for 'spreadsheet' data, such as users etc.).
-final class DatabaseManager {
+final class DatabaseManager: NSObject {
     // Singleton
     public static let shared = DatabaseManager()
-    
+    private override init() {
+        super.init()
+        NotificationCenter.default
+            .add(observer: self, name: .FIRAuthStateDidChange) { [weak self] in
+                self?.handleAuthStateUpdate(possibleFIRUser: $0.object)
+            }
+    }
+        
     private let database = Database.database().reference()
     
-    private(set) var currentUser: User? = {
-        guard let currentUser = Auth.auth().currentUser
-        else { return nil }
-        return User(withFIRUser: currentUser)
-    }()
+    private(set) var currentUser: User? {
+        didSet {
+            NotificationCenter.default
+                .post(name: .DatabaseManagerDidUpdateCurrentUser, object: currentUser)
+        }
+    }
+    
+    // Use the FIRAuth's User UID to get the Db's User object.
+    private func handleAuthStateUpdate(possibleFIRUser object: Any?) {
+        // startup and sign in
+        if let firUser = object as? FIRUser {
+            getUser(withId: firUser.uid) { [weak self] result in
+                switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .success(let user):
+                        self?.updateCachedUser(with: user)
+                }
+            }
+        }
+        else {
+            // signed out
+            updateCachedUser(with: .none)
+        }
+    }
     
     public func updateCachedUser(with user: User?) {
         currentUser = user
     }
-        
-    // TODO: Remove this function.
-//    public func updateCachedUserWith(username: String?) {
-//        guard let username = username else { return }
-//
-//        let currentUserChildNodePath = L10n.Fir.users + "/" + username
-//        database.child(currentUserChildNodePath).observeSingleEvent(of: .value) { snapshot in
-//            guard let value = snapshot.value else {
-//                print(DatabaseError.fetchedValueNil(line: "line: \(#line)"))
-//                return
-//            }
-//
-//            self.currentUser = try? FirebaseDecoder().decode(User.self, from: value)
-//        }
-//    }
     
-            self.currentUser = try? FirebaseDecoder().decode(User.self, from: value)
+    /// Can update any `User` value except for the primary key, the `identifier` property.
+    /// - Parameters:
+    ///   - shouldSync: After updating the local value, will update those values on the server.
+    public func updateCachedUserValues(newEmail: String?         = nil,
+                                       newDisplayName: String?   = nil,
+                                       newProfilePicURL: URL?    = nil,
+                                       newOwnedPosts: [String]?  = nil,
+                                       newUsername: String?      = nil,
+                                       shouldSync: Bool          = false
+    ) {
+        newEmail        .ifSome { currentUser?.email             = $0 }
+        newDisplayName  .ifSome { currentUser?.displayName       = $0 }
+        newProfilePicURL.ifSome { currentUser?.profilePictureURL = $0 }
+        newOwnedPosts   .ifSome { currentUser?.ownedPosts        = $0 }
+        newUsername     .ifSome { currentUser?.username          = $0 }
+        
+        if shouldSync {
+            syncCurrentUser(withStrategy: .ours)
+        }
+    }
+    
+    enum SyncStrategy {
+        /// Overwrites the server with the local version.
+        case ours
+        /// Overwrites the local version with the server's version.
+        case theirs
+    }
+    
+    public func syncCurrentUser(withStrategy strategy: SyncStrategy = .ours) {
+        guard let currentUser = currentUser
+        else { return }
+
+        switch strategy {
+            case .ours:
+                insert(user: currentUser) { _ in }
+            case .theirs:
+                // download theirs, set to currentUser
+                getUser(withId: currentUser.identifier) { [weak self] result in
+                    switch result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(let downloadedUser):
+                            self?.currentUser = downloadedUser
+                    }
+                }
         }
     }
     
     // Public
     /// Adds the new user to the realtime database (different from FIR's authentication database).
     /// - returns: A `Result` with a FIR Db reference containing a snapshot.
-    public func insert(newUser user: UserModel,
+    public func insert(user: UserModel,
                        completion: @escaping DatabaseRefResultCompletion
     ) {
-        let newUserData = try! FirebaseEncoder().encode(user)
-        let newChildNodePath = L10n.Fir.users + "/" + user.identifier
+        let userData = try! FirebaseEncoder().encode(user)
+        let path = L10n.Fir.userWithId(user.identifier)
         
-        database.child(newChildNodePath).setValue(
-            newUserData,
+        database.child(path).setValue(
+            userData,
             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
     }
+    
 
+    public func getUser(withId identifier: String, completion: @escaping UserResultCompletion) {
+        let path = L10n.Fir.userWithId(identifier)
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value else {
+                let error = DatabaseError.fetchedValueNil(line: "line: \(#line)")
+                completion(.failure(error))
+                return
+            }
+            
+            guard let resultUser = try? FirebaseDecoder().decode(User.self, from: value)
+            else { return }
+            completion(.success(resultUser))
+        }
+    }
+    
+    
     public func getUser(for email: String, completion: @escaping UserResultCompletion) {
         database.child(L10n.Fir.users)
             .observeSingleEvent(of: .value) { snapshot in

@@ -15,6 +15,7 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControllers()
+        setupAuthObserver()
     }
         
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +36,7 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
-        let profileVC       = ProfileViewController(user: DatabaseManager.shared.currentUser ?? .mock)
+        let profileVC       = ProfileViewController(user: DatabaseManager.shared.currentUser ?? .empty)
         
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)
@@ -76,6 +77,22 @@ class TabBarViewController: UITabBarController {
                             notificationsNav,
                             profileNav],
                            animated: false)
+    }
+    
+    private func setupAuthObserver() {
+        NotificationCenter.default
+            .add(observer: self, name: .DatabaseManagerDidUpdateCurrentUser) { [weak self] in
+                self?.handleAuthStateUpdate(newCurrentUser: $0.object as? User)
+        }
+    }
+    
+    private func handleAuthStateUpdate(newCurrentUser: User?) {
+        newCurrentUser.ifNone { self.presentSignInIfNeeded() }
+        newCurrentUser.ifSome {
+            (viewControllers as? [UINavigationController])?
+                .compactMap( {$0.topViewController as? ProfileViewController} )
+                .first?.configure(with: $0)
+        }
     }
     
     // Allows title bar controls (like "following/for you") to 'float'

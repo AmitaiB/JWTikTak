@@ -10,6 +10,8 @@ import Foundation
 /// To help distinguish `JWTikTak.User` from `FIRUser`
 typealias UserModel = User
 
+extension UserModel: ViewModel {}
+
 // User UID is the primary key (see https://bit.ly/FirebaseDocs_StructureYourDb ).
 struct User: Codable {
     // MARK: 'FIRAuth' properties
