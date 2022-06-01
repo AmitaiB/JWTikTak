@@ -41,10 +41,10 @@ extension Optional {
     }
 }
 
-infix operator ?= // Weak Assignment
+infix operator =?? // Weak Assignment
 /**
  Assign value only if lhs does not yet have one.
  */
-public func ?=<T>(lhs: inout T?, rhs: T?) {
+public func =??<T>(lhs: inout T?, rhs: T?) {
     lhs = lhs ?? rhs
 }

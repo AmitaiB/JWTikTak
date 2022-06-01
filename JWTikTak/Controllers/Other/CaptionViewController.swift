@@ -86,7 +86,7 @@ class CaptionViewController: UIViewController {
         let caption = captionTextView.text ?? ""
         
         guard let currentUser = DatabaseManager.shared.currentUser else {
-            print(DatabaseManager.DatabaseError.cachedUserUidNil)
+            print(DatabaseError.cachedUserUidNil)
             return
         }
         

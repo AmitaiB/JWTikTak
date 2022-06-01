@@ -104,9 +104,9 @@ extension UITextView {
         
         let placeholderLabel = placeholderLabel ?? UILabel()
         
-        placeholderLabel.text           ?= text
-        placeholderLabel.font           ?= (font  ?? self.font)
-        placeholderLabel.textColor      ?= (color ?? .lightGray)
+        placeholderLabel.text           =?? text
+        placeholderLabel.font           =?? (font  ?? self.font)
+        placeholderLabel.textColor      =?? (color ?? .lightGray)
         placeholderLabel.frame.origin.y = topInset  ?? adjustedTopInset
         placeholderLabel.frame.origin.x = leftInset ?? textContainer.lineFragmentPadding
         placeholderLabel.sizeToFit()

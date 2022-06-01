@@ -156,13 +156,6 @@ final class ExploreDataManager {
         }
     }
 
-    
-    
-    enum ExploreError: Error {
-        case path(String)
-        case decoding(String)
-    }
-    
     private func parseExploreData() -> Result<ExploreResponse, Error> {
         guard let path = Bundle.main.path(forResource: "explore", ofType: "json")
         else { return .failure(ExploreError.path("line: \(#line)"))}

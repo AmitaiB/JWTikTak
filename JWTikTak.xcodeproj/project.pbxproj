@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */; };
+		1118148F28456C800043E9CA /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118148E28456C800043E9CA /* Errors.swift */; };
 		1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118FD402829C9A8003AA9DD /* Notifications.swift */; };
 		114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114A815827E1457800EAEC26 /* CaptionViewController.swift */; };
 		1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		0C841D7455384F33FCEE2A7B /* Pods-JWTikTak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWTikTak.release.xcconfig"; path = "Target Support Files/Pods-JWTikTak/Pods-JWTikTak.release.xcconfig"; sourceTree = "<group>"; };
+		1118148E28456C800043E9CA /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		1118FD402829C9A8003AA9DD /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		114A815827E1457800EAEC26 /* CaptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewController.swift; sourceTree = "<group>"; };
 		1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				11D5BC9727C40E79008CDA2D /* Explore Models */,
 				1188703A27EB70470012CBB6 /* FIR Models */,
 				1118FD402829C9A8003AA9DD /* Notifications.swift */,
+				1118148E28456C800043E9CA /* Errors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				11E28C6227D7CE9A008CF3BA /* SCLAlert+Extensions.swift in Sources */,
 				11D5BCA527C46B34008CDA2D /* ExploreSectionLayoutProvider.swift in Sources */,
 				11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */,
+				1118148F28456C800043E9CA /* Errors.swift in Sources */,
 				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
 				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
 				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,

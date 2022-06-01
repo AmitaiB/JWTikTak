@@ -40,11 +40,6 @@ final class AuthManager {
         case facebook
     }
     
-    enum AuthError: Error {
-        case signInFailed
-        case userCreationFailed
-    }
-    
     // Public
     public var isSignedIn: Bool { Auth.auth().currentUser != nil }
     
@@ -151,7 +146,7 @@ final class AuthManager {
                                               withUsername newUsername: String,
                                               completion: @escaping AuthStringResultCompletion) {
         var newUser = User(withFIRUser: firUser)
-        newUser.displayName ?= newUsername
+        newUser.displayName =?? newUsername
         
         database?.insert(newUser: newUser,
                          completion: { dbResult in

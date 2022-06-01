@@ -45,10 +45,8 @@ final class DatabaseManager {
 //        }
 //    }
     
-    enum DatabaseError: Error {
-        case fetchedValueNil(line: String)
-        case cachedUsernameNil
-        case cachedUserUidNil
+            self.currentUser = try? FirebaseDecoder().decode(User.self, from: value)
+        }
     }
     
     // Public
