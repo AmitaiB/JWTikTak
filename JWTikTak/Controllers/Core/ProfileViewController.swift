@@ -6,7 +6,10 @@
 //
 
 import UIKit
+import PhotosUI
 import Reusable
+import SCLAlertView
+import ProgressHUD
 
 #warning("TODO")
 class PlaceholderCollectionViewCell: UICollectionViewCell, Reusable {}
@@ -52,6 +55,8 @@ class ProfileViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate   = self
+        cameraPicker.delegate     = self
+        imagePicker.delegate      = self
         
         if isProfileOfLoggedInUser {
             navigationItem.rightBarButtonItem = .init(image: UIImage(
@@ -68,6 +73,20 @@ class ProfileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
+    
+    let cameraPicker: UIImagePickerController = {
+        let cameraPicker = UIImagePickerController()
+        cameraPicker.sourceType    = .camera
+        cameraPicker.cameraDevice  = .front
+        cameraPicker.allowsEditing = true
+        return cameraPicker
+    }()
+    
+    let imagePicker: PHPickerViewController = {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        return PHPickerViewController(configuration: config)
+    }()
 }
 
 // MARK: UICollectionViewDataSource
@@ -95,9 +114,9 @@ extension ProfileViewController: UICollectionViewDataSource {
         )
         
         header.delegate = self
-        let headerViewModel = ProfileHeaderViewModel(avatarImageURL: nil,
-                                                     followerCount: 120,
-                                                     followingCount: 200,
+        let headerViewModel = ProfileHeaderViewModel(avatarImageURL: user.profilePictureURL,
+                                                     followerCount: 120, // mock value
+                                                     followingCount: 200, // mock value
                                                      profileStyle: getProfileStyle())
         header.configure(with: headerViewModel)
         
@@ -159,10 +178,104 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         print(#function)
     }
     
+    enum PicturePickerType {
+        case camera
+        case photosLibrary
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarImageWith viewModel: ViewModel) {
+        print(#function)
+        // Only logged in user can change their profile picture.
+        guard isProfileOfLoggedInUser else { return }
+            
+        // create alert
+        let alertView = SCLAlertView(appearance: .defaultCloseButtonIsHidden)
+        alertView.addButton(L10n.camera) {
+            self.presentProfilePicturePicker(with: .camera)
+        }
+        alertView.addButton(L10n.photosLibrary) {
+            self.presentProfilePicturePicker(with: .photosLibrary)
+        }
+        alertView.addButton(L10n.cancel) {}
         
+        alertView.showEdit(L10n.profilePicture, animationStyle: .noAnimation)
+    }
+        
+    private func presentProfilePicturePicker(with type: PicturePickerType) {
+        switch type {
+            case .camera:
+                presentCameraPicker()
+            case .photosLibrary:
+                presentPhotosLibraryPicker()
+        }
+    }
+    
+    
+    
+    private func presentCameraPicker() {
+        present(cameraPicker, animated: true)
+    }
+    
+    private func presentPhotosLibraryPicker() {
+        present(imagePicker, animated: true)
+    }
+    
+    private func uploadSelectedProfilePicture(_ image: UIImage) {
+        StorageManager.shared.uploadProfilePicture(with: image) { [weak self] result in
+            switch result {
+                case .success(let downloadUrl):
+                    ProgressHUD.showSuccess("Updated!")
+                    // update the User object with the url
+                    // reload the collectionview
+                    self?.handleNewPicUrl(downloadUrl)
+                case .failure(let error):
+                    ProgressHUD.showError("Failed to upload profile picture: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    @MainActor
+    private func handleNewPicUrl(_ url: URL) {
+        DatabaseManager.shared.updateCachedUserValues(newProfilePicURL: url, shouldSync: true)
+        collectionView.reloadData()
+    }
+}
+
+// MARK: PHPickerViewControllerDelegate
+extension ProfileViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        guard
+            let itemProvider = results.first?.itemProvider,
+            itemProvider.canLoadObject(ofClass: UIImage.self)
+        else { return }
+        
+        itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            error.ifSome { print($0.localizedDescription) }
+                        
+            guard let image = image as? UIImage else { return }
+            self?.uploadSelectedProfilePicture(image)
+        }
+        dismiss(animated: true)
+    }
+}
+
+
+// MARK: UIImagePickerControllerDelegate
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.editedImage] as? UIImage
+        else { return }
+        
+        // upload image, update UI
+        ProgressHUD.show("Uploading")
+        self.uploadSelectedProfilePicture(image)
+        dismiss(animated: true)
     }
 }
 

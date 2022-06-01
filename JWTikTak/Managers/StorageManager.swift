@@ -38,6 +38,34 @@ final class StorageManager {
             }
     }
     
+    public func uploadProfilePicture(with image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let userUid = DatabaseManager.shared.currentUser?.identifier else {
+            // TODO: throw 'not-signed in-error'
+            return
+        }
+
+        guard let imageData = image.pngData()
+        else { return }
+        
+        let path = "\(L10n.Fir.profilePictures)/uid_\(userUid)/picture.png"
+        storageBucket.child(path).putData(imageData, metadata: nil) { _, error in
+            error.ifSome { completion(.failure($0)) }
+            
+            guard error.isNone
+            else { return }
+            
+            self.storageBucket.child(path).downloadURL { url, error in
+                error.ifSome { completion(.failure($0)) }
+                
+                guard let downloadUrl = url
+                else { return }
+
+                // TODO: Cache non-sensitive data for performance
+                completion(.success(downloadUrl))
+            }
+        }
+    }
+    
     ///
     public func generateVideoIdentifier() -> String {
         let uuidString = UUID().uuidString
