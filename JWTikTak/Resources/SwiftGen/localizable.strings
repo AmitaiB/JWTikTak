@@ -26,6 +26,7 @@
 "FIR.userWithId" = "users/%@";
 "FIR.email" = "email";
 "FIR.posts" = "posts";
+"FIR.postWithId" = "posts/%@";
 "FIR.profilePictures" = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 "FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";

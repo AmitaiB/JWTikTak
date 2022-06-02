@@ -28,6 +28,7 @@ final class AuthManager {
 
     
     private var authStateListner: AuthStateDidChangeListenerHandle?
+    // TODO: Remove, use Notifications instead of calling db methods here.
     private weak var database = DatabaseManager.shared
     
     enum SignInMethod {
@@ -53,11 +54,9 @@ final class AuthManager {
                 case (.none, _):
                     completion(.failure(AuthError.signInFailed))
 
-                    // Happy path, successful sign in —> also save username in memory
+//                     Happy path, successful sign in
                 case (.some, .none):
                     completion(.success(email))
-                    self.database?.getUser(for: email,
-                                           completion: self.handleUserFetch)
             }
         }
     }
@@ -65,7 +64,6 @@ final class AuthManager {
     public func signOut(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
-            DatabaseManager.shared.updateCachedUser(with: .none)
             completion(true)
         }
         catch {
@@ -93,17 +91,7 @@ final class AuthManager {
     
     
     // MARK: - Helper methods
-    
-    private let handleUserFetch: UserResultCompletion = {
-        switch $0 {
-            case .success(let user):
-                DatabaseManager.shared.updateCachedUser(with: user)
-            case .failure(let error):
-                DatabaseManager.shared.updateCachedUser(with: .none)
-                print(error.localizedDescription)
-        }
-    }
-        
+            
     private func handleUserCreation(
         forUsername newUsername: String,
         email: String,
@@ -147,13 +135,13 @@ final class AuthManager {
                            profilePictureURL: firUser.photoURL
         )
         
-        database?.insert(user: newUser) { dbResult in
+        database?.insert(user: newUser) { [weak self] dbResult in
             switch dbResult {
                 case .success(_):
                     // discard the dbRef, report success if no Auth or Firebase errors
                     completion(.success(newUser.displayString))
                     // and save the user locally
-                    DatabaseManager.shared.updateCachedUser(with: newUser)
+                    self?.database?.updateCachedUser(with: newUser)
                     
                 case .failure(let dbEerror):
                     completion(.failure(dbEerror))

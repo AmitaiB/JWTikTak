@@ -9,6 +9,7 @@ import Foundation
 import FirebaseDatabase
 import CodableFirebase
 import FirebaseAuth
+import Actions
 
 typealias UserDictionary = [String: User]
 typealias DatabaseRefResultCompletion = (Result<DatabaseReference, Error>) -> Void
@@ -23,6 +24,8 @@ final class DatabaseManager: NSObject {
             .add(observer: self, name: .FIRAuthStateDidChange) { [weak self] in
                 self?.handleAuthStateUpdate(possibleFIRUser: $0.object)
             }
+        
+        refreshCurrentUserIfNeeded()
     }
         
     private let database = Database.database().reference()
@@ -173,7 +176,7 @@ final class DatabaseManager: NSObject {
     /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
     private func updateRootArrayOfPosts(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         let newPostData = try? FirebaseEncoder().encode(newPost)
-        let postsDbRef  = database.child(L10n.Fir.posts)
+        let postsDbRef  = database.child(L10n.Fir.postWithId(newPost.identifier))
         postsDbRef.setValue(newPostData,
                             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
     }
@@ -207,12 +210,22 @@ final class DatabaseManager: NSObject {
         }
     }
     
-    public func getAllUsers(completion: ([String]) -> Void) {
+    /// Self-descriptive.
+    ///
+    /// There is no guarantee that this singleton will exist at the time that the AuthManager singleton
+    /// posts its notification about the state of the current User. If they are out of sync, this method
+    /// will synchronize this DatabaseManager.
+    private func refreshCurrentUserIfNeeded() {
+        let currentUserNeedsRefresh = Auth.auth().currentUser.isSome && currentUser.isNone
         
+        if currentUserNeedsRefresh {
+            handleAuthStateUpdate(possibleFIRUser: Auth.auth().currentUser)
+        }
     }
-    
+        
     
     // MARK: - Notifications
+
     public func getNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
         completion(.success(Notification.mockData()))
     }

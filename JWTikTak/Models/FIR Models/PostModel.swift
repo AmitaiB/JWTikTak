@@ -10,8 +10,9 @@ import Foundation
 // TODO: username -> displayName; user -> uuid, maybe?
 struct PostModel: Codable {
     init(identifier: String = UUID().uuidString,
+         // TODO: Replace the user with just the uid, if too much redundant storage.
          user: User       = DatabaseManager.shared.currentUser ?? .empty,
-//         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? "",
+//         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? User.empty.identifier,
          filename: String = "",
          caption:  String = "",
          isLikedByCurrentUser: Bool = false
