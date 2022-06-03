@@ -160,7 +160,7 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         
         
         let debugUserObj = User(identifier: "123-ABC", username: username)
-        let profileVC = ProfileViewController(user: debugUserObj)
+        let profileVC = ProfileViewController(userId: debugUserObj.identifier)
         profileVC.title = username.uppercased()
         navigationController?.pushViewController(profileVC, animated: true)
     }

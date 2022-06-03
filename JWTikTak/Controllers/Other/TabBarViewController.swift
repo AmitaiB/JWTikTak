@@ -36,7 +36,9 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
-        let profileVC       = ProfileViewController(user: DatabaseManager.shared.currentUser ?? .empty)
+        let profileVC       = ProfileViewController(
+            userId: DatabaseManager.shared.currentUser?.identifier ?? User.empty.identifier
+        )
         
         let homeNav          = UINavigationController(rootViewController: homeVC)
         let exploreNav       = UINavigationController(rootViewController: exploreVC)

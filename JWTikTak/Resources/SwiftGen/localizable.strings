@@ -27,6 +27,7 @@
 "FIR.email" = "email";
 "FIR.posts" = "posts";
 "FIR.postWithId" = "posts/%@";
+"FIR.postVideoPathWithUidAndName" = "videos/uid_%@/%@";
 "FIR.profilePictures" = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 "FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";

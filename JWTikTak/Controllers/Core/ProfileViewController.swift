@@ -32,9 +32,19 @@ class ProfileViewController: UIViewController {
     }()
     
     // MARK: Initialization
-    init(user: User) {
-        self.user = user
+    init(userId: String) {
+        user = .empty
         super.init(nibName: nil, bundle: nil)
+
+        // TODO: Cache User objects in a [User UID: User] structure.
+        DatabaseManager.shared.getUser(withId: userId) { result in
+            switch result {
+                case .success(let user):
+                    self.user = user
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
     
     @MainActor

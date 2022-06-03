@@ -90,7 +90,7 @@ class CaptionViewController: UIViewController {
             return
         }
         
-        let newPost = PostModel(user: currentUser, filename: filename, caption: caption)
+        let newPost = PostModel(userUid: currentUser.identifier, filename: filename, caption: caption)
         DatabaseManager.shared.insert(newPost: newPost) { [weak self] result in
             switch result {
                 case .success(_):

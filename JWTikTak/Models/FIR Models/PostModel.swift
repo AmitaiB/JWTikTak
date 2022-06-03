@@ -9,33 +9,29 @@ import Foundation
 
 // TODO: username -> displayName; user -> uuid, maybe?
 struct PostModel: Codable {
-    init(identifier: String = UUID().uuidString,
-         // TODO: Replace the user with just the uid, if too much redundant storage.
-         user: User       = DatabaseManager.shared.currentUser ?? .empty,
-//         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? User.empty.identifier,
-         filename: String = "",
-         caption:  String = "",
-         isLikedByCurrentUser: Bool = false
-    ) {
-        self.identifier = identifier
-        // TODO: remove the `User` property from this model.
-        self.user     = user
-//        self.userUid = userUid
-        self.filename = filename
-        self.caption  = caption
-        self.isLikedByCurrentUser = isLikedByCurrentUser
-    }
-    // 'Backend' properties
-    /// A unique identifier
+    /// A unique identifier.
     let identifier: String
-    var user: User
-//    var userUid: String
-    /// Video filename
+    var userUid: String
+    /// Video filename.
     var filename: String
     var caption: String
     // TODO: Likes should be tracked by Users, not by the Posts.
     var isLikedByCurrentUser: Bool
     
+    init(identifier: String = UUID().uuidString,
+         userUid:  String = DatabaseManager.shared.currentUser?.identifier ?? User.empty.identifier,
+         filename: String = "",
+         caption:  String = "",
+         isLikedByCurrentUser: Bool = false
+    ) {
+        self.identifier = identifier
+        self.userUid = userUid
+        self.filename = filename
+        self.caption  = caption
+        self.isLikedByCurrentUser = isLikedByCurrentUser
+    }
+    
+    var videoPath: String {L10n.Fir.postVideoPathWithUidAndName(userUid, filename)}
     // For debugging
     static func mockModels() -> [PostModel] {
         Array(0...100).compactMap({_ in

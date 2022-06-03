@@ -70,6 +70,10 @@ internal enum L10n {
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// posts
     internal static let posts = L10n.tr("localizable", "FIR.posts")
+    /// videos/uid_%@/%@
+    internal static func postVideoPathWithUidAndName(_ p1: Any, _ p2: Any) -> String {
+      return L10n.tr("localizable", "FIR.postVideoPathWithUidAndName", String(describing: p1), String(describing: p2))
+    }
     /// posts/%@
     internal static func postWithId(_ p1: Any) -> String {
       return L10n.tr("localizable", "FIR.postWithId", String(describing: p1))

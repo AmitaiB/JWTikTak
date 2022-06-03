@@ -68,11 +68,7 @@ final class ExploreDataManager {
                         followerCount: model.followersCount) { [weak self] in
                             let userId = model.id
                             // TODO: Fetch user object from firebase
-                            let mockVC = ProfileViewController(user: User(
-                                identifier: userId,
-                                profilePictureURL: nil,
-                                username: "Joe")
-                            )
+                            let mockVC = ProfileViewController(userId: userId)
                             self?.delegate?.pushViewController(mockVC)
                         }
                 }
