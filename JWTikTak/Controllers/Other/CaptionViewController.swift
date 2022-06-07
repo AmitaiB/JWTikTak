@@ -50,7 +50,7 @@ class CaptionViewController: UIViewController {
         captionTextView.snp.makeConstraints { make in
             make.width.equalToSuperview().offset(-10)
             make.height.equalTo(150)
-            make.top.left.equalToSuperview().offset(-5)
+            make.top.left.equalToSuperview().offset(10)
         }
         captionTextView.becomeFirstResponder()
     }
@@ -71,7 +71,7 @@ class CaptionViewController: UIViewController {
         ProgressHUD.show(L10n.postingMessage)
         
         // upload video
-        StorageManager.shared.uploadVideoURL(from: videoURL, filename: newVideoIdentifier) {
+        StorageManager.shared.uploadVideo(withLocalURL: videoURL, filename: newVideoIdentifier) {
             ProgressHUD.dismiss()
             switch $0 {
                 case .success(_):

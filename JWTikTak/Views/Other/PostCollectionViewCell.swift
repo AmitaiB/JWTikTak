@@ -49,23 +49,16 @@ class PostCollectionViewCell: UICollectionViewCell, Reusable, ViewModelConfigura
         }
     }
     
-    /// Create a thumbnail for the post cell, generated from the video itself.
     func configure(with viewModel: ViewModel) {
         guard let postModel = viewModel as? PostModel
         else { return }
 
-        StorageManager.shared.getDownloadURL(forPost: postModel) { result in
+        StorageManager.shared.getThumbnailDownloadURL(forPost: postModel) { [weak self] result in
             switch result {
+                case .success(let thumbnailURL):
+                    self?.imageView.sd_setImage(with: thumbnailURL, placeholderImage: .init(named: L10n.SFSymbol.photo))
                 case .failure(let error):
                     print(error.localizedDescription)
-                case .success(let postVideoURL):
-                    // Generate thumbnail
-                    let asset = AVAsset(url: postVideoURL)
-                    let generator = AVAssetImageGenerator(asset: asset)
-                    do {
-                        let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
-                        self.imageView.image = UIImage(cgImage: cgImage)
-                    } catch { print(error.localizedDescription) }
             }
         }
     }

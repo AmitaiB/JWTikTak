@@ -19,18 +19,33 @@ final class StorageManager {
     
     
     // Public
-    public func uploadVideoURL(from url: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
+    public func uploadVideo(withLocalURL localUrl: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
  
         guard let userUid = DatabaseManager.shared.currentUser?.identifier else {
             // TODO: throw 'not-signed in-error'
             return
         }
         
+        // upload video
         storageBucket.child(L10n.Fir.postVideoPathWithUidAndName(userUid, filename))
-            .putFile(from: url, metadata: nil) { metaData, error in
+            .putFile(from: localUrl, metadata: nil) { metaData, error in
                 metaData.ifSome { completion(.success($0)) }
                 error   .ifSome { completion(.failure($0)) }
             }
+
+        // generate thumbnail
+        let asset = AVAsset(url: localUrl)
+        let generator = AVAssetImageGenerator(asset: asset)
+        do {
+            let cgImage = try generator.copyCGImage(at: .zero, actualTime: nil)
+            guard let imageData = UIImage(cgImage: cgImage).pngData()
+            else {return}
+            
+            let thumbnailName = PostModel.getThumbnail(fromFilename: filename)
+            let thumbPath = L10n.Fir.postThumbnailPathWithUidAndName(userUid, thumbnailName)
+            storageBucket.child(thumbPath)
+                .putData(imageData)
+        } catch { print(error.localizedDescription) }
     }
     
     public func uploadProfilePicture(with image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
@@ -71,8 +86,15 @@ final class StorageManager {
         return "\(uuidString)_\(number)_\(unixTimestamp).mov"
     }
     
-    func getDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+    func getVideoDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
         storageBucket.child(post.videoPath).downloadURL { url, error in
+            error.ifSome {completion(.failure($0))}
+            url  .ifSome {completion(.success($0))}
+        }
+    }
+    
+    func getThumbnailDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        storageBucket.child(post.thumbnailPath).downloadURL { url, error in
             error.ifSome {completion(.failure($0))}
             url  .ifSome {completion(.success($0))}
         }

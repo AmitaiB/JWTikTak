@@ -70,6 +70,10 @@ internal enum L10n {
     internal static let email = L10n.tr("localizable", "FIR.email")
     /// posts
     internal static let posts = L10n.tr("localizable", "FIR.posts")
+    /// video_thumbnail/uid_%@/%@
+    internal static func postThumbnailPathWithUidAndName(_ p1: Any, _ p2: Any) -> String {
+      return L10n.tr("localizable", "FIR.postThumbnailPathWithUidAndName", String(describing: p1), String(describing: p2))
+    }
     /// videos/uid_%@/%@
     internal static func postVideoPathWithUidAndName(_ p1: Any, _ p2: Any) -> String {
       return L10n.tr("localizable", "FIR.postVideoPathWithUidAndName", String(describing: p1), String(describing: p2))
@@ -122,6 +126,8 @@ internal enum L10n {
     internal static let magnifyingglass = L10n.tr("localizable", "SFSymbol.magnifyingglass")
     /// person.circle
     internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
+    /// photo
+    internal static let photo = L10n.tr("localizable", "SFSymbol.photo")
     /// photo.circle
     internal static let photoCircle = L10n.tr("localizable", "SFSymbol.photoCircle")
     /// play

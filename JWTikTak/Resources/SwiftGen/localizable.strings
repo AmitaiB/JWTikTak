@@ -28,6 +28,7 @@
 "FIR.posts" = "posts";
 "FIR.postWithId" = "posts/%@";
 "FIR.postVideoPathWithUidAndName" = "videos/uid_%@/%@";
+"FIR.postThumbnailPathWithUidAndName" = "video_thumbnail/uid_%@/%@";
 "FIR.profilePictures" = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 "FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";
@@ -74,5 +75,6 @@
 "SFSymbol.squareAndArrowUp"     = "square.and.arrow.up";
 "SFSymbol.squareAndArrowUpFill" = "square.and.arrow.up.fill";
 "SFSymbol.photoCircle"          = "photo.circle";
+"SFSymbol.photo"                = "photo";
 "SFSymbol.gear"                 = "gear";
 "SFSymbol.play"                 = "play";

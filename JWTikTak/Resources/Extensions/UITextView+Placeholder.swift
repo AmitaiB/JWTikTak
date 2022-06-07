@@ -51,7 +51,7 @@ extension UITextView {
     }
     
     @IBInspectable public var placeholderColor: UIColor {
-        get { placeholderLabel?.textColor ?? .lightGray }
+        get { placeholderLabel?.textColor ?? .placeholderText }
         set { adjustPlaceholderOrCreateIfNeeded(color: newValue)   }
     }
          

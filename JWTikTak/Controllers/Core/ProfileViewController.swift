@@ -236,8 +236,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         }
     }
     
-    
-    
     private func presentCameraPicker() {
         present(cameraPicker, animated: true)
     }
