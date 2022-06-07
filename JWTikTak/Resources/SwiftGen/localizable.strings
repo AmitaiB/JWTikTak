@@ -22,14 +22,14 @@
 "defaultVideoFilename" = "video.mov";
 
 // Firebase
-"FIR.users" = "users";
+"FIR.users"      = "users";
 "FIR.userWithId" = "users/%@";
 "FIR.email" = "email";
-"FIR.posts" = "posts";
+"FIR.posts"      = "posts";
 "FIR.postWithId" = "posts/%@";
-"FIR.postVideoPathWithUidAndName" = "videos/uid_%@/%@";
+"FIR.postVideoPathWithUidAndName"     = "videos/uid_%@/%@";
 "FIR.postThumbnailPathWithUidAndName" = "video_thumbnail/uid_%@/%@";
-"FIR.profilePictures" = "profile_pictures";
+"FIR.profilePictures"  = "profile_pictures";
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 "FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";
 
@@ -79,3 +79,6 @@
 "SFSymbol.photo"                = "photo";
 "SFSymbol.gear"                 = "gear";
 "SFSymbol.play"                 = "play";
+
+// (MIME) content types
+"Content-Type.png" = "image/png";

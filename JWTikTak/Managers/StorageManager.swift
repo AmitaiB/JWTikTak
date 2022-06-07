@@ -43,8 +43,13 @@ final class StorageManager {
             
             let thumbnailName = PostModel.getThumbnail(fromFilename: filename)
             let thumbPath = L10n.Fir.postThumbnailPathWithUidAndName(userUid, thumbnailName)
+            let metadata = StorageMetadata()
+            metadata.contentType = L10n.ContentType.png
+            
             storageBucket.child(thumbPath)
-                .putData(imageData)
+                .putData(imageData, metadata: metadata) { _, error in
+                    error.ifSome { print($0.localizedDescription)}
+                }
         } catch { print(error.localizedDescription) }
     }
     
@@ -58,7 +63,9 @@ final class StorageManager {
         else { return }
         
         let path = "\(L10n.Fir.profilePictures)/uid_\(userUid)/picture.png"
-        storageBucket.child(path).putData(imageData, metadata: nil) { _, error in
+        let metadata = StorageMetadata()
+        metadata.contentType = L10n.ContentType.png
+        storageBucket.child(path).putData(imageData, metadata: metadata) { _, error in
             error.ifSome { completion(.failure($0)) }
             
             guard error.isNone

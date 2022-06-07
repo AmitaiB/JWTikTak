@@ -21,6 +21,7 @@ final class DatabaseManager: NSObject {
     public static let shared = DatabaseManager()
     private override init() {
         super.init()
+        // TODO: replace Actions with UIActions
         NotificationCenter.default
             .add(observer: self, name: .authStateDidChange) { [weak self] in
                 self?.handleAuthStateUpdate(possibleFIRUser: $0.object)

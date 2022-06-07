@@ -61,6 +61,11 @@ internal enum L10n {
   /// userFollow
   internal static let userFollow = L10n.tr("localizable", "userFollow")
 
+  internal enum ContentType {
+    /// image/png
+    internal static let png = L10n.tr("localizable", "Content-Type.png")
+  }
+
   internal enum Fir {
     /// Firebase Array Placeholder
     internal static let arrayPlaceholder = L10n.tr("localizable", "FIR.arrayPlaceholder")
