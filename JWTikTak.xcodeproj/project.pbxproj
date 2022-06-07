@@ -47,6 +47,7 @@
 		11A73ED627BAA50200BD8A2E /* localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11A73ED527BAA50200BD8A2E /* localizable.strings */; };
 		11A73ED927BAA73B00BD8A2E /* L10n-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */; };
 		11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */; };
+		11B0EBF4284FBF410066AF98 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */; };
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
@@ -119,6 +120,7 @@
 		11A73ED727BAA54000BD8A2E /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "L10n-Constants.swift"; sourceTree = "<group>"; };
 		11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertibleNumType.swift; sourceTree = "<group>"; };
+		11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = JWTikTak/Views/Other/PostCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				11A73E7227B59CBF00BD8A2E /* CameraViewController.swift */,
 				11A73E7427B59CC900BD8A2E /* NotificationsViewController.swift */,
 				11A73E7627B59CD400BD8A2E /* ProfileViewController.swift */,
+				11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */,
 				1171407B28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift */,
 			);
 			path = Core;
@@ -618,6 +621,7 @@
 				1118148F28456C800043E9CA /* Errors.swift in Sources */,
 				11A73E8D27B59DA500BD8A2E /* AuthenticationManager.swift in Sources */,
 				11A73E7527B59CC900BD8A2E /* NotificationsViewController.swift in Sources */,
+				11B0EBF4284FBF410066AF98 /* PostCollectionViewCell.swift in Sources */,
 				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,

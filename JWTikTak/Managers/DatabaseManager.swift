@@ -12,6 +12,7 @@ import FirebaseAuth
 import Actions
 
 typealias UserDictionary = [String: User]
+typealias PostDictionary = [String: PostModel]
 typealias DatabaseRefResultCompletion = (Result<DatabaseReference, Error>) -> Void
 
 /// The Firebase db manager (for 'spreadsheet' data, such as users etc.).
@@ -224,6 +225,7 @@ final class DatabaseManager: NSObject {
     }
         
     
+    
     // MARK: - Notifications
 
     public func getNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
@@ -241,6 +243,35 @@ final class DatabaseManager: NSObject {
         // debug trivial mock result
         completion(.success(User(identifier: "fake user ID", username: username)))
     }
+
+    
+    // MARK: - Posts
+    public func getPosts(for user: User, completion: @escaping (Result<[PostModel], Error>) -> Void) {
+        database.child(L10n.Fir.posts)
+            .observeSingleEvent(of: .value) { snapshot in
+                guard let value = snapshot.value
+                else {
+                    let error = DatabaseError.fetchedValueNil(line: "line: \(#line)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                do {
+                    let postsDict = try FirebaseDecoder().decode(PostDictionary.self,
+                                                                 from: value)
+                    let userPosts: [PostModel] = postsDict
+                        .values
+                        .filter({(user.ownedPosts ?? []).contains($0.identifier)})
+                        .sorted()
+                    
+                    completion(.success(userPosts))
+                } catch { print(error.localizedDescription) }
+            }
+
+        
+        
+    }
+
 }
 
 /// A "D.R.Y." readability refactoring.

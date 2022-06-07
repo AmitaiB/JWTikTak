@@ -124,6 +124,8 @@ internal enum L10n {
     internal static let personCircle = L10n.tr("localizable", "SFSymbol.personCircle")
     /// photo.circle
     internal static let photoCircle = L10n.tr("localizable", "SFSymbol.photoCircle")
+    /// play
+    internal static let play = L10n.tr("localizable", "SFSymbol.play")
     /// square.and.arrow.up
     internal static let squareAndArrowUp = L10n.tr("localizable", "SFSymbol.squareAndArrowUp")
     /// square.and.arrow.up.fill

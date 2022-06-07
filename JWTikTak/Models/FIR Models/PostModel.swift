@@ -11,6 +11,7 @@ import Foundation
 struct PostModel: Codable {
     /// A unique identifier.
     let identifier: String
+    /// The FIR-generated User UID of the post's creator.
     var userUid: String
     /// Video filename.
     var filename: String
@@ -46,3 +47,10 @@ extension PostModel: Equatable {
     }
 }
 
+extension PostModel: Comparable {
+    static func < (lhs: PostModel, rhs: PostModel) -> Bool {
+        lhs.identifier < rhs.identifier
+    }
+}
+
+extension PostModel: ViewModel {}

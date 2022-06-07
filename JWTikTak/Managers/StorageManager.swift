@@ -19,11 +19,6 @@ final class StorageManager {
     
     
     // Public
-    
-    public func getVideoURL(with identifier: String, completion: (URL) -> Void) {
-        
-    }
-    
     public func uploadVideoURL(from url: URL, filename: String, completion: @escaping (Result<StorageMetadata, Error>) -> Void) {
  
         guard let userUid = DatabaseManager.shared.currentUser?.identifier else {
@@ -31,7 +26,7 @@ final class StorageManager {
             return
         }
         
-        storageBucket.child("videos/uid_\(userUid)/\(filename)")
+        storageBucket.child(L10n.Fir.postVideoPathWithUidAndName(userUid, filename))
             .putFile(from: url, metadata: nil) { metaData, error in
                 metaData.ifSome { completion(.success($0)) }
                 error   .ifSome { completion(.failure($0)) }
@@ -74,5 +69,12 @@ final class StorageManager {
         
         // TODO: support detecting/handling of mp4
         return "\(uuidString)_\(number)_\(unixTimestamp).mov"
+    }
+    
+    func getDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        storageBucket.child(post.videoPath).downloadURL { url, error in
+            error.ifSome {completion(.failure($0))}
+            url  .ifSome {completion(.success($0))}
+        }
     }
 }

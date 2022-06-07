@@ -11,11 +11,9 @@ import Reusable
 import SCLAlertView
 import ProgressHUD
 
-#warning("TODO")
-class PlaceholderCollectionViewCell: UICollectionViewCell, Reusable {}
-
 class ProfileViewController: UIViewController {
     private(set)var user: User
+    private(set)var posts = [PostModel]()
     var isProfileOfLoggedInUser: Bool {user == DatabaseManager.shared.currentUser}
     
     private let collectionView: UICollectionView = {
@@ -25,7 +23,7 @@ class ProfileViewController: UIViewController {
         let cView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cView.backgroundColor = .systemBackground
         cView.showsVerticalScrollIndicator = false
-        cView.register(cellType: PlaceholderCollectionViewCell.self)
+        cView.register(cellType: PostCollectionViewCell.self)
         cView.register(supplementaryViewType: ProfileHeaderCollectionReusableView.self,
                        ofKind: .elementKindSectionHeader)
         return cView
@@ -77,6 +75,8 @@ class ProfileViewController: UIViewController {
 //                    self?.navigationController?.pushViewController(settingsVC, animated: true)
             }
         }
+        
+        fetchPosts()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,6 +97,20 @@ class ProfileViewController: UIViewController {
         config.filter = .images
         return PHPickerViewController(configuration: config)
     }()
+    
+    func fetchPosts() {
+        DatabaseManager.shared.getPosts(for: user) { [weak self] result in
+            switch result {
+                case .success(let posts):
+                    DispatchQueue.main.async {
+                        self?.posts = posts
+                        self?.collectionView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: UICollectionViewDataSource
@@ -104,11 +118,13 @@ extension ProfileViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: PlaceholderCollectionViewCell.self)
+        let postModel = posts[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: PostCollectionViewCell.self)
+        cell.configure(with: postModel)
         cell.backgroundColor = .systemBlue
         return cell
     }
