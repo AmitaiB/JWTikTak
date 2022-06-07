@@ -22,7 +22,7 @@ final class DatabaseManager: NSObject {
     private override init() {
         super.init()
         NotificationCenter.default
-            .add(observer: self, name: .FIRAuthStateDidChange) { [weak self] in
+            .add(observer: self, name: .authStateDidChange) { [weak self] in
                 self?.handleAuthStateUpdate(possibleFIRUser: $0.object)
             }
         
@@ -34,7 +34,7 @@ final class DatabaseManager: NSObject {
     private(set) var currentUser: User? {
         didSet {
             NotificationCenter.default
-                .post(name: .DatabaseManagerDidUpdateCurrentUser, object: currentUser)
+                .post(name: .didUpdateCurrentUser, object: currentUser)
         }
     }
     

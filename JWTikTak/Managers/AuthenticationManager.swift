@@ -21,7 +21,7 @@ final class AuthManager {
         authStateListner = Auth.auth().addStateDidChangeListener(
             { _, currentUser in
                 NotificationCenter.default
-                    .post(name: .FIRAuthStateDidChange, object: currentUser)
+                    .post(name: .authStateDidChange, object: currentUser)
             }
         )
     }

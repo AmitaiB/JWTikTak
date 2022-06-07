@@ -48,6 +48,7 @@
 		11A73ED927BAA73B00BD8A2E /* L10n-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */; };
 		11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */; };
 		11B0EBF4284FBF410066AF98 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */; };
+		11B0EBF6285001BC0066AF98 /* Notification.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */; };
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
@@ -121,6 +122,7 @@
 		11A73ED827BAA73B00BD8A2E /* L10n-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "L10n-Constants.swift"; sourceTree = "<group>"; };
 		11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertibleNumType.swift; sourceTree = "<group>"; };
 		11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = JWTikTak/Views/Other/PostCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extensions.swift"; sourceTree = "<group>"; };
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */,
 				116AF905281B3F380096221E /* UITextView+Placeholder.swift */,
 				11E105E228202F5B006D0061 /* Firebase+Extensions.swift */,
+				11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				11D1EC7427BF519900A7766D /* CommentTableViewCell.swift in Sources */,
 				11D5BC9B27C40EB4008CDA2D /* ExploreSection.swift in Sources */,
 				11A73E7D27B59D0600BD8A2E /* SignUpViewController.swift in Sources */,
+				11B0EBF6285001BC0066AF98 /* Notification.Name+Extensions.swift in Sources */,
 				1159DA4B282ADC3D0067C116 /* NotificationTableViewCell.swift in Sources */,
 				11A73E7127B59CB600BD8A2E /* ExploreViewController.swift in Sources */,
 				11EDB2CF2836CD5700B19757 /* ProfileHeaderViewModel.swift in Sources */,

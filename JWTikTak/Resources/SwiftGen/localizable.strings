@@ -33,8 +33,9 @@
 "FIR.arrayPlaceholder" = "Firebase Array Placeholder";
 "FIR.AuthStateDidChangeNotification" = "FIRAuthStateDidChangeNotification";
 
-"NotificationName.FIRAuthStateDidChange" = "FIRAuthStateDidChangeNotification";
-"NotificationName.DatabaseManagerDidUpdateCurrentUser" = "DbmDidUpdateCurrentUser";
+"NotificationName.AuthManager.authStateDidChange"       = "AuthStateDidChangeNotification";
+"NotificationName.DatabaseManager.didUpdateCurrentUser" = "DidUpdateCurrentUserNotification";
+"NotificationName.DatabaseManager.didAddNewPost"        = "DidAddNewPostNotification";
 
 // Alerts, buttons, and labels
 "Next"    = "Next";

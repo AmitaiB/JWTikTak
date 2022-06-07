@@ -103,10 +103,16 @@ internal enum L10n {
   }
 
   internal enum NotificationName {
-    /// DbmDidUpdateCurrentUser
-    internal static let databaseManagerDidUpdateCurrentUser = L10n.tr("localizable", "NotificationName.DatabaseManagerDidUpdateCurrentUser")
-    /// FIRAuthStateDidChangeNotification
-    internal static let firAuthStateDidChange = L10n.tr("localizable", "NotificationName.FIRAuthStateDidChange")
+    internal enum AuthManager {
+      /// AuthStateDidChangeNotification
+      internal static let authStateDidChange = L10n.tr("localizable", "NotificationName.AuthManager.authStateDidChange")
+    }
+    internal enum DatabaseManager {
+      /// DidAddNewPostNotification
+      internal static let didAddNewPost = L10n.tr("localizable", "NotificationName.DatabaseManager.didAddNewPost")
+      /// DidUpdateCurrentUserNotification
+      internal static let didUpdateCurrentUser = L10n.tr("localizable", "NotificationName.DatabaseManager.didUpdateCurrentUser")
+    }
   }
 
   internal enum SFSymbol {

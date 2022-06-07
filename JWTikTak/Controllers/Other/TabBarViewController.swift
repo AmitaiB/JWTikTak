@@ -83,7 +83,7 @@ class TabBarViewController: UITabBarController {
     
     private func setupAuthObserver() {
         NotificationCenter.default
-            .add(observer: self, name: .DatabaseManagerDidUpdateCurrentUser) { [weak self] in
+            .add(observer: self, name: .didUpdateCurrentUser) { [weak self] in
                 self?.handleAuthStateUpdate(newCurrentUser: $0.object as? User)
         }
     }
