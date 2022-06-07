@@ -10,6 +10,7 @@ import PhotosUI
 import Reusable
 import SCLAlertView
 import ProgressHUD
+import Actions
 
 class ProfileViewController: UIViewController {
     private(set)var user: User
@@ -73,6 +74,23 @@ class ProfileViewController: UIViewController {
                     self?.present(settingsVC, animated: true)
                     // or
 //                    self?.navigationController?.pushViewController(settingsVC, animated: true)
+            }
+        }
+        
+        // FIXME: Uploads once, but collectionView updates with two copies of new posts.
+        // reloadData, or reloadItems? Where else is reloadX called? fetch?
+        NotificationCenter.default.add(observer: self, name: .didAddNewPost) { [weak self] notification in
+            
+            guard
+                let newPost = notification.object as? PostModel
+            else { return }
+
+            self?.posts += [newPost]
+            guard let newPostsCount = self?.posts.count
+            else { return }
+            let newPostPath = IndexPath(item: newPostsCount - 1, section: 0)
+            DispatchQueue.main.async {
+                self?.collectionView.reloadItems(at: [newPostPath])
             }
         }
         

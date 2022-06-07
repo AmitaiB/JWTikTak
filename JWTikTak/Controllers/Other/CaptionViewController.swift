@@ -94,20 +94,25 @@ class CaptionViewController: UIViewController {
         DatabaseManager.shared.insert(newPost: newPost) { [weak self] result in
             switch result {
                 case .success(_):
-                    self?.handlePostInsertionSuccess()
+                    self?.handlePostInsertionSuccess(newPost)
                 case .failure(let error):
                     self?.handleOpError(error)
             }
         }
     }
     
-    private func handlePostInsertionSuccess() {
-        // reset camera, and switch to feed
-        HapticsManager.shared.vibrate(for: .success)
-        navigationController?.popToRootViewController(animated: true)
-        tabBarController?.selectedIndex = 0
-        tabBarController?.tabBar.isHidden = false
+    private func handlePostInsertionSuccess(_ newPost: PostModel? = nil) {
+        // UI response
         SCLAlertView().showSuccess(L10n.success)
+        HapticsManager.shared.vibrate(for: .success)
+        // TODO: use UserInfo properly, instead of abusing `object`
+        NotificationCenter.default.post(name: .didAddNewPost, object: newPost)
+
+        // TODO: reset camera
+        // switch to feed
+        navigationController?.popToRootViewController(animated: true)
+        tabBarController?.selectedIndex   = 0
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func handleOpError(_ error: Error) {
