@@ -22,3 +22,32 @@ extension JWPlayer {
         else         { play()  }
     }
 }
+
+fileprivate let kVolumeKey = "kVolumeKey"
+extension JWPlayer {
+    func mute() {
+        guard !isMuted else { return }
+        originalVolume = volume
+        volume = 0
+    }
+    
+    func unmute() {
+        guard isMuted else { return }
+        volume = originalVolume ?? 1
+        originalVolume = nil
+    }
+    
+    var isMuted: Bool {
+        get { volume == 0 }
+        set { newValue ? mute() : unmute() }
+    }
+    
+    func toggleMute() {
+        isMuted.toggle()
+    }
+    
+    var originalVolume: CGFloat? {
+        get { UserDefaults.standard.value(forKey: kVolumeKey) as? CGFloat }
+        set { UserDefaults.standard.set(newValue, forKey: kVolumeKey)     }
+    }
+}
