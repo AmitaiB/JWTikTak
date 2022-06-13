@@ -130,36 +130,33 @@ extension HomeViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         // Swiping down to scroll up (right?)
         
-        guard let currentPost = (viewController as? PostViewController)?.model
+        // There can only be a Before page if this post (exists and) is not the first. Exit early otherwise.
+        guard
+            let currentPost = (viewController as? PostViewController)?.model,
+            let index = currentPosts.firstIndex(where: {$0 == currentPost}),
+            index > 0
         else { return nil }
         
-        guard let index = currentPosts.firstIndex(where: {$0 == currentPost})
-        else { return nil }
-        
-        // If we are at the beginning of the feed, there is no prior post, exit early
-        if index == 0 { return nil }
-        
-        let priorIndex = index - 1
-        let model = currentPosts[priorIndex]
-        let vc = PostViewController(model: model, delegate: self)
-        return vc
+        let priorIndex     = index - 1
+        let priorModel     = currentPosts[priorIndex]
+        let viewController = PostViewController(model: priorModel, delegate: self)
+        return viewController
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         // Swiping up to scroll down (right?)
-        guard let currentPost = (viewController as? PostViewController)?.model
+
+        // There can only be an After page if this post (exists and) is not the last. Exit early otherwise.
+        guard
+            let currentPost = (viewController as? PostViewController)?.model,
+            let index = currentPosts.firstIndex(where: {$0 == currentPost}),
+            index < (currentPosts.endIndex - 1)
         else { return nil }
         
-        guard let index = currentPosts.firstIndex(where: {$0 == currentPost})
-        else { return nil }
-        
-        // Only continue if there is at least one more subsequent post.
-        guard index < (currentPosts.count - 1) else { return nil }
-        
-        let nextIndex = index + 1
-        let model = currentPosts[nextIndex]
-        let vc = PostViewController(model: model, delegate: self)
-        return vc
+        let nextIndex      = index + 1
+        let nextModel      = currentPosts[nextIndex]
+        let viewController = PostViewController(model: nextModel, delegate: self)
+        return viewController
     }
     
     /// Returns the current feed inferred from the onscreen content

@@ -54,10 +54,11 @@ class TabBarViewController: UITabBarController {
         // Misc UI configurations.
         configureTransparentNavbar(for: homeNav, cameraNav)
         cameraNav.navigationBar.tintColor = .white
+        // TODO: Fix the text colors, add text border
         notificationsNav.navigationBar.tintColor = .label
-        UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
+//        UINavigationBar.appearance().backItem?.backButtonDisplayMode = .minimal
         
-        // Set each tab's image.
+        // Set each tab's image, and navbar settings.
         [
             homeNav     : L10n.SFSymbol.house,
             exploreNav  : L10n.SFSymbol.magnifyingglass,

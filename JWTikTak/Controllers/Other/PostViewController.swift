@@ -7,9 +7,9 @@
 
 import UIKit
 import SnapKit
-import RandomColor
 import Actions
 import JWPlayerKit
+import ProgressHUD
 
 protocol PostViewControllerDelegate: AnyObject {
     func postViewController(_ viewController: PostViewController, didLike post: PostModel)
@@ -57,7 +57,7 @@ class PostViewController: UIViewController {
         self.model    = model
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = randomColor()
+        view.backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -66,34 +66,70 @@ class PostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureMockVideo()
+        fetchVideoAndConfigure()
         setupButtons()
         setupGestures()
         
         // Captions label placeholder
         view.addSubview(captionLabel)
 //        captionLabel.sizeToFit()
-        
+
+        ProgressHUD.show("Loading...")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         // Unowned is safe, since the view is guaranteed to have loaded
         captionLabel.snp.makeConstraints { [unowned self] make in
             make.left.equalToSuperview().offset(20)
-            make.right.equalTo(self.buttonsRow.snp.leftMargin).offset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-50)
+            make.right.equalTo(self.buttonsRow.snp.leftMargin).offset(-10)
+            make.bottom.equalTo(self.buttonsRow.snp.bottom)
+        }
+        
+        buttonsRow.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-100)
+            make.right.equalToSuperview().offset(-10)
         }
     }
     
-    private func configureMockVideo() {
-        guard let path = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
-        else { return }
-        let url = URL(fileURLWithPath: path)
+    private func fetchVideoAndConfigure() {
+        // MARK: - DEBUG
+        let shouldUseMock = false
+
+        if shouldUseMock {
+            guard let fallbackVideoPath = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
+            else { return }
+            let fallbackVideoURL = URL(fileURLWithPath: fallbackVideoPath)
+            
+            configureVideo(with: fallbackVideoURL)
+        }
+        else {
+            StorageManager.shared.getVideoDownloadURL(forPost: model) { [weak self] result in
+                switch result {
+                    case .success(let videoURL):
+                        self?.configureVideo(with: videoURL)
+                        // TODO: fail *gracefully*
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        
+                        guard let fallbackVideoPath = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
+                        else { return }
+                        let fallbackVideoURL = URL(fileURLWithPath: fallbackVideoPath)
+                        self?.configureVideo(with: fallbackVideoURL)
+                }
+            }
+        }
+    }
+    
+    private func configureVideo(with url: URL) {
         
         do {
             let playlistItem = try JWPlayerItemBuilder()
                 .file(url)
                 .build()
-                    
+            
             let config = try JWPlayerConfigBuilder()
-                // doubles playlistItem b/c of SDK-9317 bug.
+            // doubles playlistItem b/c of SDK-9317 bug.
                 .playlist([playlistItem, playlistItem])
                 .autostart(true)
                 .repeatContent(true)
@@ -104,9 +140,10 @@ class PostViewController: UIViewController {
             playerView.videoGravity = .resizeAspectFill
             playerView.player.delegate              = playerMockDelegateObject
             playerView.player.playbackStateDelegate = playerMockDelegateObject
-            self.player = playerView.player
-            self.player?.delegate = self
+            player = playerView.player
+            player?.delegate = self
             view = playerView
+            ProgressHUD.dismiss()
         }
         catch { print(error.localizedDescription)}
     }
@@ -166,10 +203,6 @@ class PostViewController: UIViewController {
         buttonsRow.spacing      = 15
         buttonsRow.alignment    = .center
         buttonsRow.distribution = .fillEqually
-        buttonsRow.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-150)
-            make.right.equalToSuperview().offset(-10)
-        }
     }
     
     /// A separate function accessible to both the 'Like' button and 2x tapping.

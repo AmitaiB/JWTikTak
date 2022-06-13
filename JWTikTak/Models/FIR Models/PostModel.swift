@@ -45,8 +45,13 @@ struct PostModel: Codable {
     }
     // For debugging
     static func mockModels() -> [PostModel] {
-        Array(0...100).compactMap({_ in
-            PostModel(identifier: UUID().uuidString)
+        Array(0...100).compactMap({ index in
+//            PostModel(identifier: UUID().uuidString)
+            PostModel(identifier: UUID().uuidString,
+                      userUid: "Mock User number #\(index)",
+                      filename: "aFilename",
+                      caption: "aCaption",
+                      isLikedByCurrentUser: false)
         })
     }
 }

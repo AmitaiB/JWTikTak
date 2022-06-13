@@ -159,6 +159,11 @@ class CameraViewController: UIViewController {
 
 // MARK: - AVCaptureFileOutputRecordingDelegate
 
+// TODO: - Have a minimum video length, say, about 6s.
+/*
+ Specifically, make an AVMutableComposition loop a too-short recording.
+ See https://stackoverflow.com/a/60727408/4898050
+ */
 extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         guard error == nil else {

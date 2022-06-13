@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         return cView
     }()
     
-    // MARK: Initialization
+    // MARK: - Initialization
     init(userId: String) {
         user = .empty
         super.init(nibName: nil, bundle: nil)
@@ -56,7 +56,7 @@ class ProfileViewController: UIViewController {
         fatalError("\(#file): Init not implemented")
     }
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = user.username?.uppercased()
@@ -66,6 +66,15 @@ class ProfileViewController: UIViewController {
         collectionView.delegate   = self
         cameraPicker.delegate     = self
         imagePicker.delegate      = self
+        
+        #if DEBUG
+        navigationItem.leftBarButtonItem = .init(image: UIImage(
+            systemName: L10n.SFSymbol.gear)
+        ) { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        navigationItem.leftBarButtonItem?.tintColor = .systemRed
+        #endif
         
         if isProfileOfLoggedInUser {
             navigationItem.rightBarButtonItem = .init(image: UIImage(
@@ -104,9 +113,11 @@ class ProfileViewController: UIViewController {
     
     let cameraPicker: UIImagePickerController = {
         let cameraPicker = UIImagePickerController()
-        cameraPicker.sourceType    = .camera
-        cameraPicker.cameraDevice  = .front
-        cameraPicker.allowsEditing = true
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            cameraPicker.sourceType    = .camera
+            cameraPicker.cameraDevice  = .front
+            cameraPicker.allowsEditing = true
+        }
         return cameraPicker
     }()
     
@@ -131,7 +142,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 extension ProfileViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
     
@@ -185,6 +196,12 @@ extension ProfileViewController: UICollectionViewDataSource {
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        // open post
+        let post = posts[indexPath.row]
+        let postVC = PostViewController(model: post)
+        postVC.title = "Video" // ??
+        postVC.delegate = self
+        present(postVC, animated: true)
     }
 }
 
@@ -255,7 +272,9 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     }
     
     private func presentCameraPicker() {
-        present(cameraPicker, animated: true)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            present(cameraPicker, animated: true)
+        }
     }
     
     private func presentPhotosLibraryPicker() {
@@ -321,7 +340,20 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
 }
 
-// MARK: Helper
+
+// MARK: - PostViewControllerDelegate
+// TODO: Implement delegate methods...
+extension ProfileViewController: PostViewControllerDelegate {
+    func postViewController(_ viewController: PostViewController, didLike post: PostModel) {
+        print(" ** \(#function) NOT IMPLEMENTED")
+    }
+    
+    func postViewController(_ viewController: PostViewController, didSelectProfileFor post: PostModel) {
+        print(" ** \(#function) NOT IMPLEMENTED")
+    }
+}
+
+// MARK: - Helper
 fileprivate extension String {
     /// A supplementary view that identifies the header for a given section.
     static var elementKindSectionHeader: String { UICollectionView.elementKindSectionHeader }
