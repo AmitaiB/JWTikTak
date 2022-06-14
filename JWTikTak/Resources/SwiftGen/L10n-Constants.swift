@@ -38,6 +38,8 @@ internal enum L10n {
   internal static let next = L10n.tr("localizable", "Next")
   /// No Notifications
   internal static let noNotifications = L10n.tr("localizable", "No Notifications")
+  /// No Users
+  internal static let noUsers = L10n.tr("localizable", "No Users")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
   /// Photos Library

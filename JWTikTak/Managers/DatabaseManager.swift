@@ -268,11 +268,20 @@ final class DatabaseManager: NSObject {
                     completion(.success(userPosts))
                 } catch { print(error.localizedDescription) }
             }
-
-        
-        
     }
-
+    
+    public func getRelationships(
+        for user: User,
+        ofType listType: UserListViewController.ListType,
+        completion: @escaping ([String]) -> Void
+    ) {
+        let path = L10n.Fir.userWithId(user.identifier) + "/" + listType.rawValue
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            // get the array of user UIDs
+            let userIDs = snapshot.value as? [String]
+            completion(userIDs ?? [])
+        }
+    }
 }
 
 /// A "D.R.Y." readability refactoring.

@@ -13,6 +13,9 @@ import SnapKit
 class DeleteMeTableViewCell: UITableViewCell, Reusable {}
 
 class UserListViewController: UIViewController {
+    let type: ListType
+    let user: User
+    public var userIds = [String]()
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -20,18 +23,26 @@ class UserListViewController: UIViewController {
         return tableView
     }()
     
-    enum ListType {
+    let emptyTableLabel: UILabel = {
+        let label = UILabel()
+        label.text          = L10n.noUsers
+        label.textAlignment = .center
+        label.textColor     = .secondaryLabel
+        return label
+    }()
+    
+    enum ListType: String {
         case followers
         case following
     }
     
-    let type: ListType
-    let user: User
+    
+    // MARK: - Init
     
     init(type: ListType, user: User) {
         self.type = type
         self.user = user
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -47,26 +58,33 @@ class UserListViewController: UIViewController {
             case .following: title = L10n.following
         }
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
         tableView.dataSource = self
         tableView.delegate   = self
+        
+        if userIds.isEmpty {
+            view.addSubview(emptyTableLabel)
+            emptyTableLabel.sizeToFit()
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+        if userIds.isEmpty {
+            emptyTableLabel.snp.makeConstraints { $0.center.equalToSuperview() }
+        } else {
+            tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        }
     }
-    
 }
 
 extension UserListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int { 1 }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 10 }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { userIds.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let cell = UITableViewCell()
+        cell.selectionStyle = .none
+        cell.textLabel?.text = userIds[indexPath.row] // This may be a problem — we need displayName, I think...
+        return cell
     }
 }
 

@@ -17,6 +17,11 @@ class ProfileViewController: UIViewController {
     private(set)var posts = [PostModel]()
     var isProfileOfLoggedInUser: Bool {user == DatabaseManager.shared.currentUser}
     
+    // Users following/followers by UID.
+    private var followers = [String]()
+    private var following = [String]()
+    private var isFollower = false
+
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -30,7 +35,9 @@ class ProfileViewController: UIViewController {
         return cView
     }()
     
+    
     // MARK: - Initialization
+    
     init(userId: String) {
         user = .empty
         super.init(nibName: nil, bundle: nil)
@@ -169,11 +176,31 @@ extension ProfileViewController: UICollectionViewDataSource {
         )
         
         header.delegate = self
-        let headerViewModel = ProfileHeaderViewModel(avatarImageURL: user.profilePictureURL,
-                                                     followerCount: 120, // mock value
-                                                     followingCount: 200, // mock value
-                                                     profileStyle: getProfileStyle())
-        header.configure(with: headerViewModel)
+        
+        // Dispatch Group to collect the info required for the viewModel
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        
+        DatabaseManager.shared.getRelationships(for: user, ofType: .following) { [weak self] following in
+            self?.following = following
+            group.leave()
+        }
+        
+        DatabaseManager.shared.getRelationships(for: user, ofType: .followers) { [weak self] followers in
+            self?.followers = followers
+            group.leave()
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self
+            else { return }
+            let headerViewModel = ProfileHeaderViewModel(avatarImageURL: self.user.profilePictureURL,
+                                                         followerCount: self.followers.count,
+                                                         followingCount: self.following.count,
+                                                         profileStyle: self.getProfileStyle())
+            header.configure(with: headerViewModel)
+        }
         
         return header
     }
@@ -231,11 +258,17 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ViewModel) {
+        let vc = UserListViewController(type: .followers, user: user)
+        vc.userIds = followers
+        navigationController?.pushViewController(vc, animated: true)
         print(#function)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ViewModel) {
+        let vc = UserListViewController(type: .following, user: user)
+        vc.userIds = following
+        navigationController?.pushViewController(vc, animated: true)
         print(#function)
     }
     
