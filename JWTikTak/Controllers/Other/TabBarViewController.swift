@@ -36,6 +36,7 @@ class TabBarViewController: UITabBarController {
         let exploreVC       = ExploreViewController()
         let cameraVC        = CameraViewController()
         let notificationsVC = NotificationsViewController()
+        let mockProfileVC = ProfileViewController(userId: L10n.UserUID.johnDoe)
         let profileVC       = ProfileViewController(
             userId: DatabaseManager.shared.currentUser?.identifier ?? User.empty.identifier
         )
@@ -44,7 +45,7 @@ class TabBarViewController: UITabBarController {
         let exploreNav       = UINavigationController(rootViewController: exploreVC)
         let cameraNav        = UINavigationController(rootViewController: cameraVC)
         let notificationsNav = UINavigationController(rootViewController: notificationsVC)
-        let profileNav       = UINavigationController(rootViewController: profileVC)
+        let profileNav       = UINavigationController(rootViewController: mockProfileVC)
 
         // The camera VC does not need a title, and home VC has a control in that place.
         exploreVC.title       = L10n.explore

@@ -82,3 +82,8 @@
 
 // (MIME) content types
 "Content-Type.png" = "image/png";
+
+// User UIDs
+"UserUID.johnDoe"     = "QV4C5PSGyYcy5WeGTmDgXHAPRxt1";
+"UserUID.amitai"      = "Bx8BTvz9wDdfw4xl6shcYc506rs1";
+"UserUID.ablickstein" = "rpXNthkiJmawmhS0G1U2f1ZXUUq2";

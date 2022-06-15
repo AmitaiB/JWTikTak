@@ -46,11 +46,11 @@ struct PostModel: Codable {
     // For debugging
     static func mockModels() -> [PostModel] {
         Array(0...100).compactMap({ index in
-//            PostModel(identifier: UUID().uuidString)
-            PostModel(identifier: UUID().uuidString,
-                      userUid: "Mock User number #\(index)",
-                      filename: "aFilename",
-                      caption: "aCaption",
+            let userUIDs = [L10n.UserUID.johnDoe, L10n.UserUID.ablickstein, L10n.UserUID.amitai]
+            return PostModel(identifier: UUID().uuidString,
+                      userUid: userUIDs.randomElement()!,
+                      filename: StorageManager.generateVideoIdentifier(),
+                      caption: "John's best example of a doe",
                       isLikedByCurrentUser: false)
         })
     }

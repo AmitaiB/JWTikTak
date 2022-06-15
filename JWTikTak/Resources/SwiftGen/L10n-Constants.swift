@@ -154,6 +154,15 @@ internal enum L10n {
     /// text.bubble.fill
     internal static let textBubbleFill = L10n.tr("localizable", "SFSymbol.textBubbleFill")
   }
+
+  internal enum UserUID {
+    /// rpXNthkiJmawmhS0G1U2f1ZXUUq2
+    internal static let ablickstein = L10n.tr("localizable", "UserUID.ablickstein")
+    /// Bx8BTvz9wDdfw4xl6shcYc506rs1
+    internal static let amitai = L10n.tr("localizable", "UserUID.amitai")
+    /// QV4C5PSGyYcy5WeGTmDgXHAPRxt1
+    internal static let johnDoe = L10n.tr("localizable", "UserUID.johnDoe")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

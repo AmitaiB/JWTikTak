@@ -65,8 +65,8 @@ class CaptionViewController: UIViewController {
     private func postVideo() {
         captionTextView.resignFirstResponder()
         
-        // Generate a unique video name based on id
-        let newVideoIdentifier = StorageManager.shared.generateVideoIdentifier()
+        // Generate a unique video name based on timestamp
+        let newVideoIdentifier = StorageManager.generateVideoIdentifier()
         
         ProgressHUD.show(L10n.postingMessage)
         
