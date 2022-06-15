@@ -255,6 +255,9 @@ class PostViewController: UIViewController {
 
 extension PostViewController: JWPlayerDelegate {
     func jwplayerIsReady(_ player: JWPlayer) {
+        ProgressHUD.dismiss()
+        
+        // DEBUG only
         player.volume = 0
     }
     
