@@ -9,13 +9,16 @@ import UIKit
 import Reusable
 import SnapKit
 
+typealias FollowType = UserListViewController.ListType
 
 class DeleteMeTableViewCell: UITableViewCell, Reusable {}
 
 class UserListViewController: UIViewController {
     let type: ListType
     let user: User
-    public var userIds = [String]()
+    public var userIds: [String]? {
+        type == .followers ? user.followers : user.following
+    }
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -61,7 +64,7 @@ class UserListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate   = self
         
-        if userIds.isEmpty {
+        if userIds.isNilOrEmpty {
             view.addSubview(emptyTableLabel)
             emptyTableLabel.sizeToFit()
         }
@@ -69,7 +72,7 @@ class UserListViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if userIds.isEmpty {
+        if userIds.isNilOrEmpty {
             emptyTableLabel.snp.makeConstraints { $0.center.equalToSuperview() }
         } else {
             tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
@@ -78,12 +81,13 @@ class UserListViewController: UIViewController {
 }
 
 extension UserListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { userIds.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { userIds?.count ?? 0 }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.selectionStyle = .none
-        cell.textLabel?.text = userIds[indexPath.row] // This may be a problem — we need displayName, I think...
+        //TODO: displayName rather than User UID
+        cell.textLabel?.text = userIds?[indexPath.row] ?? "None?"
         return cell
     }
 }

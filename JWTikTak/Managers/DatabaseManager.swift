@@ -65,20 +65,24 @@ final class DatabaseManager: NSObject {
     /// Can update any `User` value except for the primary key, the `identifier` property.
     /// - Parameters:
     ///   - shouldSync: After updating the local value, will update those values on the server.
-    public func updateCachedUserValues(newEmail: String?         = nil,
-                                       newDisplayName: String?   = nil,
-                                       newProfilePicURL: URL?    = nil,
-                                       newOwnedPosts: [String]?  = nil,
-                                       newUsername: String?      = nil,
-                                       shouldSync: Bool          = false
+    public func updateUserValues(newEmail: String?                 = nil,
+                                       newDisplayName: String?     = nil,
+                                       newProfilePicURL: URL?      = nil,
+                                       newOwnedPosts: [String]?    = nil,
+                                       newUsername: String?        = nil,
+                                       newFollowerIds: [String]?   = nil,
+                                       newFollowingIds: [String]?  = nil,
+                                       shouldSyncWithServer: Bool  = false
     ) {
         newEmail        .ifSome { currentUser?.email             = $0 }
         newDisplayName  .ifSome { currentUser?.displayName       = $0 }
         newProfilePicURL.ifSome { currentUser?.profilePictureURL = $0 }
         newOwnedPosts   .ifSome { currentUser?.ownedPosts        = $0 }
         newUsername     .ifSome { currentUser?.username          = $0 }
+        newFollowerIds  .ifSome { currentUser?.followers         = $0 }
+        newFollowingIds .ifSome { currentUser?.following         = $0 }
         
-        if shouldSync {
+        if shouldSyncWithServer {
             syncCurrentUser(withStrategy: .ours)
         }
     }
@@ -172,7 +176,7 @@ final class DatabaseManager: NSObject {
     public func insert(newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         // TODO: See if this can be condensed to one call, using `updateChildValues`: https://firebase.google.com/docs/database/ios/read-and-write#update_specific_fields
         updateRootArrayOfPosts(with: newPost, completion: completion)
-        updateUserListOfPostsIDs(with: newPost, completion: completion)
+        updateCurrentUserListOfPostsIDs(with: newPost, completion: completion)
     }
     
     /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
@@ -180,16 +184,18 @@ final class DatabaseManager: NSObject {
         let newPostData = try? FirebaseEncoder().encode(newPost)
         let postsDbRef  = database.child(L10n.Fir.postWithId(newPost.identifier))
         postsDbRef.setValue(newPostData,
-                            withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
+                            withCompletionBlock: dbSetValueCompletion(withItsOwn: completion)
+        )
     }
     
     /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
-    private func updateUserListOfPostsIDs(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
+    private func updateCurrentUserListOfPostsIDs(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         guard let uid = currentUser?.identifier else {
             completion(.failure(DatabaseError.cachedUserUidNil))
             return
         }
         
+        // TODO: Use L10n.fir.userWithId
         let userDbRef = database.child(L10n.Fir.users).child(uid)
         
         userDbRef.observeSingleEvent(of: .value) { snapshot in
@@ -203,6 +209,46 @@ final class DatabaseManager: NSObject {
                 // decode -> update local obj -> encode -> update remote db
                 var user = try FirebaseDecoder().decode(User.self, from: value)
                 user.ownedPosts.coalescingAppend(newPost.identifier)
+                let updatedUserData = try FirebaseEncoder().encode(user)
+                userDbRef.setValue(updatedUserData,
+                                   withCompletionBlock: dbSetValueCompletion(withItsOwn: completion)
+                )
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    public func updateCurrentUserListOfFollowIDs(
+        with newUserIds: [String],
+        ofType followType: FollowType,
+        completion: @escaping DatabaseRefResultCompletion)
+    {
+        guard let uid = currentUser?.identifier else {
+            completion(.failure(DatabaseError.cachedUserUidNil))
+            return
+        }
+        
+        let userDbRef = database.child(L10n.Fir.users).child(uid)
+        
+        database.child(L10n.Fir.userWithId(uid)).observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value else {
+                let error = DatabaseError.fetchedValueNil(line: "line: \(#line)")
+                completion(.failure(error))
+                return
+            }
+            
+            do {
+                // decode -> update local obj -> encode -> update remote db
+                var user = try FirebaseDecoder().decode(User.self, from: value)
+                
+                switch followType {
+                    case .following:
+                        user.following.coalescingAppend(contentsOf: newUserIds)
+                    case .followers:
+                        user.followers.coalescingAppend(contentsOf: newUserIds)
+                }
+                
                 let updatedUserData = try FirebaseEncoder().encode(user)
                 userDbRef.setValue(updatedUserData,
                                    withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
@@ -270,18 +316,19 @@ final class DatabaseManager: NSObject {
             }
     }
     
-    public func getRelationships(
-        for user: User,
-        ofType listType: UserListViewController.ListType,
-        completion: @escaping ([String]) -> Void
-    ) {
-        let path = L10n.Fir.userWithId(user.identifier) + "/" + listType.rawValue
-        database.child(path).observeSingleEvent(of: .value) { snapshot in
-            // get the array of user UIDs
-            let userIDs = snapshot.value as? [String]
-            completion(userIDs ?? [])
-        }
-    }
+    // TODO: This is the wrong way to go about this. Instead, mimic the "ownedPosts" flow.
+//    public func getRelationships(
+//        for user: User,
+//        ofType listType: FollowType,
+//        completion: @escaping ([String]) -> Void
+//    ) {
+//        let path = L10n.Fir.userWithId(user.identifier) + "/" + listType.rawValue
+//        database.child(path).observeSingleEvent(of: .value) { snapshot in
+//            // get the array of user UIDs
+//            let userIDs = snapshot.value as? [String]
+//            completion(userIDs ?? [])
+//        }
+//    }
 }
 
 /// A "D.R.Y." readability refactoring.

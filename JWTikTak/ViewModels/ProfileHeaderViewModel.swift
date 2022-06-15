@@ -9,8 +9,8 @@ import Foundation
 
 struct ProfileHeaderViewModel: ViewModel {
     let avatarImageURL: URL?
-    let followerCount: Int
-    let followingCount: Int
+    let followerCount: Int?
+    let followingCount: Int?
     let profileStyle: Style
     
     enum Style {

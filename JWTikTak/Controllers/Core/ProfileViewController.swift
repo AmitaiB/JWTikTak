@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController {
         DatabaseManager.shared.getUser(withId: userId) { result in
             switch result {
                 case .success(let user):
-                    self.user = user
+                    self.configure(with: user)
                 case .failure(let error):
                     print(error.localizedDescription)
             }
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = user.username?.uppercased()
+        title = user.displayString
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.dataSource = self
@@ -178,29 +178,32 @@ extension ProfileViewController: UICollectionViewDataSource {
         header.delegate = self
         
         // Dispatch Group to collect the info required for the viewModel
-        let group = DispatchGroup()
-        group.enter()
-        group.enter()
+//        let group = DispatchGroup()
+//        group.enter()
+//        group.enter()
+//
+//        DatabaseManager.shared.getRelationships(for: user, ofType: .following) { [weak self] following in
+//            self?.following = following
+//            group.leave()
+//        }
+//
+//        DatabaseManager.shared.getRelationships(for: user, ofType: .followers) { [weak self] followers in
+//            self?.followers = followers
+//            group.leave()
+//        }
+//
+//        group.notify(queue: .main) { [weak self] in
+//            guard let self = self
+//            else { return }
         
-        DatabaseManager.shared.getRelationships(for: user, ofType: .following) { [weak self] following in
-            self?.following = following
-            group.leave()
-        }
-        
-        DatabaseManager.shared.getRelationships(for: user, ofType: .followers) { [weak self] followers in
-            self?.followers = followers
-            group.leave()
-        }
-        
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self
-            else { return }
-            let headerViewModel = ProfileHeaderViewModel(avatarImageURL: self.user.profilePictureURL,
-                                                         followerCount: self.followers.count,
-                                                         followingCount: self.following.count,
-                                                         profileStyle: self.getProfileStyle())
+            let headerViewModel = ProfileHeaderViewModel(
+                avatarImageURL: self.user.profilePictureURL,
+                followerCount:  self.user.followers?.count,
+                followingCount: self.user.following?.count,
+                profileStyle:   self.getProfileStyle()
+            )
             header.configure(with: headerViewModel)
-        }
+//        }
         
         return header
     }
@@ -259,7 +262,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ViewModel) {
         let vc = UserListViewController(type: .followers, user: user)
-        vc.userIds = followers
         navigationController?.pushViewController(vc, animated: true)
         print(#function)
     }
@@ -267,7 +269,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ViewModel) {
         let vc = UserListViewController(type: .following, user: user)
-        vc.userIds = following
         navigationController?.pushViewController(vc, animated: true)
         print(#function)
     }
@@ -330,7 +331,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     @MainActor
     private func handleNewPicUrl(_ url: URL) {
-        DatabaseManager.shared.updateCachedUserValues(newProfilePicURL: url, shouldSync: true)
+        DatabaseManager.shared.updateUserValues(newProfilePicURL: url, shouldSyncWithServer: true)
         collectionView.reloadData()
     }
 }

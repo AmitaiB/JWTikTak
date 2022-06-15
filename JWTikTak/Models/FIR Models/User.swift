@@ -25,6 +25,11 @@ struct User: Codable {
     var ownedPosts: [String]?
     //    var likedPosts: [String]?
     
+    /// An array of User UIDs.
+    var followers: [String]?
+    /// An array of User UIDs.
+    var following: [String]?
+    
     /// - warning: For UI purposes only. The email, in particular is an illegal path in FIR.
     /// - returns: Returns the `displayName`, else the `username`, else the `email`, else part of the User UID.
     var displayString: String { displayName ?? username ?? email ?? "\(identifier.prefix(5))..." }

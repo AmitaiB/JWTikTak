@@ -27,6 +27,12 @@ extension Optional {
     var isNone: Bool { !isSome }
 }
 
+extension Optional where Wrapped: Collection {
+    var isNilOrEmpty: Bool {
+        self?.isEmpty ?? true
+    }
+}
+
 // MARK: Arrays
 extension Optional {
     

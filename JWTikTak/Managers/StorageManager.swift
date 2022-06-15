@@ -84,7 +84,7 @@ final class StorageManager {
     }
     
     ///
-    public func generateVideoIdentifier() -> String {
+    public static func generateVideoIdentifier() -> String {
         let uuidString = UUID().uuidString
         let number = Int.random(in: 0...1000)
         let unixTimestamp = Date().timeIntervalSince1970
@@ -94,6 +94,7 @@ final class StorageManager {
     }
     
     func getVideoDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        
         storageBucket.child(post.videoPath).downloadURL { url, error in
             error.ifSome {completion(.failure($0))}
             url  .ifSome {completion(.success($0))}
@@ -101,6 +102,7 @@ final class StorageManager {
     }
     
     func getThumbnailDownloadURL(forPost post: PostModel, completion: @escaping (Result<URL, Error>) -> Void) {
+        
         storageBucket.child(post.thumbnailPath).downloadURL { url, error in
             error.ifSome {completion(.failure($0))}
             url  .ifSome {completion(.success($0))}

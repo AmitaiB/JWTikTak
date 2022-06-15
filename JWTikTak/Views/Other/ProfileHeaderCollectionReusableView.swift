@@ -24,10 +24,13 @@ protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {
 class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
     
-    var viewModel: ProfileHeaderViewModel?
+    var viewModel: ProfileHeaderViewModel? {
+        didSet { refreshUI() }
+    }
     
     // TODO: Fix Corner radius of avatar image view
-    // Subviews
+    // MARK: - Subviews
+    
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -37,8 +40,6 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
         return imageView
     }()
     
-    
-    // MARK: - Subviews
     private lazy var primaryButton: UIButton = {
         let button = getButton(withTitle: "FOLLOW",
                                fontStyle: .largeTitle,
@@ -54,7 +55,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     
     private lazy var followersButton: UIButton = {
         let button = getButton(withTitle: L10n.followers,
-                               displayCount: 0,
+                               displayCount: -1,
                                numberOfLines: 2)
         button.addAction { [self] in
             guard let viewModel = viewModel
@@ -67,7 +68,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
     
     private lazy var followingButton: UIButton = {
         let button = getButton(withTitle: L10n.following,
-                               displayCount: 0,
+                               displayCount: -2,
                                numberOfLines: 2)
         button.addAction { [self] in
             guard let viewModel = viewModel
@@ -85,7 +86,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView, Reusable {
         return stack
     }()
     
-    // MARK: Initialization
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -164,15 +166,24 @@ extension ProfileHeaderCollectionReusableView: ViewModelConfigurable {
     func configure(with viewModel: ViewModel) {
         guard let viewModel = viewModel as? ProfileHeaderViewModel
         else { return }
-        // TODO: Decide whether to pass in the viewModel, or to store it.
+        // TODO: Decide whether to pass in the viewModel (statelessly?), or to store it.
+        // If storing it, then remove this function — assign it, and didSet calls refreshUI()
+        // If passing it, then hide the viewModel, and only use an accessor function like this one.
         self.viewModel = viewModel
+    }
+    
+    func refreshUI() {
+        guard let viewModel = viewModel
+        else { return }
         
-        followersButton.subtitleLabel?.text = viewModel.followerCount .intStringValue
-        followingButton.subtitleLabel?.text = viewModel.followingCount.intStringValue
+        // FIXME: - After UserList is presented, these get set to `0`
+        followersButton.subtitleLabel?.text = viewModel.followerCount? .intStringValue
+        followingButton.subtitleLabel?.text = viewModel.followingCount?.intStringValue
         
         if let avatarURL = viewModel.avatarImageURL {
-            avatarImageView.sd_setImage(with: avatarURL)
+            avatarImageView.sd_setImage(with: avatarURL, placeholderImage: avatarImageView.image)
         } else {
+            // TODO: remove
             avatarImageView.image = Asset.test.image
         }
         

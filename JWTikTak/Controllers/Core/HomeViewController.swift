@@ -128,8 +128,6 @@ extension HomeViewController: PostViewControllerDelegate {
 // MARK: - UIPageViewControllerDataSource
 extension HomeViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        // Swiping down to scroll up (right?)
-        
         // There can only be a Before page if this post (exists and) is not the first. Exit early otherwise.
         guard
             let currentPost = (viewController as? PostViewController)?.model,
@@ -144,8 +142,6 @@ extension HomeViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        // Swiping up to scroll down (right?)
-
         // There can only be an After page if this post (exists and) is not the last. Exit early otherwise.
         guard
             let currentPost = (viewController as? PostViewController)?.model,
@@ -166,7 +162,8 @@ extension HomeViewController: UIPageViewControllerDataSource {
     }
         
     var currentPosts: [PostModel] {
-        (currentFeed == .forYou) ? forYouPosts : followingPosts
+        (currentFeed == .forYou) ?
+        forYouPosts : followingPosts
     }
 }
 
@@ -174,6 +171,7 @@ extension HomeViewController: UIPageViewControllerDataSource {
 extension HomeViewController: UIScrollViewDelegate {
     // TODO: The navigation scrolling is fine, but the button push is janky — fix with Combine?
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Syncs the segmentedControl with a manual left/right swipe
         if scrollView.contentOffset.x < (view.width/2) {
             control.selectedSegmentIndex = 0
         } else if scrollView.contentOffset.x > (view.width/2) {
