@@ -9,6 +9,7 @@ import UIKit
 //import SettingsViewController
 import SCLAlertView
 import Appirater
+import SafariServices
 
 extension SettingsViewController {
     static var standard = SettingsViewController(settings: standardSettings)
@@ -49,7 +50,24 @@ extension SettingsViewController {
                                       subTitle: "Would you like to sign out?",
                                       animationStyle: .bottomToTop
                 )
-            })
+            }),
+            TextSetting(name: "License", initialValue: "Copyright (c)2033 All Rights Preserved in Brine", onChangeHandler: {_ in}),
+            ButtonSetting(name: "", title: "Terms of Service", onTapHandler: { _ in
+                guard let tosURL = URL(string: "https://www.jwplayer.com/legal/tos")
+                else { return }
+                
+                let tosVC = SFSafariViewController(url: tosURL)
+                topViewController?.dismiss(animated: true)
+                topViewController?.present(tosVC, animated: true)
+            }),
+            ButtonSetting(name: "", title: "Privacy Policy", onTapHandler: { _ in
+                guard let privacyURL = URL(string: "https://www.jwplayer.com/legal/privacy")
+                else { return }
+                
+                let privacyVC = SFSafariViewController(url: privacyURL)
+                topViewController?.dismiss(animated: true)
+                topViewController?.present(privacyVC, animated: true)
+            }),
         ]
     }
     
