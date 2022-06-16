@@ -253,7 +253,11 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
                                              didTapPrimaryButtonWith viewModel: ViewModel) {
         print(#function)
         if isProfileOfLoggedInUser {
-            // edit profile
+            // Edit profile
+            // TODO: Build out Edit Profile View Controller
+            let editVC = EditProfileViewController()
+            let editNav = UINavigationController(rootViewController: editVC)
+            present(editNav, animated: true)
         } else {
             toggleFollow()
         }

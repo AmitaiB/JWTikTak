@@ -49,6 +49,7 @@
 		11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */; };
 		11B0EBF4284FBF410066AF98 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */; };
 		11B0EBF6285001BC0066AF98 /* Notification.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */; };
+		11B301B6285AE5E900CD22D2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */; };
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
@@ -123,6 +124,7 @@
 		11A73EDA27BAD5E300BD8A2E /* ConvertibleNumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertibleNumType.swift; sourceTree = "<group>"; };
 		11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = JWTikTak/Views/Other/PostCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extensions.swift"; sourceTree = "<group>"; };
+		11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */,
+				11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */,
 				11D5BCE427CF2B23008CDA2D /* Authentication */,
 				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
 				11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */,
@@ -644,6 +647,7 @@
 				116AF8FE281AF3330096221E /* DatabaseManager.swift in Sources */,
 				11A73EDE27BAE39900BD8A2E /* ConvertibleNumType.swift in Sources */,
 				11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */,
+				11B301B6285AE5E900CD22D2 /* EditProfileViewController.swift in Sources */,
 				11A73E7B27B59CFE00BD8A2E /* SignInViewController.swift in Sources */,
 				11D5BCA127C40FD7008CDA2D /* ExploreUserViewModel.swift in Sources */,
 				11D5BC9627C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift in Sources */,
