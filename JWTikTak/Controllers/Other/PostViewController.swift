@@ -50,14 +50,13 @@ class PostViewController: UIViewController {
         return label
     }()
     
-    var player: JWPlayer?
+    var playerView = JWPlayerView()
     
     // MARK: - Lifecycle
     init(model: PostModel, delegate: PostViewControllerDelegate? = nil) {
         self.model    = model
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -69,7 +68,6 @@ class PostViewController: UIViewController {
         fetchVideoAndConfigure()
         setupButtons()
         setupGestures()
-        
         // Captions label placeholder
         view.addSubview(captionLabel)
 //        captionLabel.sizeToFit()
@@ -89,12 +87,15 @@ class PostViewController: UIViewController {
         buttonsRow.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-100)
             make.right.equalToSuperview().offset(-10)
+            let stackViewHeightFactor = buttonsRow.arrangedSubviews.count + 1
+            make.height.lessThanOrEqualTo(buttonSide * stackViewHeightFactor)
+            make.width.equalTo(buttonSide)
         }
     }
     
     private func fetchVideoAndConfigure() {
         // MARK: - DEBUG
-        let shouldUseMock = false
+        let shouldUseMock = true
 
         if shouldUseMock {
             guard let fallbackVideoPath = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
@@ -122,7 +123,6 @@ class PostViewController: UIViewController {
     }
     
     private func configureVideo(with url: URL) {
-        
         do {
             let playlistItem = try JWPlayerItemBuilder()
                 .file(url)
@@ -135,14 +135,18 @@ class PostViewController: UIViewController {
                 .repeatContent(true)
                 .build()
             
-            let playerView = JWPlayerView()
             playerView.player.configurePlayer(with: config)
             playerView.videoGravity = .resizeAspectFill
             playerView.player.delegate              = playerMockDelegateObject
             playerView.player.playbackStateDelegate = playerMockDelegateObject
-            player = playerView.player
-            player?.delegate = self
-            view = playerView
+            playerView.player.delegate = self
+            
+            view.addSubview(playerView)
+            playerView.snp.makeConstraints {
+                $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+                $0.top.equalToSuperview()
+            }
+            
             ProgressHUD.dismiss()
         }
         catch { print(error.localizedDescription)}
@@ -154,8 +158,10 @@ class PostViewController: UIViewController {
     private func createUserReactionButton(withSymbol symbolName: String, asAvatar: Bool = false) -> UIButton {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: symbolName), for: .normal)
-        button.tintColor = .white
+        button.tintColor     = .white
         button.clipsToBounds = true
+        button.snp.makeConstraints { $0.width.height.equalTo(buttonSide) }
+                
         if asAvatar  {
             button.layer.cornerRadius       = 20
             button.imageView?.clipsToBounds = true
@@ -215,26 +221,20 @@ class PostViewController: UIViewController {
     }
     
     private func setupGestures() {
-        setupDoubleTapToLike()
-        setupTapToTogglePlayback()
-    }
-    
-    private func setupDoubleTapToLike() {
+        // setup 'DoubleTapToLike'
         let tap2x = UITapGestureRecognizer { [self] gesture in
             // 2xTap in TikTok is 'one-way' for liking, not unliking.
             if !model.isLikedByCurrentUser { toggleLike() }
-            
-            // Heart animation
             animateHeart(at: gesture.location(in: view))
         }
-
         tap2x.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tap2x)
-    }
-    
-    private func setupTapToTogglePlayback() {
-        let tap1x = UITapGestureRecognizer { self.player?.togglePlayback() }
-        view.addGestureRecognizer(tap1x)
+
+        // setup 'TapToTogglePlayback'
+        let tap1x = UITapGestureRecognizer { self.playerView.player.togglePlayback() }
+        tap1x.require(toFail: tap2x)
+        
+        playerView.addGestureRecognizer(tap2x)
+        playerView.addGestureRecognizer(tap1x)
     }
     
     private func animateHeart(at touchPoint: CGPoint) {
@@ -281,3 +281,6 @@ extension PostViewController: JWPlayerDelegate {
         
     }
 }
+
+/// The magnitude of a button side for this file.
+fileprivate var buttonSide: CGFloat { 44 }

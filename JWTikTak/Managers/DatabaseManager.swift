@@ -293,6 +293,7 @@ final class DatabaseManager: NSObject {
 
     
     // MARK: - Posts
+    
     public func getPosts(for user: User, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         database.child(L10n.Fir.posts)
             .observeSingleEvent(of: .value) { snapshot in
@@ -315,20 +316,6 @@ final class DatabaseManager: NSObject {
                 } catch { print(error.localizedDescription) }
             }
     }
-    
-    // TODO: This is the wrong way to go about this. Instead, mimic the "ownedPosts" flow.
-//    public func getRelationships(
-//        for user: User,
-//        ofType listType: FollowType,
-//        completion: @escaping ([String]) -> Void
-//    ) {
-//        let path = L10n.Fir.userWithId(user.identifier) + "/" + listType.rawValue
-//        database.child(path).observeSingleEvent(of: .value) { snapshot in
-//            // get the array of user UIDs
-//            let userIDs = snapshot.value as? [String]
-//            completion(userIDs ?? [])
-//        }
-//    }
 }
 
 /// A "D.R.Y." readability refactoring.
