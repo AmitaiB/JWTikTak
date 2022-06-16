@@ -97,6 +97,7 @@
 		11F40DA5285B7AD700D31624 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F40D98285B7AD700D31624 /* SettingCell.swift */; };
 		11F40DA6285B7AD700D31624 /* TableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F40D99285B7AD700D31624 /* TableView+Extensions.swift */; };
 		11F40DA7285B7AD700D31624 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F40D9A285B7AD700D31624 /* SettingsViewController.swift */; };
+		11F40DA8285B7B1500D31624 /* SettingsViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E7E27B59D0D00BD8A2E /* SettingsViewController+Extensions.swift */; };
 		11F40DAA285B7BEB00D31624 /* ButtonSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F40DA9285B7BEB00D31624 /* ButtonSetting.swift */; };
 		11F40DAC285B7FDC00D31624 /* ButtonSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F40DAB285B7FDC00D31624 /* ButtonSettingCell.swift */; };
 		C9BB559A8CC3EB78851F3632 /* Pods_JWTikTak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3A590A520B0D31BEC4F7E1 /* Pods_JWTikTak.framework */; };
@@ -129,7 +130,7 @@
 		11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		11A73E7A27B59CFE00BD8A2E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		11A73E7E27B59D0D00BD8A2E /* SettingsViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+Extensions.swift"; sourceTree = "<group>"; };
 		11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		11A73E8427B59D6700BD8A2E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		11A73E8827B59D8700BD8A2E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -481,6 +482,7 @@
 		11F40D8B285B7AD700D31624 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				11A73E7E27B59D0D00BD8A2E /* SettingsViewController+Extensions.swift */,
 				11F40D8C285B7AD700D31624 /* Settings */,
 				11F40D92285B7AD700D31624 /* SettingsTableViewController.swift */,
 				11F40D93285B7AD700D31624 /* SettingCell */,
@@ -716,6 +718,7 @@
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
 				11B896EA29AE78A30052AE64 /* MockObjects.swift in Sources */,
 				11E105E328202F5B006D0061 /* Firebase+Extensions.swift in Sources */,
+				11F40DA8285B7B1500D31624 /* SettingsViewController+Extensions.swift in Sources */,
 				11F40D9B285B7AD700D31624 /* FloatSetting.swift in Sources */,
 				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
 				11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */,

@@ -36,6 +36,8 @@ internal enum L10n {
   internal static let genericErrorMessage = L10n.tr("localizable", "genericErrorMessage")
   /// Home
   internal static let home = L10n.tr("localizable", "home")
+  /// Log me out!
+  internal static let logMeOut = L10n.tr("localizable", "LogMeOut")
   /// mp4
   internal static let mp4 = L10n.tr("localizable", "mp4")
   /// Next
@@ -66,6 +68,10 @@ internal enum L10n {
   internal static let signOut = L10n.tr("localizable", "Sign Out")
   /// Would you like to sign out?
   internal static let signOutMessage = L10n.tr("localizable", "signOutMessage")
+  /// Save Videos
+  internal static let saveVideos = L10n.tr("localizable", "Save Videos")
+  /// SignOut
+  internal static let signOut = L10n.tr("localizable", "SignOut")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
   /// Unfollow
