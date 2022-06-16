@@ -13,6 +13,9 @@ import ProgressHUD
 import Actions
 
 class ProfileViewController: UIViewController {
+    /// The `User` being profiled.
+    ///
+    /// - warning: Not necessarily the `currentUser`
     private(set)var user: User
     private(set)var posts = [PostModel]()
     var isProfileOfLoggedInUser: Bool {user == DatabaseManager.shared.currentUser}
@@ -177,44 +180,41 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         header.delegate = self
         
-        // Dispatch Group to collect the info required for the viewModel
-//        let group = DispatchGroup()
-//        group.enter()
-//        group.enter()
-//
-//        DatabaseManager.shared.getRelationships(for: user, ofType: .following) { [weak self] following in
-//            self?.following = following
-//            group.leave()
-//        }
-//
-//        DatabaseManager.shared.getRelationships(for: user, ofType: .followers) { [weak self] followers in
-//            self?.followers = followers
-//            group.leave()
-//        }
-//
-//        group.notify(queue: .main) { [weak self] in
-//            guard let self = self
-//            else { return }
-        
-            let headerViewModel = ProfileHeaderViewModel(
-                avatarImageURL: self.user.profilePictureURL,
-                followerCount:  self.user.followers?.count,
-                followingCount: self.user.following?.count,
-                profileStyle:   self.getProfileStyle()
-            )
-            header.configure(with: headerViewModel)
-//        }
+        let headerViewModel = ProfileHeaderViewModel(
+            avatarImageURL: self.user.profilePictureURL,
+            followerCount:  self.user.followers?.count,
+            followingCount: self.user.following?.count,
+            profileStyle:   self.getProfileStyle()
+        )
+        header.configure(with: headerViewModel)
         
         return header
     }
     
-    // TODO: Account for .isFollowing Status
+    // TODO: Guarantee that this waits for completion (move to await/async?)
     func getProfileStyle() -> ProfileHeaderViewModel.Style {
-        if isProfileOfLoggedInUser {
-            return .isLoggedInUser // good
-        } else {
-            return .isNotFollowing // needs TODO
+        guard !isProfileOfLoggedInUser
+        else { return .isLoggedInUser }
+
+        let group = DispatchGroup()
+        group.enter()
+        DatabaseManager.shared.isValidRelationship(for: user, type: .followers) { [weak self] result in
+            defer { group.leave() }
+            
+            switch result {
+                case .failure(let error): print(error.localizedDescription)
+                case .success(let isFollower):
+                    self?.isFollower = isFollower
+            }
         }
+
+        group.notify(queue: .main) {
+            print(#function, " INSIDE the notification, \(#line)")
+        }
+        
+        print(#function, " OUTSIDE the notification, \(#line)")
+        return isFollower ?
+            .isFollowing : .isNotFollowing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -255,7 +255,54 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         if isProfileOfLoggedInUser {
             // edit profile
         } else {
-            // loggedInUser should follow/unfollow this VC's self.user
+            toggleFollow()
+        }
+    }
+    
+    private func toggleFollow() {
+        guard let currentUserUid = DatabaseManager.shared.currentUser?.identifier
+        else { return }
+        
+        // TODO: Replace `{_ in}` with a real completion.
+        if isFollower {
+            // Unfollow
+            // Remove in the current user's followING
+            DatabaseManager.shared.updateCurrentUserListOfFollowIDs(
+                removing: [user.identifier],
+                ofType: .followers,
+                completion: {_ in}
+            )
+            isFollower = false
+            
+            // Remove in the target user's followERS
+            DatabaseManager.shared.updateListOfFollowIDs(
+                for: user,
+                removing: [currentUserUid],
+                ofType: .followers,
+                completion: {_ in}
+            )
+            
+            // TODO: change style
+        } else {
+            // Follow
+            
+            // Insert in the current user's followING
+            DatabaseManager.shared.updateCurrentUserListOfFollowIDs(
+                adding: [user.identifier],
+                ofType: .followers,
+                completion: {_ in}
+            )
+            isFollower = true
+            
+            // Insert in the target user's followERS
+            DatabaseManager.shared.updateListOfFollowIDs(
+                for: user,
+                inserting: [currentUserUid],
+                ofType: .followers,
+                completion: {_ in}
+            )
+
+            // TODO: change this ProfileVC's style (and refresh the UI)
         }
     }
     

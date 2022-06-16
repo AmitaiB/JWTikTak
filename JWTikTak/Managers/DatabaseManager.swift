@@ -219,19 +219,15 @@ final class DatabaseManager: NSObject {
         }
     }
     
-    public func updateCurrentUserListOfFollowIDs(
-        with newUserIds: [String],
+    public func updateListOfFollowIDs(
+        for user: User,
+        inserting userIdsToInsert:[String] = [],
+        removing userIdsToRemove: [String] = [],
         ofType followType: FollowType,
         completion: @escaping DatabaseRefResultCompletion)
     {
-        guard let uid = currentUser?.identifier else {
-            completion(.failure(DatabaseError.cachedUserUidNil))
-            return
-        }
-        
-        let userDbRef = database.child(L10n.Fir.users).child(uid)
-        
-        database.child(L10n.Fir.userWithId(uid)).observeSingleEvent(of: .value) { snapshot in
+        let path = L10n.Fir.userWithId(user.identifier)
+        database.child(path).observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let value = snapshot.value else {
                 let error = DatabaseError.fetchedValueNil(line: "line: \(#line)")
                 completion(.failure(error))
@@ -244,18 +240,45 @@ final class DatabaseManager: NSObject {
                 
                 switch followType {
                     case .following:
-                        user.following.coalescingAppend(contentsOf: newUserIds)
+                        user.following?.removeAll(where: {userIdsToRemove.contains($0)} )
+                        user.following.coalescingAppend(contentsOf: userIdsToInsert)
                     case .followers:
-                        user.followers.coalescingAppend(contentsOf: newUserIds)
+                        user.followers?.removeAll(where: {userIdsToRemove.contains($0)} )
+                        user.followers.coalescingAppend(contentsOf: userIdsToInsert)
                 }
                 
                 let updatedUserData = try FirebaseEncoder().encode(user)
-                userDbRef.setValue(updatedUserData,
-                                   withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
+                self?.database.child(path)
+                    .setValue(updatedUserData,
+                              withCompletionBlock: dbSetValueCompletion(
+                                withItsOwn: completion)
+                    )
             } catch {
                 print(error.localizedDescription)
             }
         }
+        
+    }
+    
+    
+    /// An ID that is passed in for both insertion and removal will honor the insertion and ignore the removal.
+    public func updateCurrentUserListOfFollowIDs(
+        adding userIdsToInsert:   [String] = [],
+        removing userIdsToRemove: [String] = [],
+        ofType followType: FollowType,
+        completion: @escaping DatabaseRefResultCompletion)
+    {
+        guard let currentUser = currentUser else {
+            completion(.failure(DatabaseError.cachedUserUidNil))
+            return
+        }
+
+        updateListOfFollowIDs(for: currentUser,
+                              inserting: userIdsToInsert,
+                              removing: userIdsToRemove,
+                              ofType: followType,
+                              completion: completion
+        )
     }
     
     /// Self-descriptive.
@@ -316,6 +339,33 @@ final class DatabaseManager: NSObject {
                 } catch { print(error.localizedDescription) }
             }
     }
+    
+    /// Check if a relationship is valid
+    /// - Parameters:
+    ///   - user: Target user to check
+    ///   - type: Type to check
+    ///   - completion: Result callback
+    public func isValidRelationship(
+        for user: User,
+        type: UserListViewController.ListType,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        guard let currentUserId = currentUser?.identifier
+        else { return }
+        
+        let path = L10n.Fir.userWithId(currentUserId) + "/" + type.rawValue
+        
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            guard let userIdCollection = snapshot.value as? [String] else {
+                completion(.failure(DatabaseError.fetchedValueNil(line: "\(#line)")))
+                return
+            }
+            
+            completion(.success(userIdCollection.contains(currentUserId)))
+        }
+    }
+    
+    
 }
 
 /// A "D.R.Y." readability refactoring.
