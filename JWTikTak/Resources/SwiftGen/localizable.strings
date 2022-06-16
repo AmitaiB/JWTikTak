@@ -51,10 +51,13 @@
 "PostingMessage" = "Posting";
 "No Notifications" = "No Notifications";
 "Camera" = "Camera";
-"Photos Library" = "Photos Library";
+"Photos Library"  = "Photos Library";
 "Profile Picture" = "Profile Picture";
-"Cancel" = "Cancel";
-"No Users" = "No Users";
+"Cancel"      = "Cancel";
+"No Users"    = "No Users";
+"SignOut"     = "SignOut";
+"Save Videos" = "Save Videos";
+"LogMeOut" = "Log me out!";
 
 // Notification cells
 "postLike"    = "postLike";

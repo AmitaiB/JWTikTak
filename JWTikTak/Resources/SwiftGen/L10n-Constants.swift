@@ -32,6 +32,8 @@ internal enum L10n {
   internal static let forYou = L10n.tr("localizable", "forYou")
   /// Home
   internal static let home = L10n.tr("localizable", "home")
+  /// Log me out!
+  internal static let logMeOut = L10n.tr("localizable", "LogMeOut")
   /// mp4
   internal static let mp4 = L10n.tr("localizable", "mp4")
   /// Next
@@ -56,6 +58,10 @@ internal enum L10n {
   internal static let profile = L10n.tr("localizable", "profile")
   /// Profile Picture
   internal static let profilePicture = L10n.tr("localizable", "Profile Picture")
+  /// Save Videos
+  internal static let saveVideos = L10n.tr("localizable", "Save Videos")
+  /// SignOut
+  internal static let signOut = L10n.tr("localizable", "SignOut")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
   /// Unfollow

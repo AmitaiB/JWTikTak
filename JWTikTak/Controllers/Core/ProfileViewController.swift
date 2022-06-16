@@ -89,7 +89,7 @@ class ProfileViewController: UIViewController {
         if isProfileOfLoggedInUser {
             navigationItem.rightBarButtonItem = .init(image: UIImage(
                 systemName: L10n.SFSymbol.gear)) { [weak self] in
-                    let settingsVC = SettingsViewController()
+                    let settingsVC = SettingsViewController.standard
                     self?.present(settingsVC, animated: true)
                     // or
 //                    self?.navigationController?.pushViewController(settingsVC, animated: true)
