@@ -40,21 +40,24 @@ final class DatabaseManager: NSObject {
     }
     
     // Use the FIRAuth's User UID to get the Db's User object.
+    // Should be called on startup and on signing in/out
     private func handleAuthStateUpdate(possibleFIRUser object: Any?) {
-        // startup and sign in
-        if let firUser = object as? FIRUser {
-            getUser(withId: firUser.uid) { [weak self] result in
-                switch result {
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    case .success(let user):
-                        self?.updateCachedUser(with: user)
-                }
-            }
-        }
+        // signed in == non-nil user object
+        guard let firUser = object as? FIRUser
         else {
-            // signed out
+            // nil user indicates signed out
             updateCachedUser(with: .none)
+            return
+        }
+        
+        
+        getUser(withId: firUser.uid) { [weak self] result in
+            switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .success(let user):
+                    self?.updateCachedUser(with: user)
+            }
         }
     }
     
