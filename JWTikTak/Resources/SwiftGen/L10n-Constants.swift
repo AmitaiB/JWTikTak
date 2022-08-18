@@ -14,6 +14,8 @@ internal enum L10n {
   internal static let camera = L10n.tr("localizable", "Camera")
   /// Cancel
   internal static let cancel = L10n.tr("localizable", "Cancel")
+  /// Yes, Sign Out
+  internal static let confirmSignOutMessage = L10n.tr("localizable", "confirmSignOutMessage")
   /// video.mov
   internal static let defaultVideoFilename = L10n.tr("localizable", "defaultVideoFilename")
   /// Edit Profile
@@ -30,6 +32,8 @@ internal enum L10n {
   internal static let following = L10n.tr("localizable", "following")
   /// For You
   internal static let forYou = L10n.tr("localizable", "forYou")
+  /// Something went wrong.
+  internal static let genericErrorMessage = L10n.tr("localizable", "genericErrorMessage")
   /// Home
   internal static let home = L10n.tr("localizable", "home")
   /// mp4
@@ -42,6 +46,8 @@ internal enum L10n {
   internal static let noUsers = L10n.tr("localizable", "No Users")
   /// Notifications
   internal static let notifications = L10n.tr("localizable", "notifications")
+  /// Ooops!
+  internal static let ooops = L10n.tr("localizable", "Ooops")
   /// Photos Library
   internal static let photosLibrary = L10n.tr("localizable", "Photos Library")
   /// Post
@@ -56,6 +62,10 @@ internal enum L10n {
   internal static let profile = L10n.tr("localizable", "profile")
   /// Profile Picture
   internal static let profilePicture = L10n.tr("localizable", "Profile Picture")
+  /// Sign Out
+  internal static let signOut = L10n.tr("localizable", "Sign Out")
+  /// Would you like to sign out?
+  internal static let signOutMessage = L10n.tr("localizable", "signOutMessage")
   /// Success
   internal static let success = L10n.tr("localizable", "Success")
   /// Unfollow

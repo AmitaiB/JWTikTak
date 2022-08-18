@@ -90,9 +90,7 @@ class ProfileViewController: UIViewController {
             navigationItem.rightBarButtonItem = .init(image: UIImage(
                 systemName: L10n.SFSymbol.gear)) { [weak self] in
                     let settingsVC = SettingsViewController()
-                    self?.present(settingsVC, animated: true)
-                    // or
-//                    self?.navigationController?.pushViewController(settingsVC, animated: true)
+                    self?.navigationController?.pushViewController(settingsVC, animated: true)
             }
         }
         

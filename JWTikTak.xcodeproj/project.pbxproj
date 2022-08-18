@@ -23,6 +23,7 @@
 		116C55B727F3B504008498A7 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55B627F3B504008498A7 /* IQKeyboardManagerSwift */; };
 		116C55BA27F3B52D008498A7 /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55B927F3B52D008498A7 /* SCLAlertView */; };
 		1171407C28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171407B28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift */; };
+		117D289B28AEEAB700BA5446 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */; };
 		11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5427B31C3400BD8A2E /* AppDelegate.swift */; };
 		11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */; };
 		11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5827B31C3400BD8A2E /* HomeViewController.swift */; };
@@ -94,6 +95,7 @@
 		116AF903281B32DD0096221E /* UniformKeypathInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformKeypathInitializable.swift; sourceTree = "<group>"; };
 		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
 		1171407B28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileHeaderCollectionReusableView.swift; path = JWTikTak/Views/Other/ProfileHeaderCollectionReusableView.swift; sourceTree = SOURCE_ROOT; };
+		117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A73E5427B31C3400BD8A2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +200,15 @@
 				11D5BCE527CFB14A008CDA2D /* AuthField.swift */,
 			);
 			path = "Auth controls";
+			sourceTree = "<group>";
+		};
+		117D289928AEEA8700BA5446 /* Settings scene */ = {
+			isa = PBXGroup;
+			children = (
+				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
+				117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */,
+			);
+			path = "Settings scene";
 			sourceTree = "<group>";
 		};
 		1188703A27EB70470012CBB6 /* FIR Models */ = {
@@ -334,7 +345,7 @@
 				11D5BCE427CF2B23008CDA2D /* Authentication */,
 				11A73E7827B59CEB00BD8A2E /* UserListViewController.swift */,
 				11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */,
-				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
+				117D289928AEEA8700BA5446 /* Settings scene */,
 				11A73E8027B59D2C00BD8A2E /* TabBarViewController.swift */,
 				11A73E8427B59D6700BD8A2E /* PostViewController.swift */,
 				11D5BC9527C3F193008CDA2D /* DefaultJWPlayerXDelegate.swift */,
@@ -641,6 +652,7 @@
 				11A73EC727B9DB6B00BD8A2E /* UIKit+Extensions.swift in Sources */,
 				11D5BCB627C53125008CDA2D /* ExploreDataManager.swift in Sources */,
 				11A73E8927B59D8700BD8A2E /* StorageManager.swift in Sources */,
+				117D289B28AEEAB700BA5446 /* SettingsViewModel.swift in Sources */,
 				11D1EC7227BF2BEA00A7766D /* User.swift in Sources */,
 				1118FD412829C9A8003AA9DD /* Notifications.swift in Sources */,
 				11D5BCE627CFB14A008CDA2D /* AuthField.swift in Sources */,

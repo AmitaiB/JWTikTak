@@ -55,11 +55,15 @@
 "Profile Picture" = "Profile Picture";
 "Cancel" = "Cancel";
 "No Users" = "No Users";
-
+"Sign Out" = "Sign Out";
+"confirmSignOutMessage" = "Yes, Sign Out";
+"signOutMessage" = "Would you like to sign out?";
 // Notification cells
 "postLike"    = "postLike";
 "userFollow"  = "userFollow";
 "postComment" = "postComment";
+"Ooops" = "Ooops!";
+"genericErrorMessage" = "Something went wrong.";
 
 // Keys
 "Key.username" = "loggedInUsername";
