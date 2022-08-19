@@ -165,6 +165,37 @@ internal enum L10n {
     internal static let textBubbleFill = L10n.tr("localizable", "SFSymbol.textBubbleFill")
   }
 
+  internal enum UserSettings {
+    /// Information
+    internal static let information = L10n.tr("localizable", "UserSettings.Information")
+    /// Preferences
+    internal static let preferences = L10n.tr("localizable", "UserSettings.preferences")
+    /// Rate App
+    internal static let rate = L10n.tr("localizable", "UserSettings.Rate")
+    /// Enjoying the app?
+    internal static let ratePrompt = L10n.tr("localizable", "UserSettings.RatePrompt")
+    /// Save Videos
+    internal static let saveVideos = L10n.tr("localizable", "UserSettings.SaveVideos")
+    /// Settings
+    internal static let settingsTitle = L10n.tr("localizable", "UserSettings.settingsTitle")
+    /// Share App
+    internal static let share = L10n.tr("localizable", "UserSettings.Share")
+    /// kShouldSaveVideos
+    internal static let shouldSaveVideosKey = L10n.tr("localizable", "UserSettings.shouldSaveVideosKey")
+    internal enum Privacy {
+      /// Privacy Policy
+      internal static let string = L10n.tr("localizable", "UserSettings.Privacy.string")
+      /// https://www.jwplayer.com/legal/privacy
+      internal static let url = L10n.tr("localizable", "UserSettings.Privacy.url")
+    }
+    internal enum Tos {
+      /// Terms of Service
+      internal static let string = L10n.tr("localizable", "UserSettings.Tos.string")
+      /// https://www.jwplayer.com/legal/tos
+      internal static let url = L10n.tr("localizable", "UserSettings.Tos.url")
+    }
+  }
+
   internal enum UserUID {
     /// rpXNthkiJmawmhS0G1U2f1ZXUUq2
     internal static let ablickstein = L10n.tr("localizable", "UserUID.ablickstein")

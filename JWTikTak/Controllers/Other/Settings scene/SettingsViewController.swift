@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(cellType: PlaceholderCell.self)
+        table.register(cellType: SwitchTableViewCell.self)
         return table
     }()
 
@@ -23,7 +24,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings"
+        title = L10n.UserSettings.settingsTitle
         view.backgroundColor = .systemBackground
 
         view.addSubview(tableView)
@@ -40,13 +41,12 @@ class SettingsViewController: UIViewController {
         
         // Create and add sign out button to footer
         let signOutButton = UIButton(frame: .zero)
-        signOutButton.setTitle("Sign Out", for: .normal)
+        signOutButton.setTitle(L10n.signOut, for: .normal)
         signOutButton.setTitleColor(.systemRed, for: .normal)
         signOutButton.addTarget(self, action: #selector(didTapSignOutButton), for: .touchUpInside)
         footer.addSubview(signOutButton)
     
         signOutButton.snp.makeConstraints { make in
-//            make.edges.equalToSuperview().inset(5)
             make.center.equalToSuperview()
         }
 
@@ -104,14 +104,28 @@ extension SettingsViewController: UITableViewDataSource {
 
     // Cell data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: PlaceholderCell.self)
+        var cell: UITableViewCell
         
-        let cellModel = viewModel.cellModelForRow(at: indexPath)
-        var cellConfig = UIListContentConfiguration.cell()
+        let cellModel   = viewModel.cellModelForRow(at: indexPath)
+        var cellConfig  = UIListContentConfiguration.cell()
         cellConfig.text = cellModel.title
 
+        switch cellModel.title {
+            case L10n.UserSettings.saveVideos:
+                cell = tableView.dequeueReusableCell(for: indexPath, cellType: SwitchTableViewCell.self)
+                let shouldSaveVideos = UserDefaults.standard.bool(forKey: L10n.UserSettings.shouldSaveVideosKey)
+                (cell as? SwitchTableViewCell)?.saveVideosSwitch.isOn = shouldSaveVideos
+                (cell as? SwitchTableViewCell)?.switchDelegate = self
+            
+            case L10n.UserSettings.Privacy.string, L10n.UserSettings.Tos.string:
+                cell = tableView.dequeueReusableCell(for: indexPath, cellType: PlaceholderCell.self)
+                cell.accessoryType = .disclosureIndicator
+
+            default:
+                cell = tableView.dequeueReusableCell(for: indexPath, cellType: PlaceholderCell.self)
+        }
+        
         cell.contentConfiguration = cellConfig
-        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
@@ -131,6 +145,15 @@ extension SettingsViewController: UITableViewDelegate {
     
 }
 
+
+// MARK: - SwitchTableViewCellDelegate
+
+extension SettingsViewController: SwitchTableViewCellDelegate {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didChangeSwitchValueTo isOn: Bool) {
+        // Binds the UI to the underlying value.
+        UserDefaults.standard.setValue(isOn, forKey: L10n.UserSettings.shouldSaveVideosKey)
+    }
+}
 
 class PlaceholderCell: UITableViewCell, Reusable {
     

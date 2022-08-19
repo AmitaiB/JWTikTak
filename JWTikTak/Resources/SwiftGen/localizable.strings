@@ -58,6 +58,7 @@
 "Sign Out" = "Sign Out";
 "confirmSignOutMessage" = "Yes, Sign Out";
 "signOutMessage" = "Would you like to sign out?";
+
 // Notification cells
 "postLike"    = "postLike";
 "userFollow"  = "userFollow";
@@ -92,3 +93,19 @@
 "UserUID.johnDoe"     = "QV4C5PSGyYcy5WeGTmDgXHAPRxt1";
 "UserUID.amitai"      = "Bx8BTvz9wDdfw4xl6shcYc506rs1";
 "UserUID.ablickstein" = "rpXNthkiJmawmhS0G1U2f1ZXUUq2";
+
+// User Settings
+"UserSettings.settingsTitle"  = "Settings";
+"UserSettings.Information"    = "Information";
+"UserSettings.Tos.string"     = "Terms of Service";
+"UserSettings.Tos.url"        = "https://www.jwplayer.com/legal/tos";
+"UserSettings.Privacy.string" = "Privacy Policy";
+"UserSettings.Privacy.url"    = "https://www.jwplayer.com/legal/privacy";
+
+"UserSettings.preferences"         = "Preferences";
+"UserSettings.SaveVideos"          = "Save Videos";
+"UserSettings.shouldSaveVideosKey" = "kShouldSaveVideos";
+
+"UserSettings.Share"      = "Share App";
+"UserSettings.Rate"       = "Rate App";
+"UserSettings.RatePrompt" = "Enjoying the app?";

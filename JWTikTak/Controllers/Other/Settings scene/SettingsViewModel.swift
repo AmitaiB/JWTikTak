@@ -13,31 +13,46 @@ struct SettingsViewModel {
     let sections: [SettingsSection]
     
     static var standard: SettingsViewModel {
-        let viewModel = SettingsViewModel(
-            sections:
-                [
-                    SettingsSection(
-                        title: "Information",
-                        options: [
-                            SettingsOption(title: "Terms of Service", handler: {
-                                guard let tosURL = URL(string: "https://www.jwplayer.com/legal/tos")
-                                else { return }
-                                
-                                let tosVC = SFSafariViewController(url: tosURL)
-                                topViewController?.present(tosVC, animated: true)
-                            }),
-                            SettingsOption(title: "Privacy Policy", handler: {
-                                guard let privacyURL = URL(string: "https://www.jwplayer.com/legal/privacy")
-                                else { return }
-                                
-                                let privacyVC = SFSafariViewController(url: privacyURL)
-                                topViewController?.present(privacyVC, animated: true)
-                            }),
-                        ])
-                ]
+        // Options, which serve as models for cells in the Settings view controller.
+        let saveVideosToggleOption = SettingsOption(title: L10n.UserSettings.saveVideos) {
+            // Handled by the cell's UISwitch's observer, not here (tapping the cell itself).
+        }
+        
+        let termsOfServiceOption = SettingsOption(title: L10n.UserSettings.Tos.string, handler: {
+            guard let tosURL = URL(string: L10n.UserSettings.Tos.url)
+            else { return }
+            
+            let tosVC = SFSafariViewController(url: tosURL)
+            topViewController?.present(tosVC, animated: true)
+        })
+        
+        let privacyPolicyOption = SettingsOption(title: L10n.UserSettings.Privacy.string, handler: {
+            guard let privacyURL = URL(string: L10n.UserSettings.Privacy.url)
+            else { return }
+            
+            let privacyVC = SFSafariViewController(url: privacyURL)
+            topViewController?.present(privacyVC, animated: true)
+        })
+        
+        // Sections, composed of various options
+        let preferencesSection =
+        SettingsSection(title: L10n.UserSettings.preferences,
+                        options: [saveVideosToggleOption])
+        
+        let infoSection = SettingsSection(
+            title: L10n.UserSettings.information,
+            options: [termsOfServiceOption, privacyPolicyOption]
         )
         
-        return viewModel
+        
+        // The final model.
+        return SettingsViewModel(
+            sections:
+                [
+                    preferencesSection,
+                    infoSection,
+                ]
+        )
     }
     
     /// Returns the section at the index path you specify.
@@ -68,15 +83,4 @@ struct SettingsViewModel {
             .first { $0.isKeyWindow }?
             .rootViewController
     }
-}
-
-struct SettingsSection {
-    let title: String
-    let options: [SettingsOption]
-}
-
-/// The model for the Settings menu items, and therefore, for populating its cells.
-struct SettingsOption {
-    let title: String
-    let handler: (() -> Void)
 }

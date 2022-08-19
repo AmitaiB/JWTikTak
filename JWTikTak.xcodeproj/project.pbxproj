@@ -24,6 +24,8 @@
 		116C55BA27F3B52D008498A7 /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = 116C55B927F3B52D008498A7 /* SCLAlertView */; };
 		1171407C28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171407B28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift */; };
 		117D289B28AEEAB700BA5446 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */; };
+		117D289D28AF01BB00BA5446 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D289C28AF01BB00BA5446 /* SwitchTableViewCell.swift */; };
+		117D289F28AF197500BA5446 /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D289E28AF197500BA5446 /* SettingsModels.swift */; };
 		11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5427B31C3400BD8A2E /* AppDelegate.swift */; };
 		11A73E5727B31C3400BD8A2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */; };
 		11A73E5927B31C3400BD8A2E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A73E5827B31C3400BD8A2E /* HomeViewController.swift */; };
@@ -96,6 +98,8 @@
 		116AF905281B3F380096221E /* UITextView+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Placeholder.swift"; sourceTree = "<group>"; };
 		1171407B28330211001F2BF2 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileHeaderCollectionReusableView.swift; path = JWTikTak/Views/Other/ProfileHeaderCollectionReusableView.swift; sourceTree = SOURCE_ROOT; };
 		117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		117D289C28AF01BB00BA5446 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		117D289E28AF197500BA5446 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		11A73E5127B31C3300BD8A2E /* JWTikTak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWTikTak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A73E5427B31C3400BD8A2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11A73E5627B31C3400BD8A2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 			children = (
 				11A73E7E27B59D0D00BD8A2E /* SettingsViewController.swift */,
 				117D289A28AEEAB700BA5446 /* SettingsViewModel.swift */,
+				117D289E28AF197500BA5446 /* SettingsModels.swift */,
+				117D289C28AF01BB00BA5446 /* SwitchTableViewCell.swift */,
 			);
 			path = "Settings scene";
 			sourceTree = "<group>";
@@ -626,6 +632,7 @@
 				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
 				11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */,
 				11A73E7327B59CBF00BD8A2E /* CameraViewController.swift in Sources */,
+				117D289D28AF01BB00BA5446 /* SwitchTableViewCell.swift in Sources */,
 				11D5BC8A27C3D5BE008CDA2D /* JWPlayer+Extensions.swift in Sources */,
 				11D5BCA927C46CAC008CDA2D /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */,
@@ -643,6 +650,7 @@
 				11D5BCA327C40FDC008CDA2D /* ExploreHashtagViewModel.swift in Sources */,
 				11A73E7727B59CD400BD8A2E /* ProfileViewController.swift in Sources */,
 				11A73E5527B31C3400BD8A2E /* AppDelegate.swift in Sources */,
+				117D289F28AF197500BA5446 /* SettingsModels.swift in Sources */,
 				11031F592824BECF005F0803 /* UniformKeypathInitializable.swift in Sources */,
 				11D5BC8827C3D22D008CDA2D /* Secure.swift in Sources */,
 				114A815927E1457800EAEC26 /* CaptionViewController.swift in Sources */,

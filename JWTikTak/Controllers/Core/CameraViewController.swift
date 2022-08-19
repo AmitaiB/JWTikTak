@@ -25,6 +25,9 @@ class CameraViewController: UIViewController {
     // Capture preview
     var capturePreviewLayer: AVCaptureVideoPreviewLayer?
     
+    /// Used to save recorded videos to the camera roll / photos.
+    var recordedVideoURL: URL?
+    
     private let cameraView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -173,6 +176,13 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
             return
         }
 
+        
+        recordedVideoURL = outputFileURL
+        
+        if UserDefaults.standard.bool(forKey: L10n.UserSettings.shouldSaveVideosKey) {
+            UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        }
+        
         // happy path
         print("Finished recording to url: \(outputFileURL.absoluteString)")
         recordedVideoUrl = outputFileURL
