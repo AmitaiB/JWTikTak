@@ -136,6 +136,7 @@ class CameraViewController: UIViewController {
         // function
         recordButton.add(event: .touchUpInside) { [unowned self] button in
             guard let recordButton = button as? RecordButton else { return }
+            HapticsManager.shared.vibrateForSelection()
             
             // Toggle recording off/on
             if self.captureOutput.isRecording {
@@ -190,6 +191,7 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.next, style: .done) { [weak self] in
             guard let localVideoURL = self?.recordedVideoUrl else { return }
+            HapticsManager.shared.vibrateForSelection()
             let captionVC = CaptionViewController(videoURL: localVideoURL)
             self?.navigationController?.pushViewController(captionVC, animated: true)
         }

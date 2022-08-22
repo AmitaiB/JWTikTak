@@ -16,6 +16,7 @@ final class HapticsManager {
     
     // Public
     
+    /// Provides a slight haptic feedback to acknowledge tapping to select a UIControl.
     @MainActor
     public func vibrateForSelection() {
         let generator = UISelectionFeedbackGenerator()

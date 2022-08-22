@@ -76,13 +76,16 @@ class CaptionViewController: UIViewController {
             switch $0 {
                 case .success(_):
                     self.handlePostUploadToStorageSuccess(withFilename: newVideoIdentifier)
+                    HapticsManager.shared.vibrate(for: .success)
                 case .failure(let error):
+                    HapticsManager.shared.vibrate(for: .error)
                     self.handleOpError(error)
             }
         }
     }
     
     private func handlePostUploadToStorageSuccess(withFilename filename: String) {
+        HapticsManager.shared.vibrate(for: .success)
         let caption = captionTextView.text ?? ""
         
         guard let currentUser = DatabaseManager.shared.currentUser else {
@@ -102,6 +105,8 @@ class CaptionViewController: UIViewController {
     }
     
     private func handlePostInsertionSuccess(_ newPost: PostModel? = nil) {
+        HapticsManager.shared.vibrate(for: .success)
+        
         // UI response
         SCLAlertView().showSuccess(L10n.success)
         HapticsManager.shared.vibrate(for: .success)

@@ -142,6 +142,8 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         guard cell.model?.type == .userFollow(username: username)
         else { return }
         
+        HapticsManager.shared.vibrateForSelection()
+        
         DatabaseManager.shared.follow(username: username) { result in
             switch result {
                 case .success(_):
@@ -158,6 +160,7 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
         guard cell.model?.type == .userFollow(username: username)
         else { return }
         
+        HapticsManager.shared.vibrateForSelection()
         
         let debugUserObj = User(identifier: "123-ABC", username: username)
         let profileVC = ProfileViewController(userId: debugUserObj.identifier)
@@ -178,7 +181,10 @@ extension NotificationsViewController: NotificationTableViewCellDelegate {
     }
     
     private func openPost(withId postId: String) {
+        HapticsManager.shared.vibrateForSelection()
+        
         let postVC = PostViewController(model: PostModel(identifier: postId))
+        // TODO: replace placeholder title
         postVC.title = "Placeholder VC Title"
         navigationController?.pushViewController(postVC, animated: true)
     }

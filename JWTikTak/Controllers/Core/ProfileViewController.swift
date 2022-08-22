@@ -224,6 +224,8 @@ extension ProfileViewController: UICollectionViewDataSource {
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
+        
         // open post
         let post = posts[indexPath.row]
         let postVC = PostViewController(model: post)
@@ -250,6 +252,8 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ViewModel) {
         print(#function)
+        HapticsManager.shared.vibrateForSelection()
+
         if isProfileOfLoggedInUser {
             // Edit profile
             // TODO: Build out Edit Profile View Controller
@@ -264,6 +268,8 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     private func toggleFollow() {
         guard let currentUserUid = DatabaseManager.shared.currentUser?.identifier
         else { return }
+        
+        HapticsManager.shared.vibrateForSelection()
         
         // TODO: Replace `{_ in}` with a real completion.
         if isFollower {
@@ -310,6 +316,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ViewModel) {
+        HapticsManager.shared.vibrateForSelection()
         let vc = UserListViewController(type: .followers, user: user)
         navigationController?.pushViewController(vc, animated: true)
         print(#function)
@@ -317,6 +324,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ViewModel) {
+        HapticsManager.shared.vibrateForSelection()
         let vc = UserListViewController(type: .following, user: user)
         navigationController?.pushViewController(vc, animated: true)
         print(#function)
@@ -328,17 +336,18 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView, didTapAvatarImageWith viewModel: ViewModel) {
+        HapticsManager.shared.vibrateForSelection()
         print(#function)
         // Only logged in user can change their profile picture.
         guard isProfileOfLoggedInUser else { return }
             
         // create alert
         let alertView = SCLAlertView(appearance: .defaultCloseButtonIsHidden)
-        alertView.addButton(L10n.camera) {
-            self.presentProfilePicturePicker(with: .camera)
+        alertView.addButton(L10n.camera) { [weak self] in
+            self?.presentProfilePicturePicker(with: .camera)
         }
-        alertView.addButton(L10n.photosLibrary) {
-            self.presentProfilePicturePicker(with: .photosLibrary)
+        alertView.addButton(L10n.photosLibrary) { [weak self] in
+            self?.presentProfilePicturePicker(with: .photosLibrary)
         }
         alertView.addButton(L10n.cancel) {}
         
@@ -369,11 +378,13 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
             switch result {
                 case .success(let downloadUrl):
                     ProgressHUD.showSuccess("Updated!")
+                    HapticsManager.shared.vibrate(for: .success)
                     // update the User object with the url
                     // reload the collectionview
                     self?.handleNewPicUrl(downloadUrl)
                 case .failure(let error):
                     ProgressHUD.showError("Failed to upload profile picture: \(error.localizedDescription)")
+                    HapticsManager.shared.vibrate(for: .error)
             }
         }
     }

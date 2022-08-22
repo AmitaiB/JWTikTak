@@ -41,10 +41,10 @@ class SettingsViewController: UIViewController {
         
         // Create and add sign out button to footer
         let signOutButton = UIButton(frame: .zero)
+        footer.addSubview(signOutButton)
         signOutButton.setTitle(L10n.signOut, for: .normal)
         signOutButton.setTitleColor(.systemRed, for: .normal)
         signOutButton.addTarget(self, action: #selector(didTapSignOutButton), for: .touchUpInside)
-        footer.addSubview(signOutButton)
     
         signOutButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -152,6 +152,7 @@ extension SettingsViewController: SwitchTableViewCellDelegate {
     func switchTableViewCell(_ cell: SwitchTableViewCell, didChangeSwitchValueTo isOn: Bool) {
         // Binds the UI to the underlying value.
         UserDefaults.standard.setValue(isOn, forKey: L10n.UserSettings.shouldSaveVideosKey)
+        HapticsManager.shared.vibrateForSelection()
     }
 }
 

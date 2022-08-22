@@ -154,8 +154,10 @@ class SignUpViewController: UIViewController {
         switch $0 {
             case .success(let result):
                 self?.showAlertForSuccess()
+                HapticsManager.shared.vibrate(for: .success)
             case .failure(let error):
                 self?.showAlert(forError: error)
+                HapticsManager.shared.vibrate(for: .error)
         }
     }
 

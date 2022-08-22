@@ -139,11 +139,13 @@ class SignInViewController: UIViewController {
                 switch $0 {
                     case .success(let email):
                         // dismiss sign in vc
+                        HapticsManager.shared.vibrate(for: .success)
                         SCLAlertView(appearance: successAppearance)
                             .showSuccess("User \(email) signed in.",
                                          timeout: timeoutHandler,
                                          animationStyle: .noAnimation)
                     case .failure(let error):
+                        HapticsManager.shared.vibrate(for: .error)
                         SCLAlertView()
                             .showError(L10n.error, subTitle: error.localizedDescription)
                         print(error.localizedDescription)

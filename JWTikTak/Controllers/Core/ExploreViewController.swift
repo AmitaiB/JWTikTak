@@ -229,10 +229,12 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension ExploreViewController: ExploreDataManagerDelegate {
     @MainActor
     func pushViewController(_ viewController: UIViewController) {
+        HapticsManager.shared.vibrateForSelection()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
     func didTapHashtag(_ hashtag: String) {
+        HapticsManager.shared.vibrateForSelection()
         searchBar.text = hashtag
         searchBar.becomeFirstResponder()
     }

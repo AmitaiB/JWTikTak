@@ -176,6 +176,7 @@ class PostViewController: UIViewController {
         }
         
         commentButton.add(event: .touchUpInside) { [self] _ in
+            HapticsManager.shared.vibrateForSelection()
             // Present comment tray
             let commentsVC = CommentsViewController(post: model)
             present(commentsVC, animated: true, completion: nil)
@@ -214,6 +215,7 @@ class PostViewController: UIViewController {
     /// A separate function accessible to both the 'Like' button and 2x tapping.
     private func toggleLike() {
         model.isLikedByCurrentUser.toggle()
+        HapticsManager.shared.vibrateForSelection()
         
         UIView.animate(withDuration: 0.2, delay: 0, options: []) {
             self.likeButton.tintColor = self.model.isLikedByCurrentUser ? .systemRed : .white
@@ -223,8 +225,10 @@ class PostViewController: UIViewController {
     private func setupGestures() {
         // setup 'DoubleTapToLike'
         let tap2x = UITapGestureRecognizer { [self] gesture in
+            
             // 2xTap in TikTok is 'one-way' for liking, not unliking.
             if !model.isLikedByCurrentUser { toggleLike() }
+            // A heart animation is good UX even if the post is already Liked.
             animateHeart(at: gesture.location(in: view))
         }
         tap2x.numberOfTapsRequired = 2
