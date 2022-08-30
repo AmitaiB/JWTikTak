@@ -8,21 +8,32 @@
 import UIKit
 import SDWebImage
 
+/// Delegate interface to notify of manager events.
 protocol ExploreDataManagerDelegate: AnyObject {
     func pushViewController(_ viewController: UIViewController)
     func didTapHashtag(_ hashtag: String)
 }
 
+/// Manager that handles the explore scene content.
 final class ExploreDataManager {
+    /// Shared singleton instance.
     static let shared = ExploreDataManager()
     private init() {}
     
     weak var delegate: ExploreDataManagerDelegate?
     
+    /// An action type underlying an interaction enabled control.
     enum BannerAction: String {
-        case post, hashtag, user
+        /// Post type.
+        case post
+        /// Hashtag search type.
+        case hashtag
+        /// Creator type.
+        case user
     }
     
+    /// Gets explore data for popular posts.
+    /// - Returns: A collection of explore banner models.
     public func getExploreBanners() -> [ExploreBannerViewModel] {
         switch parseExploreData() {
             case .success(let response):
@@ -57,7 +68,8 @@ final class ExploreDataManager {
         }
     }
     
-    /// "Creators" are `User` model objects.
+    /// Gets explore data for popular posts.
+    /// - Returns: A collection of explore creator models, that is, `User` model objects.
     public func getExploreCreators() -> [ExploreUserViewModel] {
         switch parseExploreData() {
             case .success(let response):
@@ -80,6 +92,9 @@ final class ExploreDataManager {
         }
     }
     
+    /// Gets explore data for popular posts.
+    /// - Returns: A collection of explore hashtag search models.
+    /// - Warning: Not fully implemented!
     public func getExploreHashtags() -> [ExploreHashtagViewModel] {
         switch parseExploreData() {
             case .success(let response):
@@ -98,60 +113,76 @@ final class ExploreDataManager {
         }
     }
     
+    /// Gets explore data for trending posts.
+    /// - Returns: A collection of explore post models.
     public func getExploreTrending() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                return getPostViewModels(from: response.trendingPosts, with: delegate)
+                return getPostViewModels(from: response.trendingPosts)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
         }
     }
     
+    /// Gets explore data for popular posts.
+    /// - Returns: A collection of explore banner models.
     public func getExplorePopular() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                return getPostViewModels(from: response.popular, with: delegate)
+                return getPostViewModels(from: response.popular)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
         }
     }
     
-    /// "recent" is modeled by `.new` models/cells.
+    
+    /// Gets explore data for recent posts.
+    /// - Returns: A collection of explore post models.
+    /// - Note: "recent" is modeled by `.new`-type models/cells.
     public func getExploreRecent() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                return getPostViewModels(from: response.recentPosts, with: delegate)
+                return getPostViewModels(from: response.recentPosts)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
         }
     }
     
+    /// Gets explore data for recommended posts.
+    /// - Returns: A collection of explore post models.
     public func getExploreRecommended() -> [ExplorePostViewModel] {
         switch parseExploreData() {
             case .success(let response):
-                return getPostViewModels(from: response.recommended, with: delegate)
+                return getPostViewModels(from: response.recommended)
             case .failure(let error):
                 print(error.localizedDescription, " line: \(#line)")
                 return []
         }
     }
-        
-    private func getPostViewModels(from posts: [ExploreResponse.Post], with delegate: ExploreDataManagerDelegate?) -> [ExplorePostViewModel] {
-        posts.compactMap { model in
+    
+    /// Handler for successful parsing of explore JSON data.
+    /// - Parameters:
+    ///   - posts: The native object mapped from the JSON response.
+    ///   - delegate:
+    /// - Returns: A collection of explore post models.
+    private func getPostViewModels(from posts: [ExploreResponse.Post]) -> [ExplorePostViewModel] {
+        posts.compactMap { [weak self] model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
                 caption: model.caption) {
                     // use id to fetch post from firebase
                     let mockPostModel = PostModel(identifier: model.id)
                     let mockVC = PostViewController(model: mockPostModel)
-                    delegate?.pushViewController(mockVC)
+                    self?.delegate?.pushViewController(mockVC)
                 }
         }
     }
-
+    
+    /// Parses explore JSON data.
+    /// - Returns: A `Result` wrapping a response model.
     private func parseExploreData() -> Result<ExploreResponse, Error> {
         guard let path = Bundle.main.path(forResource: "explore", ofType: "json")
         else { return .failure(ExploreError.path("line: \(#line)"))}
@@ -178,6 +209,8 @@ final class ExploreDataManager {
 //   let exploreResponse = try? newJSONDecoder().decode(ExploreResponse.self, from: jsonData)
 
 // MARK: - ExploreResponse
+
+/// Models an Explore page's Banner, Post, Hashtag, and Creators' properties, to be mapped from JSON data.
 struct ExploreResponse: Codable {
     let banners: [Banner]
     let hashtags: [Hashtag]
@@ -186,22 +219,30 @@ struct ExploreResponse: Codable {
     
     
     // MARK: - Banner
+    
+    /// Models an Explore Banner's properties, to be mapped from JSON data.
     struct Banner: Codable {
         let id, image, title, action: String
     }
     
     // MARK: - Post
+    
+    /// Models an Explore Post's properties, to be mapped from JSON data.
     struct Post: Codable {
         let id, image, caption: String
     }
 
     // MARK: - Hashtag
+    
+    /// /// Models an Explore Hashtag's properties, to be mapped from JSON data.
     struct Hashtag: Codable {
         let image, tag: String
         let count: Int
     }
     
     // MARK: - Creator
+    
+    /// Models an Explore Banner's properties, to be mapped from JSON data.
     struct Creator: Codable {
         let id, image, username: String
         let followersCount: Int

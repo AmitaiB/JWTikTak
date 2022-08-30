@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Contains a profile image, username, follower count, and selection handler.
 struct ExploreUserViewModel: ViewModel {
     let profileImage: UIImage?
     let username: String

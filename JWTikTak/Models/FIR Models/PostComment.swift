@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Models another user's comment to a post, including the time.
 struct PostComment {
     let text: String
     let user: User

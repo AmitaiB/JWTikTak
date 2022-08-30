@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Contains an image, title, and selection handler.
 struct ExploreBannerViewModel: ViewModel {
     let image: UIImage?
     let title: String

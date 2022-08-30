@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Helps construct the `ExploreSection` view models.
 enum ExploreCell {
     case banner(viewModel: ExploreBannerViewModel)
     case post(viewModel: ExplorePostViewModel)

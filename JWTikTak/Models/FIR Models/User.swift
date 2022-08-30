@@ -12,29 +12,38 @@ typealias UserModel = User
 
 extension UserModel: ViewModel {}
 
-// User UID is the primary key (see https://bit.ly/FirebaseDocs_StructureYourDb ).
+/// A struct modeling the defining properties of a user on the app/platform.
+///
+/// Includes identifying information, login credentials, and references to owned posts, pictures, and
+/// other related users.
+/// - note: `FIRUser` UID is the primary key, `identifier` (see [Firebase docs](https://bit.ly/FirebaseDocs_StructureYourDb)).
 struct User: Codable {
     // MARK: 'FIRAuth' properties
-    /// Should be equal to its corresponding FIRUser's `uid`
+    /// Is set to its corresponding FIRUser's `uid` on creation. Required.
     let identifier: String
+    /// The user's email address. Optional.
     var email: String?        = nil
+    /// The user's chosen readable name, for UI purposes only. Optional.
     var displayName: String?  = nil
     
     // MARK: 'Realtime Db' properties
+    /// The URL to the user's profile picture on FIR.
     var profilePictureURL: URL? = nil
+    /// A collection of UIDs for the posts this user has created.
     var ownedPosts: [String]?
-    //    var likedPosts: [String]?
+    // TODO: var likedPosts: [String]?
     
     /// An array of User UIDs.
     var followers: [String]?
     /// An array of User UIDs.
     var following: [String]?
     
+    /// A string intended for displaying in the UI, drawn from the user's optional properties.
     /// - warning: For UI purposes only. The email, in particular is an illegal path in FIR.
     /// - returns: Returns the `displayName`, else the `username`, else the `email`, else part of the User UID.
     var displayString: String { displayName ?? username ?? email ?? "\(identifier.prefix(5))..." }
     
-    // TODO: phasee out the 'username'?
+    // TODO: Remove 'username' — not used anywhere.
     var username: String? = nil
     
     static var empty = User(
@@ -65,6 +74,7 @@ struct User: Codable {
 
 // MARK: Equatable
 
+// User is equatable by way of its unique primary key only.
 extension User: Equatable {
     static func ==(lhs: User, rhs: User) -> Bool {
         lhs.identifier == rhs.identifier

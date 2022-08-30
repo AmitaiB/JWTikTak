@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Contains an image, caption, and selection handler.
 struct ExplorePostViewModel: ViewModel {
     let thumbnailImage: UIImage?
     let caption: String

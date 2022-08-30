@@ -13,11 +13,13 @@ import Actions
 
 typealias UserDictionary = [String: User]
 typealias PostDictionary = [String: PostModel]
+/// Alias for FIR Realtime Database reference often returned by FIR Db operations.
 typealias DatabaseRefResultCompletion = (Result<DatabaseReference, Error>) -> Void
 
 /// The Firebase db manager (for 'spreadsheet' data, such as users etc.).
 final class DatabaseManager: NSObject {
     // Singleton
+    /// Returns the shared database manager instance.
     public static let shared = DatabaseManager()
     private override init() {
         super.init()
@@ -30,8 +32,12 @@ final class DatabaseManager: NSObject {
         refreshCurrentUserIfNeeded()
     }
         
+    /// The root of the Firebase Database instance on which the manager's other methods operate.
     private let database = Database.database().reference()
-    
+
+    /// The `JWTikTak.User` representing the current user logged into the app (locally).
+    /// - note: Posts a notification when updated.
+    /// - returns: `nil` if logged out.
     private(set) var currentUser: User? {
         didSet {
             NotificationCenter.default
@@ -39,17 +45,18 @@ final class DatabaseManager: NSObject {
         }
     }
     
-    // Use the FIRAuth's User UID to get the Db's User object.
     // Should be called on startup and on signing in/out
+    
+    /// Retrieves the `User` from the FIR Realtime Db using the `FIRUser`'s UID as key and/or responds
+    /// to logging out.
+    /// - Parameter object: The currently logged in `FIRUser`, or `nil` if logged out.
     private func handleAuthStateUpdate(possibleFIRUser object: Any?) {
-        // signed in == non-nil user object
+        // nil user indicates signed out
         guard let firUser = object as? FIRUser
         else {
-            // nil user indicates signed out
             updateCachedUser(with: .none)
             return
         }
-        
         
         getUser(withId: firUser.uid) { [weak self] result in
             switch result {
@@ -61,11 +68,15 @@ final class DatabaseManager: NSObject {
         }
     }
     
+    /// Updates the internally tracked `currentUser` in the `DatabaseManager`.
+    /// - Parameter user: The currently logged in `User`, or `nil` if logged out.
     public func updateCachedUser(with user: User?) {
         currentUser = user
     }
     
-    /// Can update any `User` value except for the primary key, the `identifier` property.
+    /// Use to update any `User` value except for the primary key (the `identifier` property).
+    /// - note: While this method is non-destructive (passing a `nil` value will not delete the property),
+    /// the decision depends on the sync strategy.
     /// - Parameters:
     ///   - shouldSync: After updating the local value, will update those values on the server.
     public func updateUserValues(newEmail: String?                 = nil,
@@ -90,6 +101,9 @@ final class DatabaseManager: NSObject {
         }
     }
     
+    // TODO: Add `.merge` strategy?
+    
+    /// A strategy with which to synchronize the server with the local values.
     enum SyncStrategy {
         /// Overwrites the server with the local version.
         case ours
@@ -97,6 +111,9 @@ final class DatabaseManager: NSObject {
         case theirs
     }
     
+    /// Synchronizes the local values with the server's, in the case where values have been
+    /// changed locally by the user, or the local models need to be populated by the server.
+    /// - Parameter strategy: The strategy with which to synchronize the server with the local values.
     public func syncCurrentUser(withStrategy strategy: SyncStrategy = .ours) {
         guard let currentUser = currentUser
         else { return }
@@ -118,8 +135,12 @@ final class DatabaseManager: NSObject {
     }
     
     // Public
-    /// Adds the new user to the realtime database (different from FIR's authentication database).
-    /// - returns: A `Result` with a FIR Db reference containing a snapshot.
+
+    /// Adds the new user to the FIR Realtime database.
+    /// - Parameters:
+    ///   - user: A `User` representing the user to add.
+    ///   - completion: The completion handler to call when the upload task is complete; it passes a `Result` that
+    ///   wraps either a `FIRDatabaseReference` on success, or an error on failure.
     public func insert(user: UserModel,
                        completion: @escaping DatabaseRefResultCompletion
     ) {
@@ -131,7 +152,11 @@ final class DatabaseManager: NSObject {
             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion))
     }
     
-
+    /// Retrieves the `User` given its `identifier` from the FIR Realtime Db.
+    /// - Parameters:
+    ///   - identifier: The user's UID, which is set to the `FIRUser`'s UID on account creation.
+    ///   - completion: The completion handler to call when the fetch is complete; it passes a `Result`
+    ///    that either wraps the requested `User` object on success, or an error on failure.
     public func getUser(withId identifier: String, completion: @escaping UserResultCompletion) {
         let path = L10n.Fir.userWithId(identifier)
         database.child(path).observeSingleEvent(of: .value) { snapshot in
@@ -147,7 +172,12 @@ final class DatabaseManager: NSObject {
         }
     }
     
-    
+    // TODO: Unused. Remove, or expand functionality.
+    /// Retrieves the `User` given its email address.
+    /// - Parameters:
+    ///   - email: The user's email address.
+    ///   - completion: The completion handler to call when the fetch is complete; it passes a `Result`
+    ///    that either wraps the requested `User` object on success, or an error on failure.
     public func getUser(for email: String, completion: @escaping UserResultCompletion) {
         database.child(L10n.Fir.users)
             .observeSingleEvent(of: .value) { snapshot in
@@ -171,18 +201,20 @@ final class DatabaseManager: NSObject {
             }
     }
     
-    /// Adds a post to the Firebase RealTime Database
+    /// Records the new `Post` in storage.
+    ///
+    /// FIR RealtimeDb has a flat hierarchy, so full `Post`s are stored in their own root directory, with `User`s retaining a collection of references to their associated `Posts`. Both locations need to be updated respectively.
     /// - Parameters:
-    ///   - filename: The video filename, with extension, e.g., `myVideo.mov`.
-    ///   - caption: User input caption for video.
-    ///   - completion: Handles the server response.
+    ///   - newPost: The model representing the user's newly created post.
+    ///   - completion: The completion handler to call when the upload task is complete; it passes a `Result` that
+    ///   wraps either a `FIRDatabaseReference` on success, or an error on failure.
     public func insert(newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         // TODO: See if this can be condensed to one call, using `updateChildValues`: https://firebase.google.com/docs/database/ios/read-and-write#update_specific_fields
         updateRootArrayOfPosts(with: newPost, completion: completion)
         updateCurrentUserListOfPostsIDs(with: newPost, completion: completion)
     }
     
-    /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
+    /// Records the full `PostModel` in storage with all other posts. Helps `insert(newPost:)`.
     private func updateRootArrayOfPosts(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         let newPostData = try? FirebaseEncoder().encode(newPost)
         let postsDbRef  = database.child(L10n.Fir.postWithId(newPost.identifier))
@@ -190,8 +222,8 @@ final class DatabaseManager: NSObject {
                             withCompletionBlock: dbSetValueCompletion(withItsOwn: completion)
         )
     }
-    
-    /// RealtimeDb has a flat hierarchy, so Posts exist separately, while Users just have an array of references. Both need to be updated.
+
+    /// Updates the `currentUser`'s collection of associated posts with the new post. Helps `insert(newPost:)`.
     private func updateCurrentUserListOfPostsIDs(with newPost: PostModel, completion: @escaping DatabaseRefResultCompletion) {
         guard let uid = currentUser?.identifier else {
             completion(.failure(DatabaseError.cachedUserUidNil))
@@ -222,6 +254,15 @@ final class DatabaseManager: NSObject {
         }
     }
     
+    /// Updates the given user's list of the given relationship type.
+    ///
+    /// - note: A new relationship needs to be recorded by both "sides", so this will be called twice.
+    /// - Parameters:
+    ///   - user: The `User` model representing the user to update.
+    ///   - userIdsToInsert: The unique user id's to **add** to the user's recognized relationships (of the chosen type).
+    ///   - userIdsToRemove: The unique user id's to **remove** to the user's recognized relationships (of the chosen type).
+    ///   - followType: Currently, `followers` or `following` only.
+    ///   - completion: The completion handler to call when the update task is complete; it passes a `Result` that either wraps a `FIRDatabaseReference` object on success, or an error on failure.
     public func updateListOfFollowIDs(
         for user: User,
         inserting userIdsToInsert:[String] = [],
@@ -264,7 +305,7 @@ final class DatabaseManager: NSObject {
     }
     
     
-    /// An ID that is passed in for both insertion and removal will honor the insertion and ignore the removal.
+    /// A convenience method that calls `updateListOfFollowIDs(...)` for the `currentUser`.
     public func updateCurrentUserListOfFollowIDs(
         adding userIdsToInsert:   [String] = [],
         removing userIdsToRemove: [String] = [],
@@ -284,11 +325,10 @@ final class DatabaseManager: NSObject {
         )
     }
     
-    /// Self-descriptive.
+    /// Synchronizes the local `currentUser` with the FirebaseAuth logged in `FIRUser`.
     ///
-    /// There is no guarantee that this singleton will exist at the time that the AuthManager singleton
-    /// posts its notification about the state of the current User. If they are out of sync, this method
-    /// will synchronize this DatabaseManager.
+    /// As there is no guarantee that the `DatabaseManager` will exist at the time that the `AuthManager`
+    /// posts its notification about the state of the `currentUser`, this method is called to guarantee that they are in sync.
     private func refreshCurrentUserIfNeeded() {
         let currentUserNeedsRefresh = Auth.auth().currentUser.isSome && currentUser.isNone
         
@@ -300,7 +340,10 @@ final class DatabaseManager: NSObject {
     
     
     // MARK: - Notifications
-
+    
+    /// Retrieves the notifications associated with the `currentUser`.
+    /// - Parameter completion: The completion handler to call when the fetch is complete; it passes a `Result` that
+    ///   wraps either an array of `Notification`s on success, or an error on failure.
     public func getNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
         completion(.success(Notification.mockData()))
     }
@@ -308,18 +351,33 @@ final class DatabaseManager: NSObject {
     // TODO: replace the (Bool) -> Voids with Result<User, Error> or whatnot.
     // TODO: TODO: Replace completion blocks with await/async!
     public func markNotificationAsHidden(withId id: String, completion: @escaping (Bool) -> Void) {
-        // debug trivial mock result
+#warning("function is not implemented!")
+#if DEBUG
         completion(true)
+#endif
     }
+
     
+    // TODO: - implement as per the warning below
+    /// Updates the user...to follow
+    /// - Parameters:
+    ///   - username: <#username description#>
+    ///   - completion: <#completion description#>
     public func follow(username: String, completion: @escaping (Result<User, Error>) -> Void) {
-        // debug trivial mock result
+#warning("function is not implemented! Get the ID from the username or get the id directly, and then update the follow IDs calling the above functions")
+#if DEBUG
         completion(.success(User(identifier: "fake user ID", username: username)))
+#endif
     }
 
     
     // MARK: - Posts
     
+    /// Retrieves the posts associated with the given user.
+    /// - Parameters:
+    ///   - user: The `User` model representing the user whose posts are being fetched.
+    ///   - completion: The completion handler to call when the fetch is complete; it passes a `Result` that
+    ///   wraps either an array of `PostModel`s on success, or an error on failure.
     public func getPosts(for user: User, completion: @escaping (Result<[PostModel], Error>) -> Void) {
         database.child(L10n.Fir.posts)
             .observeSingleEvent(of: .value) { snapshot in
@@ -343,11 +401,12 @@ final class DatabaseManager: NSObject {
             }
     }
     
-    /// Check if a relationship is valid
+    /// Determines whether the relationship to the `currentUser` of the selected type is valid.
+    /// - note: In logical terms (as per the database), "Is the target user amongst the current user's collection of {relationship}?"
     /// - Parameters:
-    ///   - user: Target user to check
-    ///   - type: Type to check
-    ///   - completion: Result callback
+    ///   - user: Target user to check against the `currentUser`.
+    ///   - type: Currently, `followers` or `following` only.
+    ///   - completion: The completion handler to call when the fetch is complete; it passes a `Result` that
     ///   wraps either the `Bool` with the relationship validity on success, or an error on failure.
     public func validateRelationship(
         for user: User,
@@ -355,21 +414,24 @@ final class DatabaseManager: NSObject {
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         guard let currentUserId = currentUser?.identifier
-        else { return }
+        else {
+            completion(.failure(DatabaseError.cachedUserUidNil))
+            return
+        }
         
+        // Form the path for the requested relation type.
         let path = L10n.Fir.userWithId(currentUserId) + "/" + type.rawValue
-        
         database.child(path).observeSingleEvent(of: .value) { snapshot in
-            guard let userIdCollection = snapshot.value as? [String] else {
+            // Fetch the users belonging to that relation.
+            guard let validUserIds = snapshot.value as? [String] else {
                 completion(.failure(DatabaseError.fetchedValueNil(line: "\(#line)")))
                 return
             }
             
-            completion(.success(userIdCollection.contains(currentUserId)))
+            let isValidRelationship = validUserIds.contains(currentUserId)
+            completion(.success(isValidRelationship))
         }
     }
-    
-    
 }
 
 /// A "D.R.Y." readability refactoring.

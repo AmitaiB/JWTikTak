@@ -150,7 +150,7 @@ class SignUpViewController: UIViewController {
 //        }
 //    }
 //
-    lazy var showAlertHandlerForStringResult: AuthStringResultCompletion = { [weak self] in
+    lazy var showAlertHandlerForStringResult: StringResultCompletion = { [weak self] in
         switch $0 {
             case .success(let result):
                 self?.showAlertForSuccess()

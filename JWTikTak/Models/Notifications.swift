@@ -7,8 +7,10 @@
 
 import Foundation
 
+/// The types of events to which user's may subscribe. Includes post likes and comments, and follows.
 enum NotificationType: Equatable {
     case postLike(postId: String)
+    // TODO: When username is removed, change to user.identifier
     case userFollow(username: String)
     case postComment(postId: String)
     

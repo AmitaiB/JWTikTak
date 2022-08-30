@@ -8,14 +8,15 @@
 import Foundation
 import FirebaseAuth
 
-// NOTE: DbManager and AuthManager are tightly coupled!
-typealias AuthDataResultCompletion   = ((Result<AuthDataResult, Error>) -> Void)
-typealias AuthStringResultCompletion = ((Result<String, Error>) -> Void)
-typealias UserResultCompletion       = ((Result<User, Error>) -> Void)
+// FIXME: DbManager and AuthManager are tightly coupled!
+typealias StringResultCompletion = (Result<String, Error>) -> Void
+typealias UserResultCompletion   = (Result<User, Error>) -> Void
 
-/// Encapsulates authentication logic. Handles `FIRUser`, does not own `User` (and therefore, not `username`.
+/// Encapsulates authentication logic.
+/// - note: As a general rule, handles `FIRUser`; whereas `DatabaseManager` is in charge of `User`s.
 final class AuthManager {
     // Singleton
+    /// Returns the shared authentication manager instance.
     public static let shared = AuthManager()
     private init() {
         authStateListner = Auth.auth().addStateDidChangeListener(
@@ -31,19 +32,19 @@ final class AuthManager {
     // TODO: Remove, use Notifications instead of calling db methods here.
     private weak var database = DatabaseManager.shared
     
-    enum SignInMethod {
-        case email
-        case google
-        case facebook
-    }
-    
     // Public
+    /// Synchronously checks for a cached current user (`FIRUser`).
     public var isSignedIn: Bool { Auth.auth().currentUser != nil }
     
+    
     /// Signs in using an email address and password.
+    /// - Parameters:
+    ///   - email: The user's email address.
+    ///   - password: The user's password.
+    ///   - completion: The completion handler to call when the sign in task is complete; it passes a `Result` that either wraps a `String` object on success, or an error on failure.
     public func signIn(withEmail email: String,
                        password: String,
-                       completion: @escaping AuthStringResultCompletion) {
+                       completion: @escaping StringResultCompletion) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             switch (result, error) {
                     // Firebase reported an error.
@@ -54,13 +55,15 @@ final class AuthManager {
                 case (.none, _):
                     completion(.failure(AuthError.signInFailed))
 
-//                     Happy path, successful sign in
+                    // Happy path, successful sign in
                 case (.some, .none):
                     completion(.success(email))
             }
         }
     }
-        
+    
+    /// Signs out the current user.
+    /// - Parameter completion: The completion handler to call when the sign out task is complete; it passes a `Bool` indicating success (`true`) or failure (`false`).
     public func signOut(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -73,11 +76,18 @@ final class AuthManager {
     }
     
     // Called by the user tapping "Sign Up"
+    
+    /// Creates and, on success, signs in a user with the given email address and password.
+    /// - Parameters:
+    ///   - username: The username to associate with the new user account.
+    ///   - email: The email address to associate with the new user account.
+    ///   - password: The password for the new user account.
+    ///   - completion: The completion handler to call when the new sign up task is complete; it passes a `Result` that either wraps a `String` object on success, or an error on failure.
     public func signUp(
         withUsername username: String,
         email: String,
         password: String,
-        completion: @escaping AuthStringResultCompletion
+        completion: @escaping StringResultCompletion
     ) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             // retrieve the new user's uid, then make a new User with email, password, displayname, and UID.
@@ -91,13 +101,14 @@ final class AuthManager {
     
     
     // MARK: - Helper methods
-            
+    
+    /// Route the response to the attempted user creation between the happy path or error handling.
     private func handleUserCreation(
         forUsername newUsername: String,
         email: String,
         withResult result: AuthDataResult?,
         error: Error?,
-        completion: @escaping AuthStringResultCompletion
+        completion: @escaping StringResultCompletion
     ) {
         switch (result, error) {
                 // Firebase server reported an error.
@@ -121,14 +132,16 @@ final class AuthManager {
         }
     }
     
-    /// The new `user` in the FIRAuth Db now needs to be stored in Realtime Db for business logic use.
+    /// Retrieves the new user's FIRAuth-server-generated uid to complete the new `User` object,
+    /// which then needs to be stored in the FIR Realtime Db so as to share/expose it to the app's
+    /// business logic flow.
     /// - Parameters:
-    ///   - firUser: The object created by FIR servers, including its User UID.
-    ///   - newUsername: aka, the `displayName`
-    ///   - completion: Passes along the username to indicate success in the UI.
+    ///   - firUser: The object created by the FIR Auth server, including its User UID, which is adopted as the `User`'s UID as well.
+    ///   - newUsername: Not intended to be a primary key; that is, this is 'merely' a `displayName`.
+    ///   - completion: The completion handler to call when the new sign up task is complete; it passes a `Result` that either wraps a `String` object (cotaining the username) on success, or an error on failure.
     private func handleSuccessfulUserCreation(ofNewUser firUser: FIRUser,
                                               withUsername newUsername: String,
-                                              completion: @escaping AuthStringResultCompletion) {
+                                              completion: @escaping StringResultCompletion) {
         let newUser = User(identifier: firUser.uid,
                            email: firUser.email,
                            displayName: firUser.displayName ?? newUsername,

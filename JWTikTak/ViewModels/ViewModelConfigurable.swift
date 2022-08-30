@@ -7,9 +7,10 @@
 
 import Foundation
 
+/// Views that consume a `ViewModel`, such as `UITableViewCell`s.
 protocol ViewModelConfigurable {
     func configure(with viewModel: ViewModel)
 }
 
-/// Used to explictly signify the function call's intention.
+/// A trivial protocol, used to explictly signify a member's function call's intention.
 protocol ViewModel {}

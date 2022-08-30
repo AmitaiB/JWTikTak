@@ -7,11 +7,13 @@
 
 import Foundation
 
+/// A view model for the `ExploreViewController`'s table view.
 struct ExploreSection {
     let type: ExploreSectionType
     let cells: [ExploreCell]
 }
 
+/// Each type is presented in its own section in the `ExploreViewController`.
 enum ExploreSectionType: CustomStringConvertible, CaseIterable {
     case banners
     case trending
