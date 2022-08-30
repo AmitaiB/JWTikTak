@@ -9,12 +9,10 @@ import UIKit
 import Reusable
 import SnapKit
 
-typealias FollowType = UserListViewController.ListType
-
 class DeleteMeTableViewCell: UITableViewCell, Reusable {}
 
 class UserListViewController: UIViewController {
-    let type: ListType
+    let type: FollowRelationType
     let user: User
     public var userIds: [String]? {
         type == .followers ? user.followers : user.following
@@ -34,15 +32,9 @@ class UserListViewController: UIViewController {
         return label
     }()
     
-    enum ListType: String {
-        case followers
-        case following
-    }
-    
-    
     // MARK: - Init
     
-    init(type: ListType, user: User) {
+    init(type: FollowRelationType, user: User) {
         self.type = type
         self.user = user
         super.init(nibName: nil, bundle: nil)

@@ -196,7 +196,7 @@ extension ProfileViewController: UICollectionViewDataSource {
 
         let group = DispatchGroup()
         group.enter()
-        DatabaseManager.shared.isValidRelationship(for: user, type: .followers) { [weak self] result in
+        DatabaseManager.shared.validateRelationship(for: user, type: .followers) { [weak self] result in
             defer { group.leave() }
             
             switch result {

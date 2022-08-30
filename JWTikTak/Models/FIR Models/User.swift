@@ -70,3 +70,10 @@ extension User: Equatable {
         lhs.identifier == rhs.identifier
     }
 }
+
+/// `String`-based `enum` cases: `followers` or `following`. Used in many places throughout the app
+/// to define relationships between users.
+enum FollowRelationType: String {
+    case followers
+    case following
+}

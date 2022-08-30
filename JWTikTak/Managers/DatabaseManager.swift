@@ -226,7 +226,7 @@ final class DatabaseManager: NSObject {
         for user: User,
         inserting userIdsToInsert:[String] = [],
         removing userIdsToRemove: [String] = [],
-        ofType followType: FollowType,
+        ofType followType: FollowRelationType,
         completion: @escaping DatabaseRefResultCompletion)
     {
         let path = L10n.Fir.userWithId(user.identifier)
@@ -268,7 +268,7 @@ final class DatabaseManager: NSObject {
     public func updateCurrentUserListOfFollowIDs(
         adding userIdsToInsert:   [String] = [],
         removing userIdsToRemove: [String] = [],
-        ofType followType: FollowType,
+        ofType followType: FollowRelationType,
         completion: @escaping DatabaseRefResultCompletion)
     {
         guard let currentUser = currentUser else {
@@ -348,9 +348,10 @@ final class DatabaseManager: NSObject {
     ///   - user: Target user to check
     ///   - type: Type to check
     ///   - completion: Result callback
-    public func isValidRelationship(
+    ///   wraps either the `Bool` with the relationship validity on success, or an error on failure.
+    public func validateRelationship(
         for user: User,
-        type: UserListViewController.ListType,
+        type: FollowRelationType,
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         guard let currentUserId = currentUser?.identifier
