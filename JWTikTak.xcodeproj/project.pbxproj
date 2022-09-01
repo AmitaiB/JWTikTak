@@ -197,13 +197,15 @@
 			path = "Explore cells";
 			sourceTree = "<group>";
 		};
-		1118FD4A2829D059003AA9DD /* Auth controls */ = {
+		1118FD4A2829D059003AA9DD /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
 				11D5BCE727CFB174008CDA2D /* AuthButton.swift */,
 				11D5BCE527CFB14A008CDA2D /* AuthField.swift */,
+				1159DA4C282B61E90067C116 /* FollowButton.swift */,
+				11E28C8327D9A5AA008CF3BA /* RecordButton.swift */,
 			);
-			path = "Auth controls";
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		117D289928AEEA8700BA5446 /* Settings scene */ = {
@@ -372,12 +374,8 @@
 		11A73E8327B59D4E00BD8A2E /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				1118FD4A2829D059003AA9DD /* Auth controls */,
-				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
-				1118FD492829D03F003AA9DD /* Explore cells */,
-				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
-				1159DA4C282B61E90067C116 /* FollowButton.swift */,
-				11E28C8327D9A5AA008CF3BA /* RecordButton.swift */,
+				11F0241928C1192C00912280 /* Cells */,
+				1118FD4A2829D059003AA9DD /* Buttons */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -434,6 +432,16 @@
 				11A73E7C27B59D0600BD8A2E /* SignUpViewController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		11F0241928C1192C00912280 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1118FD492829D03F003AA9DD /* Explore cells */,
+				11D1EC7327BF519900A7766D /* CommentTableViewCell.swift */,
+				1159DA4A282ADC3C0067C116 /* NotificationTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		532FCD2C557B568EF93DF8A0 /* Pods */ = {

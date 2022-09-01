@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// A UITextField subclass for use by the authentication workflow.
 class AuthField: UITextField {
 
     enum FieldType {

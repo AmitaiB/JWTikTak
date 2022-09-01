@@ -7,8 +7,9 @@
 
 import UIKit
 
+/// A UIButton subclass for use by the authentication workflow.
 class AuthButton: UIButton {
-
+    
     enum ButtonType {
         case signIn
         case signUp
@@ -58,5 +59,4 @@ class AuthButton: UIButton {
         layer.cornerRadius  = 8
         layer.masksToBounds = true
     }
-
 }
