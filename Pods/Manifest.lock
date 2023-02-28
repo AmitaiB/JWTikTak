@@ -69,7 +69,7 @@ PODS:
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.1)
-  - JWPlayerKit (4.5.2)
+  - JWPlayerKit (4.10.0)
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -88,7 +88,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Database
   - Firebase/Storage
-  - JWPlayerKit (= 4.5.2)
+  - JWPlayerKit (= 4.10.0)
   - SDWebImage
 
 SPEC REPOS:
@@ -126,12 +126,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
-  JWPlayerKit: a64a4c1aa2c66e8c8aad735305614a7774eb54f9
+  JWPlayerKit: 39faf31167189fdcb35f0e6b2a61df2c15a0c6cc
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: 49fa4b1363e7e03ad1a88a23de780fecbffc0f04
+PODFILE CHECKSUM: 2b1b354ab306aa94d3a4d3f1781a4a08f387c3c9
 
 COCOAPODS: 1.11.3

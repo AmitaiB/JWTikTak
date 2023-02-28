@@ -17,11 +17,11 @@ RSYNC_PROTECT_TMP_FILES=(--filter "P .*.??????")
 variant_for_slice()
 {
   case "$1" in
-  "JWPlayerKit.xcframework/ios-arm64_armv7")
-    echo ""
-    ;;
-  "JWPlayerKit.xcframework/ios-i386_x86_64-simulator")
+  "JWPlayerKit.xcframework/ios-arm64_x86_64-simulator")
     echo "simulator"
+    ;;
+  "JWPlayerKit.xcframework/ios-arm64")
+    echo ""
     ;;
   esac
 }
@@ -29,11 +29,11 @@ variant_for_slice()
 archs_for_slice()
 {
   case "$1" in
-  "JWPlayerKit.xcframework/ios-arm64_armv7")
-    echo "arm64 armv7"
+  "JWPlayerKit.xcframework/ios-arm64_x86_64-simulator")
+    echo "arm64 x86_64"
     ;;
-  "JWPlayerKit.xcframework/ios-i386_x86_64-simulator")
-    echo "i386 x86_64"
+  "JWPlayerKit.xcframework/ios-arm64")
+    echo "arm64"
     ;;
   esac
 }
@@ -117,5 +117,5 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/JWPlayerKit/JWPlayerKit.xcframework" "JWPlayerKit" "framework" "ios-arm64_armv7" "ios-i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/JWPlayerKit/JWPlayerKit.xcframework" "JWPlayerKit" "framework" "ios-arm64_x86_64-simulator" "ios-arm64"
 
