@@ -74,9 +74,22 @@ class PostViewController: UIViewController {
 
         ProgressHUD.show("Loading...")
     }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        view.addSubview(playerView)
+        playerView.snp.makeConstraints {
+            $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
+        }
+        playerView.videoGravity = .resizeAspectFill
+        
+
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
         // Unowned is safe, since the view is guaranteed to have loaded
         captionLabel.snp.makeConstraints { [unowned self] make in
             make.left.equalToSuperview().offset(20)
@@ -93,7 +106,10 @@ class PostViewController: UIViewController {
         }
     }
     
+    // TODO: - Split up into 2+ async methods
     private func fetchVideoAndConfigure() {
+        let player = playerView.player
+        
         // MARK: - DEBUG
         let shouldUseMock = true
 
@@ -102,13 +118,13 @@ class PostViewController: UIViewController {
             else { return }
             let fallbackVideoURL = URL(fileURLWithPath: fallbackVideoPath)
             
-            configureVideo(with: fallbackVideoURL)
+            configure(player: player, withVideoAt: fallbackVideoURL)
         }
         else {
             StorageManager.shared.getVideoDownloadURL(forPost: model) { [weak self] result in
                 switch result {
                     case .success(let videoURL):
-                        self?.configureVideo(with: videoURL)
+                        self?.configure(player: player, withVideoAt: videoURL)
                         // TODO: fail *gracefully*
                     case .failure(let error):
                         print(error.localizedDescription)
@@ -116,13 +132,15 @@ class PostViewController: UIViewController {
                         guard let fallbackVideoPath = Bundle.main.path(forResource: L10n.Mock.testVideo, ofType: L10n.mp4)
                         else { return }
                         let fallbackVideoURL = URL(fileURLWithPath: fallbackVideoPath)
-                        self?.configureVideo(with: fallbackVideoURL)
+                        self?.configure(player: player, withVideoAt: fallbackVideoURL)
                 }
             }
         }
     }
-    
-    private func configureVideo(with url: URL) {
+        
+    /// Configures AND does layout.
+    /// - Parameter url: <#url description#>
+    private func configure(player: JWPlayer, withVideoAt url: URL) {
         do {
             let playlistItem = try JWPlayerItemBuilder()
                 .file(url)
@@ -135,17 +153,10 @@ class PostViewController: UIViewController {
                 .repeatContent(true)
                 .build()
             
-            playerView.player.configurePlayer(with: config)
-            playerView.videoGravity = .resizeAspectFill
-            playerView.player.delegate              = playerMockDelegateObject
-            playerView.player.playbackStateDelegate = playerMockDelegateObject
-            playerView.player.delegate = self
-            
-            view.addSubview(playerView)
-            playerView.snp.makeConstraints {
-                $0.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
-                $0.top.equalToSuperview()
-            }
+            player.configurePlayer(with: config)
+            player.delegate              = playerMockDelegateObject
+            player.playbackStateDelegate = playerMockDelegateObject
+            player.delegate = self
             
             ProgressHUD.dismiss()
         }
@@ -261,8 +272,9 @@ extension PostViewController: JWPlayerDelegate {
     func jwplayerIsReady(_ player: JWPlayer) {
         ProgressHUD.dismiss()
         
-        // DEBUG only
+#if DEBUG
         player.volume = 0
+#endif
     }
     
     func jwplayer(_ player: JWPlayer, failedWithError code: UInt, message: String) {
