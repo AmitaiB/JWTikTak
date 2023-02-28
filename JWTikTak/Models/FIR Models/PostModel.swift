@@ -49,19 +49,7 @@ struct PostModel: Codable {
     /// The full path of the video in FIR, including filename.
     var videoPath: String {L10n.Fir.postVideoPathWithUidAndName(userUid, filename)}
     /// /// The full path of the thumbnail in FIR, including filename.
-    var thumbnailPath: String {L10n.Fir.postThumbnailPathWithUidAndName(userUid, thumbnail)}
-    
-    // For debugging
-    static func mockModels() -> [PostModel] {
-        Array(0...100).compactMap({ index in
-            let userUIDs = [L10n.UserUID.johnDoe, L10n.UserUID.ablickstein, L10n.UserUID.amitai]
-            return PostModel(identifier: UUID().uuidString,
-                      userUid: userUIDs.randomElement()!,
-                      filename: StorageManager.generateVideoIdentifier(),
-                      caption: "John's best example of a doe",
-                      isLikedByCurrentUser: false)
-        })
-    }
+    var thumbnailPath: String {L10n.Fir.postThumbnailPathWithUidAndName(userUid, thumbnail)}    
 }
 
 // PostModel is equatable by way of its unique primary key only.

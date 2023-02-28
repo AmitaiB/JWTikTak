@@ -11,6 +11,7 @@ import JWPlayerKit
 let debug = false
 
 // TODO: Can be considered a Mock delegate object
+// TODO: OR, switch to os Logger.
 class DefaultJWPlayerXDelegate: JWPlayerDelegate, JWPlayerStateDelegate {
     // MARK: - JWPlayerDelegate
     func jwplayerIsReady(_ player: JWPlayer) {

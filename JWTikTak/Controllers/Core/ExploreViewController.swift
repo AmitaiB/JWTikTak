@@ -21,7 +21,8 @@ class ExploreViewController: UIViewController {
     }()
     
     private var collectionView: UICollectionView?
-    fileprivate var sections = [ExploreSection]()
+    // TODO: Restore `fileprivate` once MockObjects no longer needed.
+    /* fileprivate */ var sections = [ExploreSection]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,59 +60,59 @@ class ExploreViewController: UIViewController {
 //            self.myScrollingView.refreshControl?.endRefreshing()
 //    }
     
-    // TODO: MOCK Cells
-    private func configureMockModels() {
-        let mockResponse = ExploreDataManager.shared
-        
-        // Banners
-        sections += [ExploreSection(
-            type:  .banners,
-            cells: mockResponse.getExploreBanners()
-                .map { ExploreCell.banner(viewModel: $0) }
-        )]
-            
-        // Trending Posts
-        sections += [ExploreSection(
-            type:  .trending,
-            cells: mockResponse.getExploreTrending()
-                .map { ExploreCell.post(viewModel: $0) }
-        )]
-        
-        // Users
-        sections += [ExploreSection(
-            type:  .users,
-            cells: mockResponse.getExploreCreators()
-                .map { ExploreCell.user(viewModel: $0) }
-        )]
-                
-        // Hashtags
-        sections += [ExploreSection(
-            type:  .hashtags,
-            cells: mockResponse.getExploreHashtags()
-                .map { ExploreCell.hashtag(viewModel: $0) }
-        )]
-        
-        // Recommended
-        sections += [ExploreSection(
-            type:  .recommended,
-            cells: mockResponse.getExploreRecommended()
-                .map { ExploreCell.post(viewModel: $0) }
-        )]
-
-        // Popular
-        sections += [ExploreSection(
-            type:  .popular,
-            cells: mockResponse.getExplorePopular()
-                .map { ExploreCell.post(viewModel: $0) }
-        )]
-        
-        // Recent Posts
-        sections += [ExploreSection(
-            type:  .recent,
-            cells: mockResponse.getExploreRecent()
-                .map { ExploreCell.post(viewModel: $0) }
-            )]
-    }
+//    // TODO: MOCK Cells
+//    private func configureMockModels() {
+//        let mockResponse = ExploreDataManager.shared
+//
+//        // Banners
+//        sections += [ExploreSection(
+//            type:  .banners,
+//            cells: mockResponse.getExploreBanners()
+//                .map { ExploreCell.banner(viewModel: $0) }
+//        )]
+//
+//        // Trending Posts
+//        sections += [ExploreSection(
+//            type:  .trending,
+//            cells: mockResponse.getExploreTrending()
+//                .map { ExploreCell.post(viewModel: $0) }
+//        )]
+//
+//        // Users
+//        sections += [ExploreSection(
+//            type:  .users,
+//            cells: mockResponse.getExploreCreators()
+//                .map { ExploreCell.user(viewModel: $0) }
+//        )]
+//
+//        // Hashtags
+//        sections += [ExploreSection(
+//            type:  .hashtags,
+//            cells: mockResponse.getExploreHashtags()
+//                .map { ExploreCell.hashtag(viewModel: $0) }
+//        )]
+//
+//        // Recommended
+//        sections += [ExploreSection(
+//            type:  .recommended,
+//            cells: mockResponse.getExploreRecommended()
+//                .map { ExploreCell.post(viewModel: $0) }
+//        )]
+//
+//        // Popular
+//        sections += [ExploreSection(
+//            type:  .popular,
+//            cells: mockResponse.getExplorePopular()
+//                .map { ExploreCell.post(viewModel: $0) }
+//        )]
+//
+//        // Recent Posts
+//        sections += [ExploreSection(
+//            type:  .recent,
+//            cells: mockResponse.getExploreRecent()
+//                .map { ExploreCell.post(viewModel: $0) }
+//            )]
+//    }
     
     private func setupCollectionView() {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: layoutForSection)

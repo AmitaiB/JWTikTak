@@ -37,26 +37,4 @@ class Notification {
         self.type = type
         self.date = date
     }
-    
-    static func mockData() -> [Notification] {
-        let postLikes = Array(0...5).compactMap {
-            Notification(text: "I like this!: \($0)",
-                         type: .postLike(postId: "best post eva"),
-                         date: Date())
-        }
-        
-        let postComments = Array(0...5).compactMap {
-            Notification(text: "Comment: \($0)",
-                         type: .postComment(postId: "best comment eva"),
-                         date: Date())
-        }
-        
-        let userFollows = Array(0...5).compactMap {
-            Notification(text: "Follow me: \($0)",
-                         type: .userFollow(username: "Donkey Kong"),
-                         date: Date())
-        }
-        
-        return (postLikes + postComments + userFollows).shuffled()
-    }
 }

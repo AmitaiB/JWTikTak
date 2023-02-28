@@ -53,6 +53,7 @@
 		11B0EBF4284FBF410066AF98 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */; };
 		11B0EBF6285001BC0066AF98 /* Notification.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */; };
 		11B301B6285AE5E900CD22D2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */; };
+		11B896EA29AE78A30052AE64 /* MockObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B896E929AE78A30052AE64 /* MockObjects.swift */; };
 		11D1EC6A27BDD89100A7766D /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6927BDD89100A7766D /* CommentsViewController.swift */; };
 		11D1EC7027BF2BB200A7766D /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC6F27BF2BB200A7766D /* PostComment.swift */; };
 		11D1EC7227BF2BEA00A7766D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D1EC7127BF2BEA00A7766D /* User.swift */; };
@@ -131,6 +132,7 @@
 		11B0EBF3284FBF400066AF98 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = JWTikTak/Views/Other/PostCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		11B0EBF5285001BC0066AF98 /* Notification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extensions.swift"; sourceTree = "<group>"; };
 		11B301B5285AE5E900CD22D2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		11B896E929AE78A30052AE64 /* MockObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjects.swift; sourceTree = "<group>"; };
 		11D1EC6927BDD89100A7766D /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		11D1EC6F27BF2BB200A7766D /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		11D1EC7127BF2BEA00A7766D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			children = (
 				11D5BC8F27C3E446008CDA2D /* mixkit-woman-running-vangelis-tiktok-format.mp4 */,
 				11D5BCB127C52D92008CDA2D /* explore.json */,
+				11B896E929AE78A30052AE64 /* MockObjects.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				11A73E7927B59CEB00BD8A2E /* UserListViewController.swift in Sources */,
 				11D5BCED27D06634008CDA2D /* OptionalExtensions.swift in Sources */,
 				11A73E8127B59D2C00BD8A2E /* TabBarViewController.swift in Sources */,
+				11B896EA29AE78A30052AE64 /* MockObjects.swift in Sources */,
 				11E105E328202F5B006D0061 /* Firebase+Extensions.swift in Sources */,
 				11D5BC9F27C40FD5008CDA2D /* ExplorePostViewModel.swift in Sources */,
 				11D5BCA727C46CA7008CDA2D /* ExploreBannerCollectionViewCell.swift in Sources */,
